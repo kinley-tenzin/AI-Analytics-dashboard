@@ -1,0 +1,203 @@
+# Source contract: Odoo 19.0 (Community), External JSON-2 API.
+#
+# Verification levels used on fields:
+#   source_code  - read in odoo/odoo branch 19.0 (see docs/data/ERP_SOURCE_ANALYSIS.md for files)
+#   documentation - stated in official Odoo 19.0 documentation
+#   assumption   - not yet verified against a running instance; MUST be checked in the sandbox milestone
+#
+# NO live Odoo instance has been queried yet. Field shapes in fixtures follow the
+# documented/source-code behaviour plus the assumptions marked below.
+contract_version: "1.0.0"
+source_system: odoo
+documented_versions: ["19.0"]
+
+api:
+  style: odoo_json2
+  request: "POST {base_url}/json/2/{model}/search_read"
+  headers:
+    Authorization: "bearer {api_key}"          # documentation
+    Content-Type: "application/json; charset=utf-8"
+    X-Odoo-Database: "{database}"               # required when one server hosts several DBs
+    User-Agent: "druksmart-connector"
+  body: {domain: "[...]", fields: "[...]", offset: "int", limit: "int", order: "id asc", context: "{...}"}
+  response: Bare JSON array of record objects (HTTP 200); errors are HTTP 4xx/5xx with {name, message, arguments, context, debug}.
+  transactions: Every call is its own transaction; calls cannot be chained in one transaction (documentation).
+  authorisation: >
+    Calls run with the API key owner's access rights and record rules (documentation).
+    Use a dedicated read-only bot user. Fields restricted to hr.group_hr_user
+    (employee_type, departure_date) require that group (source_code).
+  pagination:
+    method: offset/limit
+    page_size: 200
+    stable_order: "id asc"
+    note: >
+      Offset paging can skip/duplicate rows if records change mid-extraction. Incremental runs
+      filter on write_date with an overlap window and de-duplicate by record_key + payload hash.
+  incremental_filter: '[["write_date", ">", "{checkpoint_utc}"]]'
+  deprecations: >
+    XML-RPC/JSON-RPC (/xmlrpc, /jsonrpc) are deprecated in 19.0 and scheduled for removal
+    (documentation; exact wording to be re-checked). The platform uses JSON-2 only.
+
+value_conventions:
+  empty_values: [false, null]     # ORM convert_to_read maps None -> False (source_code); null tolerated defensively
+  boolean_fields_keep_false: true # for type boolean, false is a real value, not "empty"
+  many2one: "[id, display_name] pair, or false when empty (source_code: Many2one.convert_to_read with default load)"
+  date_format: "%Y-%m-%d"                  # assumption: JSON serialisation of date (verify in sandbox)
+  datetime_format: "%Y-%m-%d %H:%M:%S"     # assumption: as classic RPC; naive UTC (verify in sandbox)
+  datetime_timezone: UTC
+
+entities:
+  res.company:
+    canonical: organisation_unit
+    module: hr
+    primary_key: id
+    modified_field: write_date
+    extraction: full
+    fields:
+      id: {type: integer, required: true, verification: source_code}
+      name: {type: string, required: true, verification: source_code}
+      parent_id: {type: many2one, target: res.company, verification: source_code,
+                  notes: "Set on branches; false on the root (parent) company. Hierarchy cannot change after creation."}
+      currency_id: {type: many2one, target: res.currency, required: true, verification: source_code,
+                    notes: "Branches must share the root company currency (_check_root_delegated_fields)."}
+      active: {type: boolean, verification: assumption}
+      write_date: {type: datetime, required: true, verification: source_code}
+
+  hr.department:
+    canonical: department
+    module: hr
+    primary_key: id
+    modified_field: write_date
+    extraction: full
+    request_context: {active_test: false}   # include archived departments still referenced by employees
+    fields:
+      id: {type: integer, required: true, verification: source_code}
+      name: {type: string, required: true, verification: source_code}
+      complete_name: {type: string, verification: source_code, notes: "Computed, not stored; readable."}
+      parent_id: {type: many2one, target: hr.department, verification: source_code}
+      company_id: {type: many2one, target: res.company, expected: true, verification: source_code}
+      active: {type: boolean, required: true, verification: source_code}
+      write_date: {type: datetime, required: true, verification: source_code}
+
+  hr.employee:
+    canonical: employee
+    module: hr
+    primary_key: id
+    modified_field: write_date
+    extraction: incremental
+    request_context: {active_test: false}   # assumption (standard ORM): otherwise archived leavers are silently omitted
+    fields:
+      id: {type: integer, required: true, verification: source_code}
+      name: {type: string, required: true, verification: source_code}
+      active: {type: boolean, required: true, verification: source_code}
+      company_id: {type: many2one, target: res.company, required: true, verification: source_code,
+                   notes: "Branch-level company when Odoo branches are used."}
+      department_id: {type: many2one, target: hr.department, expected: true, verification: source_code,
+                      notes: "Declared on hr.version, exposed on hr.employee via _inherits."}
+      employee_type: {type: selection, required: true, verification: source_code,
+                      values: [employee, worker, student, trainee, contractor, freelance],
+                      notes: "On hr.version; requires hr.group_hr_user to read."}
+      departure_date: {type: date, verification: source_code, notes: "On hr.version; requires hr.group_hr_user."}
+      parent_id: {type: many2one, target: hr.employee, verification: source_code}
+      write_date: {type: datetime, required: true, verification: source_code}
+
+  hr.leave:
+    canonical: leave_request
+    module: hr
+    primary_key: id
+    modified_field: write_date
+    extraction: incremental
+    fields:
+      id: {type: integer, required: true, verification: source_code}
+      employee_id: {type: many2one, target: hr.employee, required: true, verification: source_code}
+      holiday_status_id: {type: many2one, target: hr.leave.type, required: true, verification: source_code}
+      state: {type: selection, required: true, verification: source_code,
+              values: [confirm, refuse, validate1, validate, cancel],
+              notes: "No 'draft' state in 19.0. validate1 = awaiting second approval."}
+      request_date_from: {type: date, required: true, verification: source_code}
+      request_date_to: {type: date, required: true, verification: source_code}
+      number_of_days: {type: number, required: true, verification: source_code}
+      department_id: {type: many2one, target: hr.department, verification: source_code}
+      write_date: {type: datetime, required: true, verification: source_code}
+    checks:
+      - {rule: date_order, start: request_date_from, end: request_date_to, severity: error}
+
+  res.partner:
+    canonical: business_partner
+    module: accounts
+    primary_key: id
+    modified_field: write_date
+    extraction: incremental
+    request_context: {active_test: false}
+    fields:
+      id: {type: integer, required: true, verification: assumption}
+      name: {type: string, required: true, verification: assumption}
+      vat: {type: string, verification: assumption, notes: "Tax ID (TPN in Bhutan); evidence for identity matching only."}
+      customer_rank: {type: integer, verification: assumption}
+      supplier_rank: {type: integer, verification: assumption}
+      write_date: {type: datetime, required: true, verification: source_code}
+
+  account.move:
+    canonical: accounting_document
+    module: accounts
+    primary_key: id
+    modified_field: write_date
+    extraction: incremental
+    request_domain: '[["move_type", "in", ["out_invoice", "out_refund", "in_invoice", "in_refund"]]]'
+    fields:
+      id: {type: integer, required: true, verification: source_code}
+      name: {type: string, expected: true, verification: source_code, notes: "Draft moves may have no number yet."}
+      move_type: {type: selection, required: true, verification: source_code,
+                  values: [entry, out_invoice, out_refund, in_invoice, in_refund, out_receipt, in_receipt]}
+      state: {type: selection, required: true, verification: source_code, values: [draft, posted, cancel]}
+      payment_state: {type: selection, required: true, verification: source_code,
+                      values: [not_paid, in_payment, paid, partial, reversed, blocked, invoicing_legacy],
+                      notes: "Community sets 'paid' directly; 'in_payment' needs the Accountant module."}
+      partner_id: {type: many2one, target: res.partner, required: true, verification: source_code}
+      company_id: {type: many2one, target: res.company, required: true, verification: source_code}
+      invoice_date: {type: date, expected: true, verification: source_code, notes: "Empty on drafts."}
+      invoice_date_due: {type: date, expected: true, verification: source_code,
+                         notes: "Document-level due date; instalment due dates live on account.move.line."}
+      currency_id: {type: many2one, target: res.currency, required: true, verification: source_code}
+      amount_total: {type: number, required: true, verification: source_code, notes: "Document currency."}
+      amount_residual: {type: number, required: true, verification: source_code, notes: "Document currency."}
+      amount_total_signed: {type: number, required: true, verification: source_code, notes: "Company currency, signed."}
+      amount_residual_signed: {type: number, required: true, verification: source_code,
+                               notes: "Company currency, signed. Sign convention per move_type is an ASSUMPTION; canonical rules use abs()."}
+      reversed_entry_id: {type: many2one, target: account.move, verification: source_code}
+      write_date: {type: datetime, required: true, verification: source_code}
+
+  account.payment:
+    canonical: payment
+    module: accounts
+    primary_key: id
+    modified_field: write_date
+    extraction: incremental
+    fields:
+      id: {type: integer, required: true, verification: source_code}
+      name: {type: string, expected: true, verification: assumption}
+      payment_type: {type: selection, required: true, values: [inbound, outbound], verification: source_code}
+      partner_type: {type: selection, required: true, values: [customer, supplier], verification: source_code}
+      state: {type: selection, required: true, values: [draft, in_process, paid, canceled, rejected], verification: source_code}
+      partner_id: {type: many2one, target: res.partner, expected: true, verification: source_code}
+      amount: {type: number, required: true, verification: source_code, notes: "Payment currency."}
+      currency_id: {type: many2one, target: res.currency, required: true, verification: source_code}
+      date: {type: date, required: true, verification: source_code}
+      reconciled_invoice_ids: {type: id_list, verification: source_code,
+                               notes: "Computed, not stored: links only, no per-invoice amounts."}
+      reconciled_bill_ids: {type: id_list, verification: source_code}
+      write_date: {type: datetime, required: true, verification: source_code}
+
+  account.partial.reconcile:
+    canonical: payment_allocation
+    module: accounts
+    primary_key: id
+    modified_field: write_date
+    extraction: deferred   # exact allocation amounts; needs account.move.line extraction too. Not used by initial KPIs.
+    fields:
+      id: {type: integer, required: true, verification: source_code}
+      debit_move_id: {type: many2one, target: account.move.line, required: true, verification: source_code}
+      credit_move_id: {type: many2one, target: account.move.line, required: true, verification: source_code}
+      amount: {type: number, required: true, verification: source_code, notes: "Company currency, always positive."}
+      max_date: {type: date, required: true, verification: source_code, notes: "Allocation date = later of the two matched lines."}
+      write_date: {type: datetime, required: true, verification: source_code}

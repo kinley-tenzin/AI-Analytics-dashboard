@@ -1,0 +1,15 @@
+# APPROVED datasets: the only warehouse relations the Django KPI service's database account
+# (DRUKSMART_KPI_READER_USER) may read. Granted by warehouse/publish.py at every publication;
+# publication fails if one is missing. Same mechanism as superset/approved_datasets.yml.
+# Employee/customer dimensions, facts and raw/staging/intermediate stay invisible.
+version: 1
+schema: marts
+datasets:
+  - relation: kpi_headcount
+    domain: hr
+  - relation: kpi_approved_leave_requests     # request grain; backend returns aggregates only
+    domain: hr
+  - relation: kpi_receivables_payables
+    domain: accounts
+  - relation: data_freshness
+    domain: shared

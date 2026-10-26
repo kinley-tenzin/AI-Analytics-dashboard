@@ -1,0 +1,142 @@
+{
+  "_meta": {
+    "synthetic": true,
+    "notice": "SYNTHETIC TEST DATA - fictional organisations, people and amounts. Not real ERP data.",
+    "source_system": "odoo",
+    "source_instance": "odoo-dtg-retail",
+    "entity": "account.payment",
+    "extraction_batch_id": "odoo-2026-10-31-account_payment",
+    "extracted_at": "2026-10-31T17:30:00Z",
+    "extraction_mode": "incremental",
+    "checkpoint_utc": "2026-09-30T17:30:00Z",
+    "request": {
+      "method": "POST",
+      "path": "/json/2/account.payment/search_read",
+      "body": {
+        "domain": [
+          [
+            "write_date",
+            ">",
+            "2026-09-30 17:30:00"
+          ]
+        ],
+        "order": "id asc",
+        "limit": 200,
+        "offset": 0,
+        "context": {
+          "active_test": false
+        }
+      }
+    }
+  },
+  "response": [
+    {
+      "id": 504,
+      "name": "PBNK1/2026/00004",
+      "payment_type": "inbound",
+      "partner_type": "customer",
+      "state": "paid",
+      "partner_id": [
+        302,
+        "Zangpo Builders"
+      ],
+      "amount": 12000.0,
+      "currency_id": [
+        120,
+        "BTN"
+      ],
+      "date": "2026-10-08",
+      "reconciled_invoice_ids": [
+        402
+      ],
+      "reconciled_bill_ids": [],
+      "write_date": "2026-10-08 04:00:00"
+    },
+    {
+      "id": 505,
+      "name": "PBNK1/2026/00005",
+      "payment_type": "inbound",
+      "partner_type": "customer",
+      "state": "paid",
+      "partner_id": [
+        303,
+        "Lhaki Traders"
+      ],
+      "amount": 5000.0,
+      "currency_id": [
+        120,
+        "BTN"
+      ],
+      "date": "2026-10-05",
+      "reconciled_invoice_ids": [
+        403
+      ],
+      "reconciled_bill_ids": [],
+      "write_date": "2026-10-05 04:00:00"
+    },
+    {
+      "id": 506,
+      "name": "PBNK1/2026/00006",
+      "payment_type": "outbound",
+      "partner_type": "supplier",
+      "state": "paid",
+      "partner_id": [
+        304,
+        "Himalayan Supplies Co"
+      ],
+      "amount": 12000.0,
+      "currency_id": [
+        120,
+        "BTN"
+      ],
+      "date": "2026-10-15",
+      "reconciled_invoice_ids": [],
+      "reconciled_bill_ids": [
+        451
+      ],
+      "write_date": "2026-10-15 04:00:00"
+    },
+    {
+      "id": 507,
+      "name": "PBNK1/2026/00007",
+      "payment_type": "outbound",
+      "partner_type": "supplier",
+      "state": "paid",
+      "partner_id": [
+        306,
+        "Global Parts Ltd"
+      ],
+      "amount": 200.0,
+      "currency_id": [
+        2,
+        "USD"
+      ],
+      "date": "2026-10-25",
+      "reconciled_invoice_ids": [],
+      "reconciled_bill_ids": [
+        453
+      ],
+      "write_date": "2026-10-25 04:00:00"
+    },
+    {
+      "id": 508,
+      "name": "PBNK1/2026/00008",
+      "payment_type": "inbound",
+      "partner_type": "customer",
+      "state": "draft",
+      "partner_id": [
+        301,
+        "Norbu Hardware"
+      ],
+      "amount": 3000.0,
+      "currency_id": [
+        120,
+        "BTN"
+      ],
+      "date": "2026-10-30",
+      "reconciled_invoice_ids": [],
+      "reconciled_bill_ids": [],
+      "write_date": "2026-10-30 04:00:00"
+    }
+  ]
+}

@@ -1,0 +1,34 @@
+slice_name: Approved leave by department and leave type
+description: Default DrukSmart HR Overview chart (template, bootstrap.py).
+certified_by: null
+certification_details: null
+viz_type: table
+params:
+  viz_type: table
+  query_mode: aggregate
+  groupby:
+  - department_name
+  - leave_type_name
+  metrics:
+  - approved_requests
+  - approved_leave_days
+  all_columns: []
+  percent_metrics: []
+  adhoc_filters:
+  - clause: WHERE
+    expressionType: SIMPLE
+    subject: period_month
+    operator: TEMPORAL_RANGE
+    comparator: No filter
+  order_by_cols: []
+  order_desc: true
+  row_limit: 1000
+  server_page_length: 10
+  include_search: true
+  show_cell_bars: true
+  datasource: 2__table
+query_context: null
+cache_timeout: null
+uuid: 2e68e8f9-b2f4-409c-95bb-2a2d5723c8e4
+version: 1.0.0
+dataset_uuid: 8eb31ed0-b03d-4651-bab2-f52441f9760d

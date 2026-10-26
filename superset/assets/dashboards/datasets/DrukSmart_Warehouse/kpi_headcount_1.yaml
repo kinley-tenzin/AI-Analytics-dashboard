@@ -1,0 +1,235 @@
+table_name: kpi_headcount
+main_dttm_col: snapshot_date
+currency_code_column: null
+description: 'HR-01 / HR-02 active headcount per HR snapshot date. POINT-IN-TIME:
+  headcount must not be summed across snapshot dates; dashboards select one snapshot
+  date.'
+default_endpoint: null
+offset: 0
+cache_timeout: null
+catalog: druksmart_analytics
+schema: marts
+sql: null
+params: null
+template_params: null
+filter_select_enabled: true
+fetch_values_predicate: null
+extra: null
+normalize_columns: false
+always_filter_main_dttm: false
+folders: null
+uuid: f511f404-4de9-4573-8277-0925c7e7b194
+metrics:
+- metric_name: not_active_records
+  verbose_name: Not-active employee records
+  metric_type: null
+  expression: SUM(employee_records) - SUM(active_headcount)
+  description: Records that are not active on the snapshot date (left, inactive, suspended,
+    not yet joined).
+  d3format: ',d'
+  currency: null
+  extra:
+    certification:
+      certified_by: DrukSmart data engineering (dbt)
+      details: KPI HR-01
+  warning_text: Point-in-time metric. Filter to ONE snapshot date; do not sum across
+    dates.
+- metric_name: active_headcount
+  verbose_name: Active headcount
+  metric_type: null
+  expression: SUM(active_headcount)
+  description: Employees whose status on the snapshot date is 'active' (KPI_CATALOGUE
+    HR-01).
+  d3format: ',d'
+  currency: null
+  extra:
+    certification:
+      certified_by: DrukSmart data engineering (dbt)
+      details: KPI HR-01 / HR-02
+  warning_text: Point-in-time metric. Filter to ONE snapshot date; do not sum across
+    dates.
+- metric_name: employee_records
+  verbose_name: Employee records (all statuses)
+  metric_type: null
+  expression: SUM(employee_records)
+  description: Every employee record known on the snapshot date, whatever its status.
+  d3format: ',d'
+  currency: null
+  extra:
+    certification:
+      certified_by: DrukSmart data engineering (dbt)
+      details: KPI HR-01
+  warning_text: Point-in-time metric. Filter to ONE snapshot date; do not sum across
+    dates.
+columns:
+- column_name: active_headcount
+  verbose_name: Active headcount (row value)
+  is_dttm: false
+  is_active: true
+  type: BIGINT
+  advanced_data_type: null
+  groupby: false
+  filterable: true
+  expression: ''
+  description: null
+  python_date_format: null
+  datetime_format: null
+  extra: null
+- column_name: employee_records
+  verbose_name: Employee records (row value)
+  is_dttm: false
+  is_active: true
+  type: BIGINT
+  advanced_data_type: null
+  groupby: false
+  filterable: true
+  expression: ''
+  description: null
+  python_date_format: null
+  datetime_format: null
+  extra: null
+- column_name: snapshot_date
+  verbose_name: Snapshot date
+  is_dttm: true
+  is_active: true
+  type: DATE
+  advanced_data_type: null
+  groupby: true
+  filterable: true
+  expression: ''
+  description: null
+  python_date_format: null
+  datetime_format: null
+  extra: null
+- column_name: branch_key
+  verbose_name: Branch key
+  is_dttm: false
+  is_active: true
+  type: TEXT
+  advanced_data_type: null
+  groupby: false
+  filterable: true
+  expression: ''
+  description: null
+  python_date_format: null
+  datetime_format: null
+  extra: null
+- column_name: department_key
+  verbose_name: Department key
+  is_dttm: false
+  is_active: true
+  type: TEXT
+  advanced_data_type: null
+  groupby: false
+  filterable: true
+  expression: ''
+  description: null
+  python_date_format: null
+  datetime_format: null
+  extra: null
+- column_name: source_system
+  verbose_name: Source ERP
+  is_dttm: false
+  is_active: true
+  type: TEXT
+  advanced_data_type: null
+  groupby: true
+  filterable: true
+  expression: ''
+  description: null
+  python_date_format: null
+  datetime_format: null
+  extra: null
+- column_name: employee_category
+  verbose_name: Employee category
+  is_dttm: false
+  is_active: true
+  type: TEXT
+  advanced_data_type: null
+  groupby: true
+  filterable: true
+  expression: ''
+  description: null
+  python_date_format: null
+  datetime_format: null
+  extra: null
+- column_name: employment_status
+  verbose_name: Employment status
+  is_dttm: false
+  is_active: true
+  type: TEXT
+  advanced_data_type: null
+  groupby: true
+  filterable: true
+  expression: ''
+  description: null
+  python_date_format: null
+  datetime_format: null
+  extra: null
+- column_name: organisation_key
+  verbose_name: Organisation key
+  is_dttm: false
+  is_active: true
+  type: TEXT
+  advanced_data_type: null
+  groupby: false
+  filterable: true
+  expression: ''
+  description: null
+  python_date_format: null
+  datetime_format: null
+  extra: null
+- column_name: source_instance
+  verbose_name: Source instance
+  is_dttm: false
+  is_active: true
+  type: TEXT
+  advanced_data_type: null
+  groupby: true
+  filterable: true
+  expression: ''
+  description: null
+  python_date_format: null
+  datetime_format: null
+  extra: null
+- column_name: branch_name
+  verbose_name: Branch
+  is_dttm: false
+  is_active: true
+  type: TEXT
+  advanced_data_type: null
+  groupby: true
+  filterable: true
+  expression: ''
+  description: null
+  python_date_format: null
+  datetime_format: null
+  extra: null
+- column_name: department_name
+  verbose_name: Department
+  is_dttm: false
+  is_active: true
+  type: TEXT
+  advanced_data_type: null
+  groupby: true
+  filterable: true
+  expression: ''
+  description: null
+  python_date_format: null
+  datetime_format: null
+  extra: null
+- column_name: organisation_name
+  verbose_name: Organisation
+  is_dttm: false
+  is_active: true
+  type: TEXT
+  advanced_data_type: null
+  groupby: true
+  filterable: true
+  expression: ''
+  description: null
+  python_date_format: null
+  datetime_format: null
+  extra: null
+version: 1.0.0
+database_uuid: 9e2d2908-3e93-4d57-a580-a8f802a9ec14

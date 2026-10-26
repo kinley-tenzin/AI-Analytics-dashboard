@@ -1,0 +1,9 @@
+source_system,source_document_type,is_return,ledger,document_kind
+erpnext,Purchase Invoice,0,payable,invoice
+erpnext,Purchase Invoice,1,payable,credit_note
+erpnext,Sales Invoice,0,receivable,invoice
+erpnext,Sales Invoice,1,receivable,credit_note
+odoo,in_invoice,,payable,invoice
+odoo,in_refund,,payable,credit_note
+odoo,out_invoice,,receivable,invoice
+odoo,out_refund,,receivable,credit_note

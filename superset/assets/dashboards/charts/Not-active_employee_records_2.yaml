@@ -1,0 +1,18 @@
+slice_name: Not-active employee records
+description: Default DrukSmart HR Overview chart (template, bootstrap.py).
+certified_by: null
+certification_details: null
+viz_type: big_number_total
+params:
+  viz_type: big_number_total
+  metric: not_active_records
+  adhoc_filters: []
+  subheader: left, inactive, suspended or not yet joined
+  header_font_size: 0.4
+  subheader_font_size: 0.15
+  datasource: 1__table
+query_context: null
+cache_timeout: null
+uuid: 57a1f827-a8a9-4b3d-b10b-79fe5ae5ae71
+version: 1.0.0
+dataset_uuid: f511f404-4de9-4573-8277-0925c7e7b194

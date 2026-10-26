@@ -1,0 +1,108 @@
+{
+  "_meta": {
+    "synthetic": true,
+    "notice": "SYNTHETIC TEST DATA - fictional organisations, people and amounts. Not real ERP data.",
+    "source_system": "erpnext",
+    "source_instance": "erpnext-dtg-services",
+    "entity": "Payment Entry",
+    "extraction_batch_id": "erpnext-2026-10-31-payment_entry",
+    "extracted_at": "2026-10-31T17:30:00Z",
+    "extraction_mode": "incremental",
+    "checkpoint_utc": "2026-09-30T17:30:00Z",
+    "instance_timezone": "Asia/Thimphu",
+    "request": {
+      "method": "GET",
+      "path": "/api/resource/Payment Entry",
+      "params": {
+        "filters": [
+          [
+            "modified",
+            ">",
+            "2026-09-30 23:30:00"
+          ]
+        ],
+        "order_by": "name asc",
+        "limit_start": 0,
+        "limit_page_length": 200
+      }
+    },
+    "note": "List call + one GET per document to include the `references` child table."
+  },
+  "response": {
+    "data": [
+      {
+        "name": "ACC-PAY-2026-00004",
+        "payment_type": "Receive",
+        "party_type": "Customer",
+        "party": "Norbu Hardware",
+        "posting_date": "2026-10-10",
+        "paid_amount": 15000.0,
+        "paid_from_account_currency": "BTN",
+        "unallocated_amount": 0.0,
+        "docstatus": 1,
+        "references": [
+          {
+            "reference_doctype": "Sales Invoice",
+            "reference_name": "ACC-SINV-2026-00001",
+            "allocated_amount": 15000.0,
+            "due_date": null
+          }
+        ],
+        "modified": "2026-10-10 10:00:00.000000"
+      },
+      {
+        "name": "ACC-PAY-2026-00005",
+        "payment_type": "Pay",
+        "party_type": "Supplier",
+        "party": "Thunder Paper Works",
+        "posting_date": "2026-10-03",
+        "paid_amount": 9000.0,
+        "paid_from_account_currency": "BTN",
+        "unallocated_amount": 0.0,
+        "docstatus": 1,
+        "references": [
+          {
+            "reference_doctype": "Purchase Invoice",
+            "reference_name": "ACC-PINV-2026-00001",
+            "allocated_amount": 9000.0,
+            "due_date": null
+          }
+        ],
+        "modified": "2026-10-03 10:00:00.000000"
+      },
+      {
+        "name": "ACC-PAY-2026-00006",
+        "payment_type": "Receive",
+        "party_type": "Customer",
+        "party": "Norbu Hardware",
+        "posting_date": "2026-10-30",
+        "paid_amount": 2000.0,
+        "paid_from_account_currency": "BTN",
+        "unallocated_amount": 0.0,
+        "docstatus": 0,
+        "references": [
+          {
+            "reference_doctype": "Sales Invoice",
+            "reference_name": "ACC-SINV-2026-00001",
+            "allocated_amount": 2000.0,
+            "due_date": null
+          }
+        ],
+        "modified": "2026-10-30 10:00:00.000000"
+      },
+      {
+        "name": "ACC-PAY-2026-00007",
+        "payment_type": "Receive",
+        "party_type": "Customer",
+        "party": "Lhaki Traders",
+        "posting_date": "2026-10-30",
+        "paid_amount": 5000.0,
+        "paid_from_account_currency": "BTN",
+        "unallocated_amount": 5000.0,
+        "docstatus": 1,
+        "references": [],
+        "modified": "2026-10-30 10:00:00.000000"
+      }
+    ]
+  }
+}

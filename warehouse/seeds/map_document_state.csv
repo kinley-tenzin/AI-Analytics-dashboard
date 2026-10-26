@@ -1,0 +1,7 @@
+source_system,source_state,document_state
+erpnext,0,draft
+erpnext,1,posted
+erpnext,2,cancelled
+odoo,cancel,cancelled
+odoo,draft,draft
+odoo,posted,posted

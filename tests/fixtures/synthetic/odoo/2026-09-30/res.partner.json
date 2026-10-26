@@ -1,0 +1,76 @@
+{
+  "_meta": {
+    "synthetic": true,
+    "notice": "SYNTHETIC TEST DATA - fictional organisations, people and amounts. Not real ERP data.",
+    "source_system": "odoo",
+    "source_instance": "odoo-dtg-retail",
+    "entity": "res.partner",
+    "extraction_batch_id": "odoo-2026-09-30-res_partner",
+    "extracted_at": "2026-09-30T17:30:00Z",
+    "extraction_mode": "full",
+    "checkpoint_utc": null,
+    "request": {
+      "method": "POST",
+      "path": "/json/2/res.partner/search_read",
+      "body": {
+        "domain": [],
+        "order": "id asc",
+        "limit": 200,
+        "offset": 0,
+        "context": {
+          "active_test": false
+        }
+      }
+    }
+  },
+  "response": [
+    {
+      "id": 301,
+      "name": "Norbu Hardware",
+      "vat": "TPN-NRB-2001",
+      "customer_rank": 1,
+      "supplier_rank": 0,
+      "write_date": "2026-02-01 04:00:00"
+    },
+    {
+      "id": 302,
+      "name": "Zangpo Builders",
+      "vat": "TPN-ZNG-3001",
+      "customer_rank": 1,
+      "supplier_rank": 0,
+      "write_date": "2026-02-01 04:00:00"
+    },
+    {
+      "id": 303,
+      "name": "Lhaki Traders",
+      "vat": "TPN-LHK-1001",
+      "customer_rank": 1,
+      "supplier_rank": 0,
+      "write_date": "2026-02-01 04:00:00"
+    },
+    {
+      "id": 304,
+      "name": "Himalayan Supplies Co",
+      "vat": "TPN-HMS-4001",
+      "customer_rank": 0,
+      "supplier_rank": 1,
+      "write_date": "2026-02-01 04:00:00"
+    },
+    {
+      "id": 305,
+      "name": "Druk Office Mart",
+      "vat": "TPN-DOM-5001",
+      "customer_rank": 0,
+      "supplier_rank": 1,
+      "write_date": "2026-02-01 04:00:00"
+    },
+    {
+      "id": 306,
+      "name": "Global Parts Ltd",
+      "vat": false,
+      "customer_rank": 0,
+      "supplier_rank": 1,
+      "write_date": "2026-02-01 04:00:00"
+    }
+  ]
+}

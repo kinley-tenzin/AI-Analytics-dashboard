@@ -1,0 +1,291 @@
+table_name: kpi_receivables_payables
+main_dttm_col: snapshot_date
+currency_code_column: currency_code
+description: 'AC-01..AC-04 open receivables and payables per accounts snapshot (as-of)
+  date, in each organisation''s company currency. POINT-IN-TIME: balances must not
+  be summed across dates.'
+default_endpoint: null
+offset: 0
+cache_timeout: null
+catalog: druksmart_analytics
+schema: marts
+sql: null
+params: null
+template_params: null
+filter_select_enabled: true
+fetch_values_predicate: null
+extra: null
+normalize_columns: false
+always_filter_main_dttm: false
+folders: null
+uuid: 0a8273cf-52cb-4af8-b546-02ff4b99963d
+metrics:
+- metric_name: outstanding_receivables
+  verbose_name: Outstanding receivables
+  metric_type: null
+  expression: SUM(CASE WHEN ledger = 'receivable' THEN outstanding_amount ELSE 0 END)
+  description: Open customer balances on the as-of date (credit notes negative; drafts
+    and cancelled excluded).
+  d3format: ',.2f'
+  currency:
+    symbol: AUTO
+    symbolPosition: prefix
+  extra:
+    certification:
+      certified_by: DrukSmart data engineering (dbt)
+      details: KPI AC-01
+  warning_text: Point-in-time metric. Filter to ONE as-of date and ONE currency.
+- metric_name: overdue_payables
+  verbose_name: Overdue payables
+  metric_type: null
+  expression: SUM(CASE WHEN ledger = 'payable' THEN overdue_amount ELSE 0 END)
+  description: Positive payable balances whose due date is before the as-of date.
+  d3format: ',.2f'
+  currency:
+    symbol: AUTO
+    symbolPosition: prefix
+  extra:
+    certification:
+      certified_by: DrukSmart data engineering (dbt)
+      details: KPI AC-03
+  warning_text: Point-in-time metric. Filter to ONE as-of date and ONE currency.
+- metric_name: overdue_receivables
+  verbose_name: Overdue receivables
+  metric_type: null
+  expression: SUM(CASE WHEN ledger = 'receivable' THEN overdue_amount ELSE 0 END)
+  description: Positive receivable balances whose due date is before the as-of date.
+  d3format: ',.2f'
+  currency:
+    symbol: AUTO
+    symbolPosition: prefix
+  extra:
+    certification:
+      certified_by: DrukSmart data engineering (dbt)
+      details: KPI AC-03
+  warning_text: Point-in-time metric. Filter to ONE as-of date and ONE currency.
+- metric_name: outstanding_payables
+  verbose_name: Outstanding payables
+  metric_type: null
+  expression: SUM(CASE WHEN ledger = 'payable' THEN outstanding_amount ELSE 0 END)
+  description: Open supplier balances on the as-of date.
+  d3format: ',.2f'
+  currency:
+    symbol: AUTO
+    symbolPosition: prefix
+  extra:
+    certification:
+      certified_by: DrukSmart data engineering (dbt)
+      details: KPI AC-02
+  warning_text: Point-in-time metric. Filter to ONE as-of date and ONE currency.
+- metric_name: outstanding_amount
+  verbose_name: Outstanding amount
+  metric_type: null
+  expression: SUM(outstanding_amount)
+  description: Open balance; split by Ledger (never add receivables and payables together).
+  d3format: ',.2f'
+  currency:
+    symbol: AUTO
+    symbolPosition: prefix
+  extra:
+    certification:
+      certified_by: DrukSmart data engineering (dbt)
+      details: KPI AC-04
+  warning_text: Group or filter by Ledger. Point-in-time metric (ONE as-of date, ONE
+    currency).
+- metric_name: open_documents
+  verbose_name: Open documents
+  metric_type: null
+  expression: SUM(open_documents)
+  description: Number of posted documents with a non-zero open balance.
+  d3format: ',d'
+  currency: null
+  extra:
+    certification:
+      certified_by: DrukSmart data engineering (dbt)
+      details: KPI AC-04
+  warning_text: null
+columns:
+- column_name: open_documents
+  verbose_name: Open documents (row value)
+  is_dttm: false
+  is_active: true
+  type: BIGINT
+  advanced_data_type: null
+  groupby: false
+  filterable: true
+  expression: ''
+  description: null
+  python_date_format: null
+  datetime_format: null
+  extra: null
+- column_name: outstanding_amount
+  verbose_name: Outstanding amount (row value)
+  is_dttm: false
+  is_active: true
+  type: NUMERIC
+  advanced_data_type: null
+  groupby: false
+  filterable: true
+  expression: ''
+  description: null
+  python_date_format: null
+  datetime_format: null
+  extra: null
+- column_name: overdue_amount
+  verbose_name: Overdue amount (row value)
+  is_dttm: false
+  is_active: true
+  type: NUMERIC
+  advanced_data_type: null
+  groupby: false
+  filterable: true
+  expression: ''
+  description: null
+  python_date_format: null
+  datetime_format: null
+  extra: null
+- column_name: ageing_bucket
+  verbose_name: Ageing bucket (code)
+  is_dttm: false
+  is_active: true
+  type: TEXT
+  advanced_data_type: null
+  groupby: true
+  filterable: true
+  expression: ''
+  description: null
+  python_date_format: null
+  datetime_format: null
+  extra: null
+- column_name: snapshot_date
+  verbose_name: As-of date
+  is_dttm: true
+  is_active: true
+  type: DATE
+  advanced_data_type: null
+  groupby: true
+  filterable: true
+  expression: ''
+  description: null
+  python_date_format: null
+  datetime_format: null
+  extra: null
+- column_name: ageing_bucket_label
+  verbose_name: Ageing bucket
+  is_dttm: false
+  is_active: true
+  type: TEXT
+  advanced_data_type: null
+  groupby: true
+  filterable: true
+  expression: ''
+  description: null
+  python_date_format: null
+  datetime_format: null
+  extra: null
+- column_name: branch_key
+  verbose_name: Branch key
+  is_dttm: false
+  is_active: true
+  type: TEXT
+  advanced_data_type: null
+  groupby: false
+  filterable: true
+  expression: ''
+  description: null
+  python_date_format: null
+  datetime_format: null
+  extra: null
+- column_name: source_system
+  verbose_name: Source ERP
+  is_dttm: false
+  is_active: true
+  type: TEXT
+  advanced_data_type: null
+  groupby: true
+  filterable: true
+  expression: ''
+  description: null
+  python_date_format: null
+  datetime_format: null
+  extra: null
+- column_name: organisation_key
+  verbose_name: Organisation key
+  is_dttm: false
+  is_active: true
+  type: TEXT
+  advanced_data_type: null
+  groupby: false
+  filterable: true
+  expression: ''
+  description: null
+  python_date_format: null
+  datetime_format: null
+  extra: null
+- column_name: source_instance
+  verbose_name: Source instance
+  is_dttm: false
+  is_active: true
+  type: TEXT
+  advanced_data_type: null
+  groupby: true
+  filterable: true
+  expression: ''
+  description: null
+  python_date_format: null
+  datetime_format: null
+  extra: null
+- column_name: branch_name
+  verbose_name: Branch
+  is_dttm: false
+  is_active: true
+  type: TEXT
+  advanced_data_type: null
+  groupby: true
+  filterable: true
+  expression: ''
+  description: null
+  python_date_format: null
+  datetime_format: null
+  extra: null
+- column_name: currency_code
+  verbose_name: Currency
+  is_dttm: false
+  is_active: true
+  type: TEXT
+  advanced_data_type: null
+  groupby: true
+  filterable: true
+  expression: ''
+  description: null
+  python_date_format: null
+  datetime_format: null
+  extra: null
+- column_name: ledger
+  verbose_name: Ledger
+  is_dttm: false
+  is_active: true
+  type: TEXT
+  advanced_data_type: null
+  groupby: true
+  filterable: true
+  expression: ''
+  description: null
+  python_date_format: null
+  datetime_format: null
+  extra: null
+- column_name: organisation_name
+  verbose_name: Organisation
+  is_dttm: false
+  is_active: true
+  type: TEXT
+  advanced_data_type: null
+  groupby: true
+  filterable: true
+  expression: ''
+  description: null
+  python_date_format: null
+  datetime_format: null
+  extra: null
+version: 1.0.0
+database_uuid: 9e2d2908-3e93-4d57-a580-a8f802a9ec14

@@ -1,0 +1,100 @@
+{
+  "_meta": {
+    "synthetic": true,
+    "notice": "SYNTHETIC TEST DATA - fictional organisations, people and amounts. Not real ERP data.",
+    "source_system": "odoo",
+    "source_instance": "odoo-dtg-retail",
+    "entity": "hr.department",
+    "extraction_batch_id": "odoo-2026-10-31-hr_department",
+    "extracted_at": "2026-10-31T17:30:00Z",
+    "extraction_mode": "full",
+    "checkpoint_utc": null,
+    "request": {
+      "method": "POST",
+      "path": "/json/2/hr.department/search_read",
+      "body": {
+        "domain": [],
+        "order": "id asc",
+        "limit": 200,
+        "offset": 0,
+        "context": {
+          "active_test": false
+        }
+      }
+    }
+  },
+  "response": [
+    {
+      "id": 1,
+      "name": "Management",
+      "complete_name": "Management",
+      "parent_id": false,
+      "company_id": [
+        1,
+        "DTG Retail Pvt Ltd"
+      ],
+      "active": true,
+      "write_date": "2026-01-05 03:10:00"
+    },
+    {
+      "id": 2,
+      "name": "Sales",
+      "complete_name": "Sales",
+      "parent_id": false,
+      "company_id": [
+        1,
+        "DTG Retail Pvt Ltd"
+      ],
+      "active": true,
+      "write_date": "2026-01-05 03:10:00"
+    },
+    {
+      "id": 3,
+      "name": "Finance & Accounts",
+      "complete_name": "Finance & Accounts",
+      "parent_id": false,
+      "company_id": [
+        1,
+        "DTG Retail Pvt Ltd"
+      ],
+      "active": true,
+      "write_date": "2026-01-05 03:10:00"
+    },
+    {
+      "id": 4,
+      "name": "Warehouse",
+      "complete_name": "Warehouse",
+      "parent_id": false,
+      "company_id": [
+        2,
+        "DTG Retail - Phuentsholing"
+      ],
+      "active": true,
+      "write_date": "2026-01-05 03:10:00"
+    },
+    {
+      "id": 5,
+      "name": "Sales",
+      "complete_name": "Sales",
+      "parent_id": false,
+      "company_id": [
+        2,
+        "DTG Retail - Phuentsholing"
+      ],
+      "active": true,
+      "write_date": "2026-01-05 03:10:00"
+    },
+    {
+      "id": 6,
+      "name": "Old Projects",
+      "complete_name": "Old Projects",
+      "parent_id": false,
+      "company_id": [
+        1,
+        "DTG Retail Pvt Ltd"
+      ],
+      "active": false,
+      "write_date": "2026-01-05 03:10:00"
+    }
+  ]
+}

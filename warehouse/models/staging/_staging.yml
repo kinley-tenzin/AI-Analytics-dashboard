@@ -1,0 +1,172 @@
+version: 2
+
+# Staging: one view per source entity, one row per extracted RECORD VERSION.
+# Common columns: record_version_id, source_system, source_instance, source_id,
+# source_modified_at, valid_from, valid_to, is_current, contract_version.
+
+models:
+  - name: stg_odoo__res_company
+    description: Odoo companies (root company = organisation; child companies = branches).
+    data_tests:
+      - unique_combination: {arguments: {columns: [source_instance, source_id, valid_from]}}
+    columns:
+      - {name: company_key, data_tests: [not_null]}
+      - {name: company_name, data_tests: [not_null]}
+
+  - name: stg_odoo__hr_department
+    data_tests:
+      - unique_combination: {arguments: {columns: [source_instance, source_id, valid_from]}}
+    columns:
+      - {name: department_key, data_tests: [not_null]}
+      - {name: department_name, data_tests: [not_null]}
+
+  - name: stg_odoo__hr_employee
+    description: Odoo employees incl. archived ones (extracted with active_test=false).
+    data_tests:
+      - unique_combination: {arguments: {columns: [source_instance, source_id, valid_from]}}
+    columns:
+      - {name: employee_key, data_tests: [not_null]}
+      - {name: is_active, data_tests: [not_null]}
+      - {name: company_id, data_tests: [not_null]}
+      - name: employee_type
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: [employee, worker, student, trainee, contractor, freelance]
+
+  - name: stg_odoo__hr_leave
+    data_tests:
+      - unique_combination: {arguments: {columns: [source_instance, source_id, valid_from]}}
+    columns:
+      - {name: leave_key, data_tests: [not_null]}
+      - {name: employee_id, data_tests: [not_null]}
+      - {name: start_date, data_tests: [not_null]}
+      - name: source_status
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: [confirm, refuse, validate1, validate, cancel]
+
+  - name: stg_odoo__res_partner
+    data_tests:
+      - unique_combination: {arguments: {columns: [source_instance, source_id, valid_from]}}
+    columns:
+      - {name: partner_key, data_tests: [not_null]}
+
+  - name: stg_odoo__account_move
+    description: Odoo invoices, vendor bills and credit notes. *_signed amounts are company currency.
+    data_tests:
+      - unique_combination: {arguments: {columns: [source_instance, source_id, valid_from]}}
+    columns:
+      - {name: document_key, data_tests: [not_null]}
+      - name: move_type
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: [out_invoice, out_refund, in_invoice, in_refund]
+      - name: source_state
+        data_tests:
+          - accepted_values: {arguments: {values: [draft, posted, cancel]}}
+      - name: payment_state
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: [not_paid, in_payment, paid, partial, reversed, blocked, invoicing_legacy]
+      - {name: currency_code, data_tests: [not_null]}
+      - {name: amount_residual_signed_company, data_tests: [not_null]}
+
+  - name: stg_odoo__account_payment
+    data_tests:
+      - unique_combination: {arguments: {columns: [source_instance, source_id, valid_from]}}
+    columns:
+      - {name: payment_key, data_tests: [not_null]}
+      - name: source_state
+        data_tests:
+          - accepted_values: {arguments: {values: [draft, in_process, paid, canceled, rejected]}}
+
+  - name: stg_erpnext__company
+    data_tests:
+      - unique_combination: {arguments: {columns: [source_instance, source_id, valid_from]}}
+    columns:
+      - {name: company_key, data_tests: [not_null]}
+      - {name: default_currency, data_tests: [not_null]}
+
+  - name: stg_erpnext__branch
+    data_tests:
+      - unique_combination: {arguments: {columns: [source_instance, source_id, valid_from]}}
+
+  - name: stg_erpnext__department
+    description: ERPNext departments; the tree root ("All Departments") has no company (contract 1.1.0).
+    data_tests:
+      - unique_combination: {arguments: {columns: [source_instance, source_id, valid_from]}}
+    columns:
+      - {name: department_name, data_tests: [not_null]}
+
+  - name: stg_erpnext__employee
+    data_tests:
+      - unique_combination: {arguments: {columns: [source_instance, source_id, valid_from]}}
+    columns:
+      - {name: employee_key, data_tests: [not_null]}
+      - {name: date_of_joining, data_tests: [not_null]}
+      - name: source_status
+        data_tests:
+          - accepted_values: {arguments: {values: [Active, Inactive, Suspended, Left]}}
+
+  - name: stg_erpnext__leave_application
+    data_tests:
+      - unique_combination: {arguments: {columns: [source_instance, source_id, valid_from]}}
+    columns:
+      - {name: leave_key, data_tests: [not_null]}
+      - {name: employee_id, data_tests: [not_null]}
+      - name: docstatus
+        data_tests:
+          - accepted_values: {arguments: {values: [0, 1, 2], quote: false}}
+      - name: source_status
+        data_tests:
+          - accepted_values: {arguments: {values: [Open, Approved, Rejected, Cancelled]}}
+
+  - name: stg_erpnext__customer
+    data_tests:
+      - unique_combination: {arguments: {columns: [source_instance, source_id, valid_from]}}
+  - name: stg_erpnext__supplier
+    data_tests:
+      - unique_combination: {arguments: {columns: [source_instance, source_id, valid_from]}}
+
+  - name: stg_erpnext__sales_invoice
+    data_tests:
+      - unique_combination: {arguments: {columns: [source_instance, source_id, valid_from]}}
+    columns:
+      - {name: document_key, data_tests: [not_null]}
+      - {name: party_id, data_tests: [not_null]}
+      - {name: currency_code, data_tests: [not_null]}
+      - name: docstatus
+        data_tests:
+          - accepted_values: {arguments: {values: [0, 1, 2], quote: false}}
+      - name: is_return
+        data_tests:
+          - accepted_values: {arguments: {values: [0, 1], quote: false}}
+
+  - name: stg_erpnext__purchase_invoice
+    data_tests:
+      - unique_combination: {arguments: {columns: [source_instance, source_id, valid_from]}}
+    columns:
+      - {name: document_key, data_tests: [not_null]}
+      - {name: party_id, data_tests: [not_null]}
+      - name: docstatus
+        data_tests:
+          - accepted_values: {arguments: {values: [0, 1, 2], quote: false}}
+
+  - name: stg_erpnext__payment_entry
+    data_tests:
+      - unique_combination: {arguments: {columns: [source_instance, source_id, valid_from]}}
+    columns:
+      - name: payment_type
+        data_tests:
+          - accepted_values: {arguments: {values: [Receive, Pay, Internal Transfer]}}
+
+  - name: stg_erpnext__payment_entry_reference
+    description: One row per allocation line (child table `references`) of a Payment Entry version.
+    data_tests:
+      - unique_combination: {arguments: {columns: [record_version_id, line_number]}}
+    columns:
+      - {name: allocated_amount, data_tests: [not_null]}

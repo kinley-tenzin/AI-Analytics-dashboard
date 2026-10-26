@@ -1,0 +1,513 @@
+{
+  "checked_at": "2026-10-25T09:49:45+00:00",
+  "base": "http://127.0.0.1:8000",
+  "passed": 101,
+  "failed": 0,
+  "results": [
+    {
+      "check": "demo_hr: anonymous visit redirected to sign-in",
+      "ok": true,
+      "detail": "http://127.0.0.1:8000/app/login?next=%2Fhr"
+    },
+    {
+      "check": "demo_hr: returned to the requested page after sign-in",
+      "ok": true,
+      "detail": "http://127.0.0.1:8000/app/hr"
+    },
+    {
+      "check": "demo_hr: session cookie is HttpOnly and SameSite=Lax",
+      "ok": true,
+      "detail": "{'httpOnly': True, 'sameSite': 'Lax'}"
+    },
+    {
+      "check": "demo_hr: page scripts cannot read the session cookie",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "demo_hr: overview heading",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "demo_hr: navigation shows exactly the role's pages",
+      "ok": true,
+      "detail": "['Overview', 'HR Analytics', 'Ask AI', 'Reports']"
+    },
+    {
+      "check": "demo_hr: sidebar opens Overview",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "demo_hr: sidebar opens HR Analytics",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "demo_hr: sidebar opens Ask AI",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "demo_hr: sidebar opens Reports",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "demo_hr: Accounts Analytics denied",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "demo_hr: Administration denied",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "demo_hr: /api/v1/me/ matches the user",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "demo_hr: sign out ends the session",
+      "ok": true,
+      "detail": "me -> 401"
+    },
+    {
+      "check": "demo_hr: Back after sign-out shows sign-in, not the page",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "demo_hr: no console errors (incl. CSP)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "demo_accounts: anonymous visit redirected to sign-in",
+      "ok": true,
+      "detail": "http://127.0.0.1:8000/app/login?next=%2Faccounts"
+    },
+    {
+      "check": "demo_accounts: returned to the requested page after sign-in",
+      "ok": true,
+      "detail": "http://127.0.0.1:8000/app/accounts"
+    },
+    {
+      "check": "demo_accounts: session cookie is HttpOnly and SameSite=Lax",
+      "ok": true,
+      "detail": "{'httpOnly': True, 'sameSite': 'Lax'}"
+    },
+    {
+      "check": "demo_accounts: page scripts cannot read the session cookie",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "demo_accounts: overview heading",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "demo_accounts: navigation shows exactly the role's pages",
+      "ok": true,
+      "detail": "['Overview', 'Accounts Analytics', 'Ask AI', 'Reports']"
+    },
+    {
+      "check": "demo_accounts: sidebar opens Overview",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "demo_accounts: sidebar opens Accounts Analytics",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "demo_accounts: sidebar opens Ask AI",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "demo_accounts: sidebar opens Reports",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "demo_accounts: HR Analytics denied",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "demo_accounts: Administration denied",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "demo_accounts: /api/v1/me/ matches the user",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "demo_accounts: sign out ends the session",
+      "ok": true,
+      "detail": "me -> 401"
+    },
+    {
+      "check": "demo_accounts: Back after sign-out shows sign-in, not the page",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "demo_accounts: no console errors (incl. CSP)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "demo_executive: anonymous visit redirected to sign-in",
+      "ok": true,
+      "detail": "http://127.0.0.1:8000/app/login?next=%2Fhr"
+    },
+    {
+      "check": "demo_executive: returned to the requested page after sign-in",
+      "ok": true,
+      "detail": "http://127.0.0.1:8000/app/hr"
+    },
+    {
+      "check": "demo_executive: session cookie is HttpOnly and SameSite=Lax",
+      "ok": true,
+      "detail": "{'httpOnly': True, 'sameSite': 'Lax'}"
+    },
+    {
+      "check": "demo_executive: page scripts cannot read the session cookie",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "demo_executive: overview heading",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "demo_executive: navigation shows exactly the role's pages",
+      "ok": true,
+      "detail": "['Overview', 'HR Analytics', 'Accounts Analytics', 'Ask AI', 'Reports']"
+    },
+    {
+      "check": "demo_executive: sidebar opens Overview",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "demo_executive: sidebar opens HR Analytics",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "demo_executive: sidebar opens Accounts Analytics",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "demo_executive: sidebar opens Ask AI",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "demo_executive: sidebar opens Reports",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "demo_executive: Administration denied",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "demo_executive: /api/v1/me/ matches the user",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "demo_executive: sign out ends the session",
+      "ok": true,
+      "detail": "me -> 401"
+    },
+    {
+      "check": "demo_executive: Back after sign-out shows sign-in, not the page",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "demo_executive: no console errors (incl. CSP)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "demo_creator: anonymous visit redirected to sign-in",
+      "ok": true,
+      "detail": "http://127.0.0.1:8000/app/login?next=%2Fhr"
+    },
+    {
+      "check": "demo_creator: returned to the requested page after sign-in",
+      "ok": true,
+      "detail": "http://127.0.0.1:8000/app/hr"
+    },
+    {
+      "check": "demo_creator: session cookie is HttpOnly and SameSite=Lax",
+      "ok": true,
+      "detail": "{'httpOnly': True, 'sameSite': 'Lax'}"
+    },
+    {
+      "check": "demo_creator: page scripts cannot read the session cookie",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "demo_creator: overview heading",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "demo_creator: navigation shows exactly the role's pages",
+      "ok": true,
+      "detail": "['Overview', 'HR Analytics', 'Accounts Analytics', 'Ask AI', 'Reports']"
+    },
+    {
+      "check": "demo_creator: sidebar opens Overview",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "demo_creator: sidebar opens HR Analytics",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "demo_creator: sidebar opens Accounts Analytics",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "demo_creator: sidebar opens Ask AI",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "demo_creator: sidebar opens Reports",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "demo_creator: Administration denied",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "demo_creator: /api/v1/me/ matches the user",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "demo_creator: sign out ends the session",
+      "ok": true,
+      "detail": "me -> 401"
+    },
+    {
+      "check": "demo_creator: Back after sign-out shows sign-in, not the page",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "demo_creator: no console errors (incl. CSP)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "demo_branch: anonymous visit redirected to sign-in",
+      "ok": true,
+      "detail": "http://127.0.0.1:8000/app/login?next=%2Fhr"
+    },
+    {
+      "check": "demo_branch: returned to the requested page after sign-in",
+      "ok": true,
+      "detail": "http://127.0.0.1:8000/app/hr"
+    },
+    {
+      "check": "demo_branch: session cookie is HttpOnly and SameSite=Lax",
+      "ok": true,
+      "detail": "{'httpOnly': True, 'sameSite': 'Lax'}"
+    },
+    {
+      "check": "demo_branch: page scripts cannot read the session cookie",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "demo_branch: overview heading",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "demo_branch: navigation shows exactly the role's pages",
+      "ok": true,
+      "detail": "['Overview', 'HR Analytics', 'Accounts Analytics', 'Ask AI', 'Reports']"
+    },
+    {
+      "check": "demo_branch: sidebar opens Overview",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "demo_branch: sidebar opens HR Analytics",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "demo_branch: sidebar opens Accounts Analytics",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "demo_branch: sidebar opens Ask AI",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "demo_branch: sidebar opens Reports",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "demo_branch: Administration denied",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "demo_branch: branch restriction shown",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "demo_branch: /api/v1/me/ matches the user",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "demo_branch: sign out ends the session",
+      "ok": true,
+      "detail": "me -> 401"
+    },
+    {
+      "check": "demo_branch: Back after sign-out shows sign-in, not the page",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "demo_branch: no console errors (incl. CSP)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "empty form is rejected in the browser",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "wrong credentials give the generic message",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "password field is cleared",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "still on the sign-in page",
+      "ok": true,
+      "detail": "http://127.0.0.1:8000/app/login"
+    },
+    {
+      "check": "phone 375px: no horizontal scrolling",
+      "ok": true,
+      "detail": "overflow 0px"
+    },
+    {
+      "check": "phone: sidebar hidden, menu button shown",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "phone: drawer navigates and closes",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "phone: Escape closes the drawer",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "phone: unknown page shows not-found inside the app",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "phone: no console errors",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "tablet 820px: no horizontal scrolling",
+      "ok": true,
+      "detail": "overflow 0px"
+    },
+    {
+      "check": "tablet: sidebar hidden, menu button shown",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "tablet: drawer navigates and closes",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "tablet: Escape closes the drawer",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "tablet: unknown page shows not-found inside the app",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "tablet: no console errors",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "desktop 1440px: no horizontal scrolling",
+      "ok": true,
+      "detail": "overflow 0px"
+    },
+    {
+      "check": "desktop: sidebar always visible, no menu/close buttons",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "desktop: unknown page shows not-found inside the app",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "desktop: no console errors",
+      "ok": true,
+      "detail": ""
+    }
+  ]
+}

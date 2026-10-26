@@ -1,0 +1,148 @@
+{
+  "_meta": {
+    "synthetic": true,
+    "notice": "SYNTHETIC TEST DATA - fictional organisations, people and amounts. Not real ERP data.",
+    "source_system": "erpnext",
+    "source_instance": "erpnext-dtg-services",
+    "entity": "Sales Invoice",
+    "extraction_batch_id": "erpnext-2026-10-31-sales_invoice",
+    "extracted_at": "2026-10-31T17:30:00Z",
+    "extraction_mode": "incremental",
+    "checkpoint_utc": "2026-09-30T17:30:00Z",
+    "instance_timezone": "Asia/Thimphu",
+    "request": {
+      "method": "GET",
+      "path": "/api/resource/Sales Invoice",
+      "params": {
+        "filters": [
+          [
+            "modified",
+            ">",
+            "2026-09-30 23:30:00"
+          ]
+        ],
+        "order_by": "name asc",
+        "limit_start": 0,
+        "limit_page_length": 200
+      }
+    }
+  },
+  "response": {
+    "data": [
+      {
+        "name": "ACC-SINV-2026-00001",
+        "company": "DTG Services Pvt Ltd",
+        "posting_date": "2026-08-12",
+        "due_date": "2026-09-11",
+        "currency": "BTN",
+        "conversion_rate": 1.0,
+        "grand_total": 25000.0,
+        "base_grand_total": 25000.0,
+        "outstanding_amount": 10000.0,
+        "party_account_currency": "BTN",
+        "is_return": 0,
+        "return_against": null,
+        "update_outstanding_for_self": 1,
+        "status": "Overdue",
+        "docstatus": 1,
+        "modified": "2026-10-10 10:00:00.000000",
+        "customer": "Norbu Hardware"
+      },
+      {
+        "name": "ACC-SINV-2026-00004",
+        "company": "DTG Services Pvt Ltd",
+        "posting_date": "2026-10-28",
+        "due_date": "2026-11-27",
+        "currency": "BTN",
+        "conversion_rate": 1.0,
+        "grand_total": 5000.0,
+        "base_grand_total": 5000.0,
+        "outstanding_amount": 5000.0,
+        "party_account_currency": "BTN",
+        "is_return": 0,
+        "return_against": null,
+        "update_outstanding_for_self": 1,
+        "status": "Unpaid",
+        "docstatus": 1,
+        "modified": "2026-10-28 10:00:00.000000",
+        "customer": "Norbu Hardware"
+      },
+      {
+        "name": "ACC-SINV-2026-00007",
+        "company": "DTG Services Pvt Ltd",
+        "posting_date": "2026-10-05",
+        "due_date": "2026-11-04",
+        "currency": "BTN",
+        "conversion_rate": 1.0,
+        "grand_total": 22000.0,
+        "base_grand_total": 22000.0,
+        "outstanding_amount": 22000.0,
+        "party_account_currency": "BTN",
+        "is_return": 0,
+        "return_against": null,
+        "update_outstanding_for_self": 1,
+        "status": "Unpaid",
+        "docstatus": 1,
+        "modified": "2026-10-05 10:00:00.000000",
+        "customer": "Lhaki Traders"
+      },
+      {
+        "name": "ACC-SINV-2026-00008",
+        "company": "DTG Services Pvt Ltd",
+        "posting_date": "2026-10-02",
+        "due_date": "2026-10-02",
+        "currency": "USD",
+        "conversion_rate": 84.0,
+        "grand_total": 300.0,
+        "base_grand_total": 25200.0,
+        "outstanding_amount": 25200.0,
+        "party_account_currency": "BTN",
+        "is_return": 0,
+        "return_against": null,
+        "update_outstanding_for_self": 1,
+        "status": "Overdue",
+        "docstatus": 1,
+        "modified": "2026-10-03 10:00:00.000000",
+        "customer": "Gakidh Retail"
+      },
+      {
+        "name": "ACC-SINV-RET-2026-00002",
+        "company": "DTG Services Pvt Ltd",
+        "posting_date": "2026-10-25",
+        "due_date": "2026-10-25",
+        "currency": "BTN",
+        "conversion_rate": 1.0,
+        "grand_total": -1500.0,
+        "base_grand_total": -1500.0,
+        "outstanding_amount": -1500.0,
+        "party_account_currency": "BTN",
+        "is_return": 1,
+        "return_against": null,
+        "update_outstanding_for_self": 1,
+        "status": "Return",
+        "docstatus": 1,
+        "modified": "2026-10-25 10:00:00.000000",
+        "customer": "Gakidh Retail"
+      },
+      {
+        "name": "ACC-SINV-2026-00010",
+        "company": "DTG Services Pvt Ltd",
+        "posting_date": "2026-10-26",
+        "due_date": "2026-11-25",
+        "currency": "BTN",
+        "conversion_rate": 1.0,
+        "grand_total": 3000.0,
+        "base_grand_total": 3000.0,
+        "outstanding_amount": 3000.0,
+        "party_account_currency": "BTN",
+        "is_return": 0,
+        "return_against": null,
+        "update_outstanding_for_self": 1,
+        "status": "Unpaid",
+        "docstatus": 1,
+        "modified": "2026-10-26 10:00:00.000000",
+        "customer": null
+      }
+    ]
+  }
+}

@@ -1,0 +1,296 @@
+{
+  "run_at": "2026-10-25T00:55:22",
+  "interpreter": "rules",
+  "summary": {
+    "questions": 14,
+    "intent_accuracy": "13/14",
+    "numeric_accuracy": "5/6",
+    "unsupported_or_ambiguous_handled": "2/2",
+    "permission_violations": 0,
+    "by_category": {
+      "alternative": "9/10",
+      "unsupported": "2/2",
+      "restricted": "2/2"
+    }
+  },
+  "results": [
+    {
+      "id": "H01",
+      "category": "alternative",
+      "user": "demo_executive",
+      "question": "How many workers do we have right now?",
+      "expected_status": "answered",
+      "status": "answered",
+      "expected_function": "hr.active_headcount",
+      "function": "hr.active_headcount",
+      "parameters": {},
+      "intent_ok": true,
+      "value_ok": true,
+      "value_note": "",
+      "permission_violation": false,
+      "interpreter": "rules",
+      "phrasing": "template",
+      "answer": "There are 16 active employees as of 25 October 2026."
+    },
+    {
+      "id": "H02",
+      "category": "alternative",
+      "user": "demo_executive",
+      "question": "Employee count by branch",
+      "expected_status": "answered",
+      "status": "answered",
+      "expected_function": "hr.active_headcount",
+      "function": "hr.active_headcount",
+      "parameters": {
+        "group_by": "branch",
+        "filters": {
+          "employee_category": "employee"
+        }
+      },
+      "intent_ok": true,
+      "value_ok": null,
+      "value_note": "",
+      "permission_violation": false,
+      "interpreter": "rules",
+      "phrasing": "template",
+      "answer": "Active employees by branch as of 25 October 2026 (employee category: employee): DTG Retail - Phuentsholing 2, DTG Retail Pvt Ltd (head office) 6 (total 8)."
+    },
+    {
+      "id": "H03",
+      "category": "alternative",
+      "user": "demo_executive",
+      "question": "How many people are employed in the Operations team?",
+      "expected_status": "answered",
+      "status": "answered",
+      "expected_function": "hr.active_headcount",
+      "function": "hr.active_headcount",
+      "parameters": {
+        "filters": {
+          "department": "Operations"
+        }
+      },
+      "intent_ok": true,
+      "value_ok": null,
+      "value_note": "",
+      "permission_violation": false,
+      "interpreter": "rules",
+      "phrasing": "template",
+      "answer": "There are 2 active employees as of 25 October 2026 (department: Operations)."
+    },
+    {
+      "id": "H04",
+      "category": "alternative",
+      "user": "demo_executive",
+      "question": "What's the AR position?",
+      "expected_status": "answered",
+      "status": "answered",
+      "expected_function": "ac.outstanding_receivables",
+      "function": "ac.outstanding_receivables",
+      "parameters": {},
+      "intent_ok": true,
+      "value_ok": true,
+      "value_note": "",
+      "permission_violation": false,
+      "interpreter": "rules",
+      "phrasing": "template",
+      "answer": "Outstanding receivables as of 25 October 2026: BTN 166,700.00 (10 open documents)."
+    },
+    {
+      "id": "H05",
+      "category": "alternative",
+      "user": "demo_executive",
+      "question": "Outstanding amount owed to vendors",
+      "expected_status": "answered",
+      "status": "answered",
+      "expected_function": "ac.outstanding_payables",
+      "function": "ac.outstanding_payables",
+      "parameters": {},
+      "intent_ok": true,
+      "value_ok": true,
+      "value_note": "",
+      "permission_violation": false,
+      "interpreter": "rules",
+      "phrasing": "template",
+      "answer": "Outstanding payables as of 25 October 2026: BTN 35,200.00 (4 open documents)."
+    },
+    {
+      "id": "H06",
+      "category": "alternative",
+      "user": "demo_executive",
+      "question": "Overdue amounts by ageing bucket for receivables",
+      "expected_status": "answered",
+      "status": "answered",
+      "expected_function": "ac.overdue_by_ageing",
+      "function": "ac.overdue_by_ageing",
+      "parameters": {
+        "filters": {
+          "ledger": "receivable"
+        }
+      },
+      "intent_ok": true,
+      "value_ok": null,
+      "value_note": "",
+      "permission_violation": false,
+      "interpreter": "rules",
+      "phrasing": "template",
+      "answer": "Overdue balances by ageing category as of 25 October 2026 (ledger: receivable). Receivables: 1-30 days overdue BTN 124,200.00, 31-60 days overdue BTN 18,000.00, Over 90 days overdue BTN 7,500.00."
+    },
+    {
+      "id": "H07",
+      "category": "alternative",
+      "user": "demo_executive",
+      "question": "How many leave applications were approved in October 2026?",
+      "expected_status": "answered",
+      "status": "answered",
+      "expected_function": "hr.approved_leave",
+      "function": "hr.approved_leave",
+      "parameters": {
+        "period_start": "2026-10-01",
+        "period_end": "2026-10-31"
+      },
+      "intent_ok": true,
+      "value_ok": true,
+      "value_note": "",
+      "permission_violation": false,
+      "interpreter": "rules",
+      "phrasing": "template",
+      "answer": "There were 6 approved requests for leave starting in October 2026 (11 leave days, 4 employees)."
+    },
+    {
+      "id": "H08",
+      "category": "alternative",
+      "user": "demo_executive",
+      "question": "Total approved leave days per department",
+      "expected_status": "answered",
+      "status": "answered",
+      "expected_function": "hr.approved_leave",
+      "function": "hr.approved_leave",
+      "parameters": {
+        "group_by": "department"
+      },
+      "intent_ok": true,
+      "value_ok": null,
+      "value_note": "",
+      "permission_violation": false,
+      "interpreter": "rules",
+      "phrasing": "template",
+      "answer": "Approved leave starting in October 2026, by department: Management: 1 employees, 1 requests, 3 days; Operations: 2 employees, 3 requests, 5 days; Sales: 1 employees, 2 requests, 3 days."
+    },
+    {
+      "id": "H09",
+      "category": "alternative",
+      "user": "demo_executive",
+      "question": "What's the headcount for DTG Services?",
+      "expected_status": "answered",
+      "status": "answered",
+      "expected_function": "hr.active_headcount",
+      "function": "hr.active_headcount",
+      "parameters": {
+        "filters": {
+          "organisation": "DTG Services Pvt Ltd"
+        }
+      },
+      "intent_ok": true,
+      "value_ok": true,
+      "value_note": "",
+      "permission_violation": false,
+      "interpreter": "rules",
+      "phrasing": "template",
+      "answer": "There are 6 active employees as of 25 October 2026 (organisation: DTG Services Pvt Ltd)."
+    },
+    {
+      "id": "H10",
+      "category": "alternative",
+      "user": "demo_executive",
+      "question": "How much are customers late in paying?",
+      "expected_status": "answered",
+      "status": "answered",
+      "expected_function": "ac.overdue_balance",
+      "function": "ac.overdue_balance",
+      "parameters": {},
+      "intent_ok": false,
+      "value_ok": false,
+      "value_note": "expected 149700.0, got 178900.0",
+      "permission_violation": false,
+      "interpreter": "rules",
+      "phrasing": "template",
+      "answer": "Overdue balances as of 25 October 2026: payables BTN 29,200.00; receivables BTN 149,700.00."
+    },
+    {
+      "id": "H11",
+      "category": "unsupported",
+      "user": "demo_executive",
+      "question": "Tell me the payroll cost",
+      "expected_status": "unsupported",
+      "status": "unsupported",
+      "expected_function": null,
+      "function": null,
+      "parameters": {},
+      "intent_ok": true,
+      "value_ok": null,
+      "value_note": "",
+      "permission_violation": false,
+      "interpreter": "rules",
+      "phrasing": "template",
+      "answer": "Only Human Resources (headcount, leave) and Accounts (receivables, payables, overdue, ageing) KPIs are supported."
+    },
+    {
+      "id": "H12",
+      "category": "unsupported",
+      "user": "demo_executive",
+      "question": "Give me the names of employees who took sick leave",
+      "expected_status": "unsupported",
+      "status": "unsupported",
+      "expected_function": null,
+      "function": null,
+      "parameters": {},
+      "intent_ok": true,
+      "value_ok": null,
+      "value_note": "",
+      "permission_violation": false,
+      "interpreter": "rules",
+      "phrasing": "template",
+      "answer": "The assistant answers with aggregated KPIs only. It does not list or identify individual employees, customers or suppliers."
+    },
+    {
+      "id": "H13",
+      "category": "restricted",
+      "user": "demo_hr",
+      "question": "What's the AR position?",
+      "expected_status": "forbidden",
+      "status": "forbidden",
+      "expected_function": null,
+      "function": "ac.outstanding_receivables",
+      "parameters": {},
+      "intent_ok": true,
+      "value_ok": null,
+      "value_note": "",
+      "permission_violation": false,
+      "interpreter": "rules",
+      "phrasing": "template",
+      "answer": "Your role does not give access to ACCOUNTS KPIs (Outstanding receivables). Your access covers: HR."
+    },
+    {
+      "id": "H14",
+      "category": "restricted",
+      "user": "demo_branch",
+      "question": "Headcount for DTG Services",
+      "expected_status": "forbidden",
+      "status": "forbidden",
+      "expected_function": null,
+      "function": "hr.active_headcount",
+      "parameters": {
+        "filters": {
+          "organisation": "DTG Services Pvt Ltd"
+        }
+      },
+      "intent_ok": true,
+      "value_ok": null,
+      "value_note": "",
+      "permission_violation": false,
+      "interpreter": "rules",
+      "phrasing": "template",
+      "answer": "Organisation 'DTG Services Pvt Ltd' is outside your authorised scope."
+    }
+  ]
+}

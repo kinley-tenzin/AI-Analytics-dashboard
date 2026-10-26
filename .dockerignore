@@ -1,0 +1,10 @@
+# Only the image build files are needed in the Docker build context (source code is mounted
+# read-only at run time, and .env must never enter an image).
+*
+!orchestration/docker/
+!backend/docker/
+# The web application source, built inside the backend image (installed modules and old builds
+# are excluded: the image runs `npm ci` and `npm run build` itself).
+!frontend/
+frontend/node_modules/
+frontend/dist/

@@ -1,0 +1,23 @@
+slice_name: Approved leave requests
+description: Default DrukSmart HR Overview chart (template, bootstrap.py).
+certified_by: null
+certification_details: null
+viz_type: big_number_total
+params:
+  viz_type: big_number_total
+  metric: approved_requests
+  adhoc_filters:
+  - clause: WHERE
+    expressionType: SIMPLE
+    subject: period_month
+    operator: TEMPORAL_RANGE
+    comparator: No filter
+  subheader: approved requests starting in the leave period
+  header_font_size: 0.4
+  subheader_font_size: 0.15
+  datasource: 2__table
+query_context: null
+cache_timeout: null
+uuid: 60d5f4c0-d1f2-40b8-bada-5031373c6a03
+version: 1.0.0
+dataset_uuid: 8eb31ed0-b03d-4651-bab2-f52441f9760d

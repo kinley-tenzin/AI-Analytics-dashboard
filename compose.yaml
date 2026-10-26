@@ -1,0 +1,347 @@
+# Docker Compose development stack. Values come from .env (see .env.example).
+#
+#   docker compose up -d                      # warehouse PostgreSQL only
+#   docker compose --profile airflow up -d    # + Airflow (LocalExecutor) and the synthetic ERP APIs
+#   docker compose --profile superset up -d   # + Apache Superset (BI) and its metadata database
+#   docker compose --profile backend up -d    # + Django KPI service and AI assistant (gunicorn)
+#
+# Recommended: python deploy/druksmart.py up   (starts the profiles in order and waits for health)
+
+name: ${COMPOSE_PROJECT_NAME:-druksmart}
+
+x-airflow-common: &airflow-common
+  image: druksmart/airflow:3.3.2
+  build:
+    context: .
+    dockerfile: orchestration/docker/Dockerfile
+  profiles: ["airflow"]
+  # No env_file: the pipeline gets ONLY the settings below (least privilege, Milestone 8 defect
+  # D1). Superset/Django/Gemini secrets, sandbox admin passwords and the PostgreSQL superuser
+  # password never enter these containers.
+  environment: &airflow-env
+    # --- Airflow (LocalExecutor: tasks run as scheduler sub-processes; no Redis/Celery) ---
+    AIRFLOW__CORE__EXECUTOR: LocalExecutor
+    AIRFLOW__CORE__PARALLELISM: "4"
+    AIRFLOW__CORE__AUTH_MANAGER: airflow.providers.fab.auth_manager.fab_auth_manager.FabAuthManager
+    AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:${AIRFLOW_DB_PASSWORD:?set AIRFLOW_DB_PASSWORD in .env}@airflow-db/airflow
+    AIRFLOW__CORE__FERNET_KEY: ${AIRFLOW_FERNET_KEY:?set AIRFLOW_FERNET_KEY in .env}
+    AIRFLOW__API_AUTH__JWT_SECRET: ${AIRFLOW_JWT_SECRET:?set AIRFLOW_JWT_SECRET in .env}
+    AIRFLOW__CORE__EXECUTION_API_SERVER_URL: http://airflow-apiserver:8080/execution/
+    AIRFLOW__CORE__LOAD_EXAMPLES: "false"
+    AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION: "true"
+    AIRFLOW__CORE__DEFAULT_TIMEZONE: Asia/Thimphu
+    AIRFLOW__SCHEDULER__ENABLE_HEALTH_CHECK: "true"
+    AIRFLOW__DAG_PROCESSOR__REFRESH_INTERVAL: "30"
+    # --- Pipeline settings inside the containers (override the host values from .env) ---
+    DRUKSMART_PG_HOST: postgres
+    DRUKSMART_PG_PORT: "5432"
+    ODOO_BASE_URL: ${ODOO_BASE_URL_FROM_DOCKER:-http://host.docker.internal:8069}
+    ERPNEXT_BASE_URL: ${ERPNEXT_BASE_URL_FROM_DOCKER:-http://host.docker.internal:8090}
+    DRUKSMART_INSECURE_HTTP_HOSTS: host.docker.internal,synthetic-erp
+    # --- Pipeline settings from .env (only what extraction, dbt and publication use) ---
+    DRUKSMART_ANALYTICS_DB: ${DRUKSMART_ANALYTICS_DB:?set DRUKSMART_ANALYTICS_DB in .env}
+    DRUKSMART_APP_DB: ${DRUKSMART_APP_DB}
+    DRUKSMART_PIPELINE_USER: ${DRUKSMART_PIPELINE_USER}
+    DRUKSMART_PIPELINE_PASSWORD: ${DRUKSMART_PIPELINE_PASSWORD}
+    # Validated by druksmart_common.config (low-privilege roles; not used by the pipeline itself).
+    DRUKSMART_BI_READER_USER: ${DRUKSMART_BI_READER_USER}
+    DRUKSMART_BI_READER_PASSWORD: ${DRUKSMART_BI_READER_PASSWORD}
+    DRUKSMART_APP_USER: ${DRUKSMART_APP_USER}
+    DRUKSMART_APP_PASSWORD: ${DRUKSMART_APP_PASSWORD}
+    # Consumer account NAMES for the publication grants (no passwords needed).
+    DRUKSMART_SUPERSET_READER_USER: ${DRUKSMART_SUPERSET_READER_USER:-}
+    DRUKSMART_KPI_READER_USER: ${DRUKSMART_KPI_READER_USER:-}
+    ODOO_INSTANCE_ID: ${ODOO_INSTANCE_ID:-}
+    ODOO_DATABASE: ${ODOO_DATABASE:-}
+    ODOO_API_KEY: ${ODOO_API_KEY:-}
+    ERPNEXT_INSTANCE_ID: ${ERPNEXT_INSTANCE_ID:-}
+    ERPNEXT_API_KEY: ${ERPNEXT_API_KEY:-}
+    ERPNEXT_API_SECRET: ${ERPNEXT_API_SECRET:-}
+    ERPNEXT_TIMEZONE: ${ERPNEXT_TIMEZONE:-Asia/Thimphu}
+    DRUKSMART_HTTP_TIMEOUT_SECONDS: ${DRUKSMART_HTTP_TIMEOUT_SECONDS:-30}
+    DRUKSMART_PAGE_SIZE: ${DRUKSMART_PAGE_SIZE:-200}
+    DRUKSMART_SOURCE_MODE: ${DRUKSMART_SOURCE_MODE:-configured}
+    DRUKSMART_ELT_SCHEDULE: ${DRUKSMART_ELT_SCHEDULE:-0 2 * * *}
+  volumes:
+    - ./orchestration/dags:/opt/airflow/dags:ro
+    - .:/opt/druksmart:ro                     # pipeline code, contracts, dbt project (read-only)
+    # Hide the repository's .env inside the container (it holds every secret of the platform).
+    - ./orchestration/docker/no-secrets.env:/opt/druksmart/.env:ro
+    - airflow_logs:/opt/airflow/logs
+  extra_hosts:
+    - "host.docker.internal:host-gateway"     # reach the local ERP sandboxes on the host
+  depends_on: &airflow-depends
+    airflow-db:
+      condition: service_healthy
+    postgres:
+      condition: service_healthy
+
+x-superset-common: &superset-common
+  image: druksmart/superset:6.1.0
+  build:
+    context: superset/docker
+  profiles: ["superset"]
+  # Deliberately NO env_file: Superset gets only its own settings, never the pipeline, ERP or
+  # warehouse-admin credentials in .env. The warehouse password is entered once by the bootstrap
+  # script and stored encrypted (SECRET_KEY) in Superset's metadata database.
+  environment:
+    SUPERSET_CONFIG_PATH: /app/druksmart/superset_config.py
+    SUPERSET_SECRET_KEY: ${SUPERSET_SECRET_KEY:?set SUPERSET_SECRET_KEY in .env}
+    SUPERSET_DB_PASSWORD: ${SUPERSET_DB_PASSWORD:?set SUPERSET_DB_PASSWORD in .env}
+    # Embedded dashboards in the website (Milestone 10): guest-token signing secret and the one
+    # origin allowed to frame Superset.
+    SUPERSET_GUEST_TOKEN_SECRET: ${SUPERSET_GUEST_TOKEN_SECRET:?set SUPERSET_GUEST_TOKEN_SECRET in .env (create_local_env.py --add-missing)}
+    DRUKSMART_WEB_ORIGIN: ${DRUKSMART_WEB_ORIGIN:-http://127.0.0.1:8000}
+  volumes:
+    - ./superset/docker/superset_config.py:/app/druksmart/superset_config.py:ro
+    # Page-head customisation hook (filter panel layout); see the file's header.
+    - ./superset/docker/head_custom_extra.html:/app/superset/templates/head_custom_extra.html:ro
+  depends_on: &superset-depends
+    superset-db:
+      condition: service_healthy
+    postgres:
+      condition: service_healthy
+
+services:
+  postgres:
+    image: postgres:17.11-bookworm
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:?set POSTGRES_USER in .env}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in .env}
+      POSTGRES_DB: ${DRUKSMART_ANALYTICS_DB:?set DRUKSMART_ANALYTICS_DB in .env}
+      DRUKSMART_ANALYTICS_DB: ${DRUKSMART_ANALYTICS_DB}
+      DRUKSMART_APP_DB: ${DRUKSMART_APP_DB:?set DRUKSMART_APP_DB in .env}
+      DRUKSMART_PIPELINE_USER: ${DRUKSMART_PIPELINE_USER:?set DRUKSMART_PIPELINE_USER in .env}
+      DRUKSMART_PIPELINE_PASSWORD: ${DRUKSMART_PIPELINE_PASSWORD:?set DRUKSMART_PIPELINE_PASSWORD in .env}
+      DRUKSMART_BI_READER_USER: ${DRUKSMART_BI_READER_USER:?set DRUKSMART_BI_READER_USER in .env}
+      DRUKSMART_BI_READER_PASSWORD: ${DRUKSMART_BI_READER_PASSWORD:?set DRUKSMART_BI_READER_PASSWORD in .env}
+      DRUKSMART_APP_USER: ${DRUKSMART_APP_USER:?set DRUKSMART_APP_USER in .env}
+      DRUKSMART_APP_PASSWORD: ${DRUKSMART_APP_PASSWORD:?set DRUKSMART_APP_PASSWORD in .env}
+      DRUKSMART_SUPERSET_READER_USER: ${DRUKSMART_SUPERSET_READER_USER:-druksmart_superset_reader}
+      DRUKSMART_SUPERSET_READER_PASSWORD: ${DRUKSMART_SUPERSET_READER_PASSWORD:-}
+      DRUKSMART_KPI_READER_USER: ${DRUKSMART_KPI_READER_USER:-druksmart_kpi_reader}
+      DRUKSMART_KPI_READER_PASSWORD: ${DRUKSMART_KPI_READER_PASSWORD:-}
+    ports:
+      # Bound to 127.0.0.1 so the database is not reachable from the network.
+      - "127.0.0.1:${DRUKSMART_PG_PORT:-5433}:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      # Runs only when the data volume is empty (first start).
+      - ./infrastructure/postgres/init:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U \"$${POSTGRES_USER}\" -d \"$${POSTGRES_DB}\""]
+      interval: 5s
+      timeout: 5s
+      retries: 12
+      start_period: 10s
+
+  # Airflow's own metadata database: a separate container, never the analytics warehouse.
+  airflow-db:
+    image: postgres:17.11-bookworm
+    profiles: ["airflow"]
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: airflow
+      POSTGRES_PASSWORD: ${AIRFLOW_DB_PASSWORD:?set AIRFLOW_DB_PASSWORD in .env}
+      POSTGRES_DB: airflow
+    volumes:
+      - airflow_db:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U airflow -d airflow"]
+      interval: 5s
+      timeout: 5s
+      retries: 12
+
+  airflow-init:
+    <<: *airflow-common
+    depends_on: *airflow-depends
+    environment:
+      <<: *airflow-env
+      AIRFLOW_ADMIN_USER: ${AIRFLOW_ADMIN_USER:?set AIRFLOW_ADMIN_USER in .env}
+      AIRFLOW_ADMIN_PASSWORD: ${AIRFLOW_ADMIN_PASSWORD:?set AIRFLOW_ADMIN_PASSWORD in .env}
+    entrypoint: /bin/bash
+    command:
+      - -c
+      - |
+        set -e
+        airflow db migrate
+        airflow users create --role Admin --username "$${AIRFLOW_ADMIN_USER}" \
+          --password "$${AIRFLOW_ADMIN_PASSWORD}" --firstname DrukSmart --lastname Admin \
+          --email admin@example.com || echo "admin user already exists"
+        airflow pools set odoo_api 1 "One extraction at a time against Odoo"
+        airflow pools set erpnext_api 1 "One extraction at a time against ERPNext"
+        echo "airflow-init done"
+
+  airflow-apiserver:
+    <<: *airflow-common
+    command: api-server
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:${AIRFLOW_PORT:-8085}:8080"
+    depends_on:
+      <<: *airflow-depends
+      airflow-init:
+        condition: service_completed_successfully
+    healthcheck:
+      test: ["CMD", "curl", "--fail", "http://localhost:8080/api/v2/monitor/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 60s
+
+  airflow-scheduler:
+    <<: *airflow-common
+    command: scheduler
+    restart: unless-stopped
+    depends_on:
+      <<: *airflow-depends
+      airflow-init:
+        condition: service_completed_successfully
+    healthcheck:
+      test: ["CMD-SHELL", 'airflow jobs check --job-type SchedulerJob --hostname "$${HOSTNAME}"']
+      interval: 30s
+      timeout: 30s
+      retries: 5
+      start_period: 60s
+
+  airflow-dag-processor:
+    <<: *airflow-common
+    command: dag-processor
+    restart: unless-stopped
+    depends_on:
+      <<: *airflow-depends
+      airflow-init:
+        condition: service_completed_successfully
+    healthcheck:
+      test: ["CMD-SHELL", 'airflow jobs check --job-type DagProcessorJob --hostname "$${HOSTNAME}"']
+      interval: 30s
+      timeout: 30s
+      retries: 5
+      start_period: 60s
+
+  # Superset's own metadata database (users, roles, charts, dashboards), separate from the warehouse.
+  superset-db:
+    image: postgres:17.11-bookworm
+    profiles: ["superset"]
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: superset
+      POSTGRES_PASSWORD: ${SUPERSET_DB_PASSWORD:?set SUPERSET_DB_PASSWORD in .env}
+      POSTGRES_DB: superset
+    volumes:
+      - superset_db:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U superset -d superset"]
+      interval: 5s
+      timeout: 5s
+      retries: 12
+
+  # One-off: create/upgrade the metadata schema, the admin user and the built-in roles.
+  # The admin password is read inside the container (never placed on a compose command line).
+  superset-init:
+    <<: *superset-common
+    environment:
+      SUPERSET_CONFIG_PATH: /app/druksmart/superset_config.py
+      SUPERSET_SECRET_KEY: ${SUPERSET_SECRET_KEY:?set SUPERSET_SECRET_KEY in .env}
+      SUPERSET_DB_PASSWORD: ${SUPERSET_DB_PASSWORD:?set SUPERSET_DB_PASSWORD in .env}
+      SUPERSET_ADMIN_USER: ${SUPERSET_ADMIN_USER:?set SUPERSET_ADMIN_USER in .env}
+      SUPERSET_ADMIN_PASSWORD: ${SUPERSET_ADMIN_PASSWORD:?set SUPERSET_ADMIN_PASSWORD in .env}
+      # Same embedding settings as the shared block (this `environment:` replaces it).
+      SUPERSET_GUEST_TOKEN_SECRET: ${SUPERSET_GUEST_TOKEN_SECRET:?set SUPERSET_GUEST_TOKEN_SECRET in .env (create_local_env.py --add-missing)}
+      DRUKSMART_WEB_ORIGIN: ${DRUKSMART_WEB_ORIGIN:-http://127.0.0.1:8000}
+    entrypoint: /bin/bash
+    command:
+      - -c
+      - |
+        set -e
+        superset db upgrade
+        # Skips (prints "User already exists") when the admin was created on an earlier start.
+        superset fab create-admin --username "$${SUPERSET_ADMIN_USER}" --firstname DrukSmart           --lastname Admin --email admin@example.com --password "$${SUPERSET_ADMIN_PASSWORD}"
+        superset init
+        echo "superset-init done"
+
+  superset:
+    <<: *superset-common
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:${SUPERSET_PORT:-8088}:8088"
+    depends_on:
+      <<: *superset-depends
+      superset-init:
+        condition: service_completed_successfully
+    healthcheck:
+      test: ["CMD", "curl", "--fail", "http://localhost:8088/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 60s
+
+  # Django KPI service + bounded AI assistant (Milestone 9). Only its own settings (no env_file);
+  # the repository .env is masked like in the Airflow containers.
+  backend:
+    image: druksmart/backend:5.2.18
+    build:
+      context: .
+      dockerfile: backend/docker/Dockerfile
+    profiles: ["backend"]
+    restart: unless-stopped
+    environment:
+      DJANGO_SECRET_KEY: ${DJANGO_SECRET_KEY:?set DJANGO_SECRET_KEY in .env}
+      DJANGO_DEBUG: "false"
+      DJANGO_ALLOWED_HOSTS: 127.0.0.1,localhost
+      DRUKSMART_PG_HOST: postgres
+      DRUKSMART_PG_PORT: "5432"
+      DRUKSMART_APP_DB: ${DRUKSMART_APP_DB}
+      DRUKSMART_APP_USER: ${DRUKSMART_APP_USER}
+      DRUKSMART_APP_PASSWORD: ${DRUKSMART_APP_PASSWORD}
+      DRUKSMART_ANALYTICS_DB: ${DRUKSMART_ANALYTICS_DB}
+      DRUKSMART_KPI_READER_USER: ${DRUKSMART_KPI_READER_USER:-druksmart_kpi_reader}
+      DRUKSMART_KPI_READER_PASSWORD: ${DRUKSMART_KPI_READER_PASSWORD:?set DRUKSMART_KPI_READER_PASSWORD in .env}
+      DRUKSMART_CONSUMER_DATA: ${DRUKSMART_CONSUMER_DATA:-live}
+      DRUKSMART_STALE_AFTER_HOURS: ${DRUKSMART_STALE_AFTER_HOURS:-30}
+      DRUKSMART_AI_PROVIDER: ${DRUKSMART_AI_PROVIDER:-rules}
+      GEMINI_API_KEY: ${GEMINI_API_KEY:-}
+      GEMINI_MODEL: ${GEMINI_MODEL:-gemini-2.5-flash}
+      BACKEND_DEMO_USER_PASSWORD: ${BACKEND_DEMO_USER_PASSWORD:-}
+      # Website embedding (Milestone 10): the backend reaches Superset on the Compose network and
+      # tells browsers the public address. Only the portal service account, never the admin.
+      DRUKSMART_SUPERSET_INTERNAL_URL: http://superset:8088
+      DRUKSMART_SUPERSET_PUBLIC_URL: http://127.0.0.1:${SUPERSET_PORT:-8088}
+      SUPERSET_PORTAL_SERVICE_USER: ${SUPERSET_PORTAL_SERVICE_USER:-druksmart_portal_service}
+      SUPERSET_PORTAL_SERVICE_PASSWORD: ${SUPERSET_PORTAL_SERVICE_PASSWORD:-}
+      # The website's origin: allowed domain when a creator's dashboard is published (Task 10.7).
+      DRUKSMART_WEB_ORIGIN: ${DRUKSMART_WEB_ORIGIN:-http://127.0.0.1:8000}
+    volumes:
+      - .:/opt/druksmart:ro
+      - ./orchestration/docker/no-secrets.env:/opt/druksmart/.env:ro
+    ports:
+      - "127.0.0.1:${BACKEND_PORT:-8000}:8000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  # SYNTHETIC SOURCE MODE: fake Odoo/ERPNext APIs over the fictional fixture data.
+  synthetic-erp:
+    image: druksmart/airflow:3.3.2
+    profiles: ["airflow"]
+    restart: unless-stopped
+    entrypoint: ["/opt/druksmart-venv/bin/python", "-m", "connectors.synthetic.server"]
+    environment:
+      PYTHONPATH: /opt/druksmart
+      PYTHONDONTWRITEBYTECODE: "1"
+    volumes:
+      - .:/opt/druksmart:ro
+    depends_on:
+      airflow-init:
+        condition: service_completed_successfully
+
+volumes:
+  pgdata:
+    name: ${COMPOSE_PROJECT_NAME:-druksmart}_pgdata
+  airflow_db:
+    name: ${COMPOSE_PROJECT_NAME:-druksmart}_airflow_db
+  airflow_logs:
+    name: ${COMPOSE_PROJECT_NAME:-druksmart}_airflow_logs
+  superset_db:
+    name: ${COMPOSE_PROJECT_NAME:-druksmart}_superset_db

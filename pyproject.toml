@@ -1,0 +1,77 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "druksmart-platform"
+version = "0.1.0"
+description = "DrukSmart Analytics & AI Dashboard Platform (CST Group 8 industry research project)"
+readme = "README.md"
+requires-python = ">=3.12"
+# Exact pins keep every team member's environment identical.
+# Area-specific dependencies (dbt, Django, connectors) are added in their milestones.
+dependencies = [
+    "psycopg[binary]==3.3.6",
+    "python-dotenv==1.2.4",
+    "PyYAML==6.0.3",
+    "httpx==0.28.1",
+    # IANA time-zone database; Windows has none built in (needed for ERPNext local times).
+    "tzdata==2026.5",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest==9.1.1",
+    "pytest-django==4.14.0",
+    "ruff==0.17.1",
+]
+# Django backend: KPI service + bounded AI assistant (backend/). Django 5.2 is the LTS release.
+backend = [
+    "Django==5.2.18",
+    "asgiref==3.13.0",
+]
+# dbt Core for the warehouse (warehouse/). 1.12.6 needs a pre-release dependency (ADR-005).
+warehouse = [
+    "dbt-core==1.12.0",
+    "dbt-postgres==1.11.0",
+    # Pinned: newer releases (e.g. 2.0.8) ship only as source on Windows/Python 3.14 and need a
+    # Rust/C toolchain to build; 2.0.0a4 is the version dbt-core 1.12.0 resolves to with wheels.
+    "dbt-core-experimental-parser==2.0.0a4",
+]
+# Headless-browser dashboard check (superset/scripts/browser_check.py); drives the installed
+# Microsoft Edge, so no browser download is needed (Milestone 6).
+bi-test = [
+    "playwright==1.64.1",
+]
+
+[tool.setuptools.packages.find]
+include = ["druksmart_common*", "connectors*", "ingestion*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+# Test-only helpers (e.g. the independent KPI reference calculator).
+pythonpath = ["tests/support", "backend"]
+# Django settings for tests: in-memory SQLite for Django's own tables; the warehouse stays real.
+DJANGO_SETTINGS_MODULE = "druksmart_backend.settings_test"
+addopts = "-ra --strict-markers"
+markers = [
+    "smoke: needs the running PostgreSQL container (docker compose up -d)",
+    "db: integration test that writes to the running PostgreSQL container (cleans up after itself)",
+    "live: runs against real ERP instances configured in .env; skipped when not configured",
+    "warehouse: end-to-end fixtures -> raw -> dbt -> marts in the isolated _test database (slow)",
+    "superset: access-boundary and KPI tests against the RUNNING Superset (docker compose --profile superset)",
+    "backend: KPI service / assistant against the published dev warehouse as the KPI reader (read-only)",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP"]
+
+[tool.ruff.lint.per-file-ignores]
+# Fixture record tables are kept one record per line so they can be reviewed as tables.
+"tests/fixtures/synthetic/generate_fixtures.py" = ["E501"]
+# Sandbox seed scripts run inside the ERP containers (odoo shell / bench); data rows are wide.
+"infrastructure/sandboxes/**/seed/*.py" = ["E501"]

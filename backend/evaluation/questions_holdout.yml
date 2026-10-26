@@ -1,0 +1,29 @@
+# HELD-OUT evaluation set, written AFTER the first run of questions.yml but BEFORE the rules were
+# changed in response to its 4 failures. It was not used to tune the interpreter, so its result
+# is a fairer estimate for new phrasings than a re-run of questions.yml. Same format.
+version: 1
+cases:
+  - {id: H01, category: alternative, user: demo_executive, question: "How many workers do we have right now?",
+     expect: {status: answered, function: hr.active_headcount, reference: headcount_total}}
+  - {id: H02, category: alternative, user: demo_executive, question: "Employee count by branch",
+     expect: {status: answered, function: hr.active_headcount, parameters: {group_by: branch}}}
+  - {id: H03, category: alternative, user: demo_executive, question: "How many people are employed in the Operations team?",
+     expect: {status: answered, function: hr.active_headcount, parameters: {filters: {department: Operations}}}}
+  - {id: H04, category: alternative, user: demo_executive, question: "What's the AR position?",
+     expect: {status: answered, function: ac.outstanding_receivables, reference: receivables_total}}
+  - {id: H05, category: alternative, user: demo_executive, question: "Outstanding amount owed to vendors",
+     expect: {status: answered, function: ac.outstanding_payables, reference: payables_total}}
+  - {id: H06, category: alternative, user: demo_executive, question: "Overdue amounts by ageing bucket for receivables",
+     expect: {status: answered, function: ac.overdue_by_ageing, parameters: {filters: {ledger: receivable}}}}
+  - {id: H07, category: alternative, user: demo_executive, question: "How many leave applications were approved in October 2026?",
+     expect: {status: answered, function: hr.approved_leave, parameters: {period_start: "2026-10-01"}, reference: leave_oct_2026}}
+  - {id: H08, category: alternative, user: demo_executive, question: "Total approved leave days per department",
+     expect: {status: answered, function: hr.approved_leave, parameters: {group_by: department}}}
+  - {id: H09, category: alternative, user: demo_executive, question: "What's the headcount for DTG Services?",
+     expect: {status: answered, function: hr.active_headcount, parameters: {filters: {organisation: DTG Services Pvt Ltd}}, reference: headcount_dtg_services}}
+  - {id: H10, category: alternative, user: demo_executive, question: "How much are customers late in paying?",
+     expect: {status: answered, function: ac.overdue_balance, parameters: {filters: {ledger: receivable}}, reference: overdue_receivable}}
+  - {id: H11, category: unsupported, user: demo_executive, question: "Tell me the payroll cost", expect: {status: unsupported}}
+  - {id: H12, category: unsupported, user: demo_executive, question: "Give me the names of employees who took sick leave", expect: {status: unsupported}}
+  - {id: H13, category: restricted, user: demo_hr, question: "What's the AR position?", expect: {status: forbidden}}
+  - {id: H14, category: restricted, user: demo_branch, question: "Headcount for DTG Services", expect: {status: forbidden}}

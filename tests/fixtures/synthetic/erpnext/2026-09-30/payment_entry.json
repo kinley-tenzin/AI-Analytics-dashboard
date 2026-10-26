@@ -1,0 +1,89 @@
+{
+  "_meta": {
+    "synthetic": true,
+    "notice": "SYNTHETIC TEST DATA - fictional organisations, people and amounts. Not real ERP data.",
+    "source_system": "erpnext",
+    "source_instance": "erpnext-dtg-services",
+    "entity": "Payment Entry",
+    "extraction_batch_id": "erpnext-2026-09-30-payment_entry",
+    "extracted_at": "2026-09-30T17:30:00Z",
+    "extraction_mode": "full",
+    "checkpoint_utc": null,
+    "instance_timezone": "Asia/Thimphu",
+    "request": {
+      "method": "GET",
+      "path": "/api/resource/Payment Entry",
+      "params": {
+        "filters": [],
+        "order_by": "name asc",
+        "limit_start": 0,
+        "limit_page_length": 200
+      }
+    },
+    "note": "List call + one GET per document to include the `references` child table."
+  },
+  "response": {
+    "data": [
+      {
+        "name": "ACC-PAY-2026-00001",
+        "payment_type": "Receive",
+        "party_type": "Customer",
+        "party": "Lhaki Traders",
+        "posting_date": "2026-09-20",
+        "paid_amount": 12000.0,
+        "paid_from_account_currency": "BTN",
+        "unallocated_amount": 0.0,
+        "docstatus": 1,
+        "references": [
+          {
+            "reference_doctype": "Sales Invoice",
+            "reference_name": "ACC-SINV-2026-00002",
+            "allocated_amount": 12000.0,
+            "due_date": null
+          }
+        ],
+        "modified": "2026-09-20 10:00:00.000000"
+      },
+      {
+        "name": "ACC-PAY-2026-00002",
+        "payment_type": "Receive",
+        "party_type": "Customer",
+        "party": "Gakidh Retail",
+        "posting_date": "2026-09-28",
+        "paid_amount": 7000.0,
+        "paid_from_account_currency": "BTN",
+        "unallocated_amount": 0.0,
+        "docstatus": 1,
+        "references": [
+          {
+            "reference_doctype": "Sales Invoice",
+            "reference_name": "ACC-SINV-2026-00003",
+            "allocated_amount": 7000.0,
+            "due_date": null
+          }
+        ],
+        "modified": "2026-09-28 10:00:00.000000"
+      },
+      {
+        "name": "ACC-PAY-2026-00003",
+        "payment_type": "Pay",
+        "party_type": "Supplier",
+        "party": "Peling Logistics",
+        "posting_date": "2026-09-25",
+        "paid_amount": 10000.0,
+        "paid_from_account_currency": "BTN",
+        "unallocated_amount": 0.0,
+        "docstatus": 1,
+        "references": [
+          {
+            "reference_doctype": "Purchase Invoice",
+            "reference_name": "ACC-PINV-2026-00002",
+            "allocated_amount": 10000.0,
+            "due_date": null
+          }
+        ],
+        "modified": "2026-09-25 10:00:00.000000"
+      }
+    ]
+  }
+}

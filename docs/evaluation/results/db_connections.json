@@ -1,0 +1,14 @@
+{
+  "observed_current_user": {
+    "superset": "configured: druksmart_superset_reader@druksmart_analytics",
+    "django_kpi_service": "druksmart_kpi_reader@druksmart_analytics",
+    "airflow_pipeline": "druksmart_pipeline@druksmart_analytics"
+  },
+  "pg_stat_activity": [
+    {
+      "user": "druksmart_app_user",
+      "database": "druksmart_app",
+      "sessions": "5"
+    }
+  ]
+}

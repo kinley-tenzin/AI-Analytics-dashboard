@@ -1,0 +1,49 @@
+{
+  "_meta": {
+    "synthetic": true,
+    "notice": "SYNTHETIC TEST DATA - fictional organisations, people and amounts. Not real ERP data.",
+    "source_system": "erpnext",
+    "source_instance": "erpnext-dtg-services",
+    "entity": "Customer",
+    "extraction_batch_id": "erpnext-2026-09-30-customer",
+    "extracted_at": "2026-09-30T17:30:00Z",
+    "extraction_mode": "full",
+    "checkpoint_utc": null,
+    "instance_timezone": "Asia/Thimphu",
+    "request": {
+      "method": "GET",
+      "path": "/api/resource/Customer",
+      "params": {
+        "filters": [],
+        "order_by": "name asc",
+        "limit_start": 0,
+        "limit_page_length": 200
+      }
+    }
+  },
+  "response": {
+    "data": [
+      {
+        "name": "Lhaki Traders",
+        "customer_name": "Lhaki Traders",
+        "tax_id": "TPN-LHK-1001",
+        "disabled": 0,
+        "modified": "2026-02-01 10:00:00.000000"
+      },
+      {
+        "name": "Norbu Hardware",
+        "customer_name": "Norbu Hardware",
+        "tax_id": "TPN-NRB-2999",
+        "disabled": 0,
+        "modified": "2026-02-01 10:00:00.000000"
+      },
+      {
+        "name": "Gakidh Retail",
+        "customer_name": "Gakidh Retail",
+        "tax_id": "TPN-GKR-6001",
+        "disabled": 0,
+        "modified": "2026-02-01 10:00:00.000000"
+      }
+    ]
+  }
+}

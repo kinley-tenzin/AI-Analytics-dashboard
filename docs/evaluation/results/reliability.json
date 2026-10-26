@@ -1,0 +1,133 @@
+{
+  "erp_temporary_failure": {
+    "fault": "Odoo sandbox container stopped at run start; restarted after the first failed attempt",
+    "expected": "validate_odoo_source fails, is retried automatically, run succeeds and publishes",
+    "observed": {
+      "up_for_retry_seen": true,
+      "run_state": "success",
+      "validate_odoo_final_state": "success",
+      "publication_before": 14,
+      "publication_after": 15
+    },
+    "passed": true,
+    "seconds": 224.9
+  },
+  "erp_outage_beyond_retries": {
+    "fault": "ERPNext sandbox backend stopped for the whole run",
+    "expected": "run fails after retries; no publication; consumers keep the previous, correctly dated data",
+    "observed": {
+      "run_state": "failed",
+      "task_states": {
+        "dbt_build_marts": "upstream_failed",
+        "dbt_staging_intermediate": "upstream_failed",
+        "dbt_test_marts": "upstream_failed",
+        "extract_load_erpnext_accounts": "upstream_failed",
+        "extract_load_erpnext_hr": "upstream_failed",
+        "extract_load_odoo_accounts": "upstream_failed",
+        "extract_load_odoo_hr": "upstream_failed",
+        "prepare_raw_schema": "upstream_failed",
+        "publish_validated_marts": "upstream_failed",
+        "report_published_state": "upstream_failed",
+        "validate_erpnext_source": "failed",
+        "validate_odoo_source": "success"
+      },
+      "publication_before": 13,
+      "publication_after": 13,
+      "freshness_unchanged": true
+    },
+    "passed": true,
+    "seconds": 404.3
+  },
+  "failed_transformation": {
+    "fault": "a staging model with invalid SQL is added to the dbt project",
+    "expected": "dbt_staging_intermediate fails; nothing downstream runs; no publication",
+    "observed": {
+      "run_state": "failed",
+      "failing_task": "dbt_staging_intermediate",
+      "failing_task_state": "failed",
+      "publish_state": "upstream_failed",
+      "publication_unchanged": true,
+      "freshness_unchanged": true
+    },
+    "passed": true,
+    "seconds": 181.4
+  },
+  "failed_data_quality": {
+    "fault": "a data-quality test that always fails is added",
+    "expected": "marts are built in marts_build but dbt_test_marts fails; NOT published",
+    "observed": {
+      "run_state": "failed",
+      "failing_task": "dbt_test_marts",
+      "failing_task_state": "failed",
+      "publish_state": "upstream_failed",
+      "publication_unchanged": true,
+      "freshness_unchanged": true
+    },
+    "passed": true,
+    "seconds": 106.1
+  },
+  "recovery_run": {
+    "fault": "none (recovery after the previous scenarios)",
+    "expected": "run succeeds, publishes, all layers reconcile",
+    "observed": {
+      "run_state": "success",
+      "publication_before": 13,
+      "publication_after": 14,
+      "reconciliation": "30/30"
+    },
+    "passed": true,
+    "seconds": 115.1
+  },
+  "database_unavailable": {
+    "fault": "warehouse PostgreSQL container stopped while Superset and Django run",
+    "expected": "Django readiness 503 and an explicit 'error' answer without numbers; Superset query error; both recover automatically when PostgreSQL is back",
+    "observed": {
+      "django_ready_status": 503,
+      "django_answer_status": "error",
+      "django_answer_http_json": true,
+      "django_answer_text": "The service's database is not reachable right now. Try again later.",
+      "django_answer_has_number": false,
+      "superset_query_http": 400,
+      "superset_returned_data": false,
+      "django_recovered": true,
+      "superset_recovered": true
+    },
+    "passed": true,
+    "seconds": 33.1
+  },
+  "service_restarts": {
+    "fault": "restart of Django (new process), Superset and the Airflow services",
+    "expected": "logged-in Django session survives; Superset/Airflow come back; reconciliation unchanged",
+    "observed": {
+      "django_session_survived": true,
+      "same_answer": true,
+      "superset_healthy": true,
+      "airflow_history_available": true,
+      "reconciliation": "30/30"
+    },
+    "passed": true,
+    "seconds": 55.1
+  },
+  "stale_data_flagged": {
+    "fault": "staleness threshold lowered to 3.6 s, so the current publication counts as old",
+    "expected": "answer still shows the value but states it is not current; readiness 503 (stale)",
+    "observed": {
+      "result_stale": true,
+      "answer": "There are 16 active employees as of 25 October 2026. WARNING: this data is not current. The last validated publication was 0 hours ago; the scheduled refresh may have failed.",
+      "ready_status": 503,
+      "ready_warehouse": {
+        "ok": false,
+        "data_as_of": {
+          "accounts": "2026-10-25",
+          "hr": "2026-10-25"
+        },
+        "oldest_publication": "2026-10-24T19:53:10.541Z",
+        "hours_since_publication": 0.0,
+        "stale": true,
+        "stale_after_hours": 0.001
+      }
+    },
+    "passed": true,
+    "seconds": 4.9
+  }
+}

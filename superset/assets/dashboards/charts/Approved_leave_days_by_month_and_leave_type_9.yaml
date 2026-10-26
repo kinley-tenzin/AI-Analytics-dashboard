@@ -1,0 +1,33 @@
+slice_name: Approved leave days by month and leave type
+description: Default DrukSmart HR Overview chart (template, bootstrap.py).
+certified_by: null
+certification_details: null
+viz_type: echarts_timeseries_bar
+params:
+  viz_type: echarts_timeseries_bar
+  x_axis: period_month
+  metrics:
+  - approved_leave_days
+  groupby:
+  - leave_type_name
+  adhoc_filters:
+  - clause: WHERE
+    expressionType: SIMPLE
+    subject: period_month
+    operator: TEMPORAL_RANGE
+    comparator: No filter
+  orientation: vertical
+  row_limit: 10000
+  show_legend: true
+  show_value: false
+  rich_tooltip: true
+  x_axis_sort_asc: true
+  truncateYAxis: false
+  stack: Stack
+  time_grain_sqla: P1M
+  datasource: 2__table
+query_context: null
+cache_timeout: null
+uuid: cbc51752-6a22-4b09-af51-7e7abde71ca4
+version: 1.0.0
+dataset_uuid: 8eb31ed0-b03d-4651-bab2-f52441f9760d

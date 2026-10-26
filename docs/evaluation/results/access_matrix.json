@@ -1,0 +1,956 @@
+{
+  "checks": [
+    {
+      "user": "demo_hr",
+      "boundary": "Superset",
+      "resource": "kpi_headcount",
+      "attempt": "dataset listed",
+      "expected": true,
+      "actual": true,
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "user": "demo_hr",
+      "boundary": "Superset",
+      "resource": "kpi_headcount",
+      "attempt": "chart data",
+      "expected": "allowed",
+      "actual": "allowed",
+      "pass": true,
+      "detail": "200"
+    },
+    {
+      "user": "demo_hr",
+      "boundary": "Superset",
+      "resource": "kpi_headcount",
+      "attempt": "CSV export",
+      "expected": "allowed",
+      "actual": "allowed",
+      "pass": true,
+      "detail": "200"
+    },
+    {
+      "user": "demo_hr",
+      "boundary": "Superset",
+      "resource": "kpi_approved_leave_monthly",
+      "attempt": "dataset listed",
+      "expected": true,
+      "actual": true,
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "user": "demo_hr",
+      "boundary": "Superset",
+      "resource": "kpi_approved_leave_monthly",
+      "attempt": "chart data",
+      "expected": "allowed",
+      "actual": "allowed",
+      "pass": true,
+      "detail": "200"
+    },
+    {
+      "user": "demo_hr",
+      "boundary": "Superset",
+      "resource": "kpi_approved_leave_monthly",
+      "attempt": "CSV export",
+      "expected": "allowed",
+      "actual": "allowed",
+      "pass": true,
+      "detail": "200"
+    },
+    {
+      "user": "demo_hr",
+      "boundary": "Superset",
+      "resource": "kpi_receivables_payables",
+      "attempt": "dataset listed",
+      "expected": false,
+      "actual": false,
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "user": "demo_hr",
+      "boundary": "Superset",
+      "resource": "kpi_receivables_payables",
+      "attempt": "chart data",
+      "expected": "denied",
+      "actual": "denied",
+      "pass": true,
+      "detail": "403"
+    },
+    {
+      "user": "demo_hr",
+      "boundary": "Superset",
+      "resource": "kpi_receivables_payables",
+      "attempt": "CSV export",
+      "expected": "denied",
+      "actual": "denied",
+      "pass": true,
+      "detail": "403"
+    },
+    {
+      "user": "demo_hr",
+      "boundary": "Superset",
+      "resource": "SQL Lab",
+      "attempt": "execute SQL",
+      "expected": "denied",
+      "actual": "denied",
+      "pass": true,
+      "detail": "403"
+    },
+    {
+      "user": "demo_hr",
+      "boundary": "Superset",
+      "resource": "marts.dim_employee",
+      "attempt": "register new dataset",
+      "expected": "denied",
+      "actual": "denied",
+      "pass": true,
+      "detail": "403"
+    },
+    {
+      "user": "demo_hr",
+      "boundary": "Django",
+      "resource": "hr KPI API",
+      "attempt": "run KPI function",
+      "expected": "allowed",
+      "actual": "allowed",
+      "pass": true,
+      "detail": "200"
+    },
+    {
+      "user": "demo_hr",
+      "boundary": "Django",
+      "resource": "hr AI question",
+      "attempt": "ask",
+      "expected": "answered",
+      "actual": "answered",
+      "pass": true,
+      "detail": "There are 16 active employees as of 25 October 2026."
+    },
+    {
+      "user": "demo_hr",
+      "boundary": "Django",
+      "resource": "accounts KPI API",
+      "attempt": "run KPI function",
+      "expected": "denied",
+      "actual": "denied",
+      "pass": true,
+      "detail": "403"
+    },
+    {
+      "user": "demo_hr",
+      "boundary": "Django",
+      "resource": "accounts AI question",
+      "attempt": "ask",
+      "expected": "forbidden",
+      "actual": "forbidden",
+      "pass": true,
+      "detail": "Your role does not give access to ACCOUNTS KPIs (Outstanding receivables). Your access covers: HR."
+    },
+    {
+      "user": "demo_hr",
+      "boundary": "Django",
+      "resource": "KPI API",
+      "attempt": "tampered: SQL in a parameter",
+      "expected": "rejected",
+      "actual": "rejected",
+      "pass": true,
+      "detail": "invalid_filter"
+    },
+    {
+      "user": "demo_hr",
+      "boundary": "Django",
+      "resource": "KPI API",
+      "attempt": "tampered: unknown function",
+      "expected": "rejected",
+      "actual": "rejected",
+      "pass": true,
+      "detail": "unsupported"
+    },
+    {
+      "user": "demo_hr",
+      "boundary": "Django",
+      "resource": "KPI API",
+      "attempt": "tampered: filter on a non-filter column",
+      "expected": "rejected",
+      "actual": "rejected",
+      "pass": true,
+      "detail": "invalid_filter"
+    },
+    {
+      "user": "demo_hr",
+      "boundary": "Django",
+      "resource": "KPI API",
+      "attempt": "tampered: SQL injection in a filter value",
+      "expected": "rejected",
+      "actual": "rejected",
+      "pass": true,
+      "detail": "invalid_filter"
+    },
+    {
+      "user": "demo_hr",
+      "boundary": "Django",
+      "resource": "KPI API",
+      "attempt": "tampered: as_of injection",
+      "expected": "rejected",
+      "actual": "rejected",
+      "pass": true,
+      "detail": "invalid_filter"
+    },
+    {
+      "user": "demo_accounts",
+      "boundary": "Superset",
+      "resource": "kpi_headcount",
+      "attempt": "dataset listed",
+      "expected": false,
+      "actual": false,
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "user": "demo_accounts",
+      "boundary": "Superset",
+      "resource": "kpi_headcount",
+      "attempt": "chart data",
+      "expected": "denied",
+      "actual": "denied",
+      "pass": true,
+      "detail": "403"
+    },
+    {
+      "user": "demo_accounts",
+      "boundary": "Superset",
+      "resource": "kpi_headcount",
+      "attempt": "CSV export",
+      "expected": "denied",
+      "actual": "denied",
+      "pass": true,
+      "detail": "403"
+    },
+    {
+      "user": "demo_accounts",
+      "boundary": "Superset",
+      "resource": "kpi_approved_leave_monthly",
+      "attempt": "dataset listed",
+      "expected": false,
+      "actual": false,
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "user": "demo_accounts",
+      "boundary": "Superset",
+      "resource": "kpi_approved_leave_monthly",
+      "attempt": "chart data",
+      "expected": "denied",
+      "actual": "denied",
+      "pass": true,
+      "detail": "403"
+    },
+    {
+      "user": "demo_accounts",
+      "boundary": "Superset",
+      "resource": "kpi_approved_leave_monthly",
+      "attempt": "CSV export",
+      "expected": "denied",
+      "actual": "denied",
+      "pass": true,
+      "detail": "403"
+    },
+    {
+      "user": "demo_accounts",
+      "boundary": "Superset",
+      "resource": "kpi_receivables_payables",
+      "attempt": "dataset listed",
+      "expected": true,
+      "actual": true,
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "user": "demo_accounts",
+      "boundary": "Superset",
+      "resource": "kpi_receivables_payables",
+      "attempt": "chart data",
+      "expected": "allowed",
+      "actual": "allowed",
+      "pass": true,
+      "detail": "200"
+    },
+    {
+      "user": "demo_accounts",
+      "boundary": "Superset",
+      "resource": "kpi_receivables_payables",
+      "attempt": "CSV export",
+      "expected": "allowed",
+      "actual": "allowed",
+      "pass": true,
+      "detail": "200"
+    },
+    {
+      "user": "demo_accounts",
+      "boundary": "Superset",
+      "resource": "SQL Lab",
+      "attempt": "execute SQL",
+      "expected": "denied",
+      "actual": "denied",
+      "pass": true,
+      "detail": "403"
+    },
+    {
+      "user": "demo_accounts",
+      "boundary": "Superset",
+      "resource": "marts.dim_employee",
+      "attempt": "register new dataset",
+      "expected": "denied",
+      "actual": "denied",
+      "pass": true,
+      "detail": "403"
+    },
+    {
+      "user": "demo_accounts",
+      "boundary": "Django",
+      "resource": "hr KPI API",
+      "attempt": "run KPI function",
+      "expected": "denied",
+      "actual": "denied",
+      "pass": true,
+      "detail": "403"
+    },
+    {
+      "user": "demo_accounts",
+      "boundary": "Django",
+      "resource": "hr AI question",
+      "attempt": "ask",
+      "expected": "forbidden",
+      "actual": "forbidden",
+      "pass": true,
+      "detail": "Your role does not give access to HR KPIs (Active employee headcount). Your access covers: ACCOUNTS."
+    },
+    {
+      "user": "demo_accounts",
+      "boundary": "Django",
+      "resource": "accounts KPI API",
+      "attempt": "run KPI function",
+      "expected": "allowed",
+      "actual": "allowed",
+      "pass": true,
+      "detail": "200"
+    },
+    {
+      "user": "demo_accounts",
+      "boundary": "Django",
+      "resource": "accounts AI question",
+      "attempt": "ask",
+      "expected": "answered",
+      "actual": "answered",
+      "pass": true,
+      "detail": "Outstanding receivables as of 25 October 2026: BTN 166,700.00 (10 open documents)."
+    },
+    {
+      "user": "demo_accounts",
+      "boundary": "Django",
+      "resource": "KPI API",
+      "attempt": "tampered: SQL in a parameter",
+      "expected": "rejected",
+      "actual": "rejected",
+      "pass": true,
+      "detail": "invalid_filter"
+    },
+    {
+      "user": "demo_accounts",
+      "boundary": "Django",
+      "resource": "KPI API",
+      "attempt": "tampered: unknown function",
+      "expected": "rejected",
+      "actual": "rejected",
+      "pass": true,
+      "detail": "unsupported"
+    },
+    {
+      "user": "demo_accounts",
+      "boundary": "Django",
+      "resource": "KPI API",
+      "attempt": "tampered: filter on a non-filter column",
+      "expected": "rejected",
+      "actual": "rejected",
+      "pass": true,
+      "detail": "forbidden"
+    },
+    {
+      "user": "demo_accounts",
+      "boundary": "Django",
+      "resource": "KPI API",
+      "attempt": "tampered: SQL injection in a filter value",
+      "expected": "rejected",
+      "actual": "rejected",
+      "pass": true,
+      "detail": "forbidden"
+    },
+    {
+      "user": "demo_accounts",
+      "boundary": "Django",
+      "resource": "KPI API",
+      "attempt": "tampered: as_of injection",
+      "expected": "rejected",
+      "actual": "rejected",
+      "pass": true,
+      "detail": "forbidden"
+    },
+    {
+      "user": "demo_executive",
+      "boundary": "Superset",
+      "resource": "kpi_headcount",
+      "attempt": "dataset listed",
+      "expected": true,
+      "actual": true,
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "user": "demo_executive",
+      "boundary": "Superset",
+      "resource": "kpi_headcount",
+      "attempt": "chart data",
+      "expected": "allowed",
+      "actual": "allowed",
+      "pass": true,
+      "detail": "200"
+    },
+    {
+      "user": "demo_executive",
+      "boundary": "Superset",
+      "resource": "kpi_headcount",
+      "attempt": "CSV export",
+      "expected": "allowed",
+      "actual": "allowed",
+      "pass": true,
+      "detail": "200"
+    },
+    {
+      "user": "demo_executive",
+      "boundary": "Superset",
+      "resource": "kpi_approved_leave_monthly",
+      "attempt": "dataset listed",
+      "expected": true,
+      "actual": true,
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "user": "demo_executive",
+      "boundary": "Superset",
+      "resource": "kpi_approved_leave_monthly",
+      "attempt": "chart data",
+      "expected": "allowed",
+      "actual": "allowed",
+      "pass": true,
+      "detail": "200"
+    },
+    {
+      "user": "demo_executive",
+      "boundary": "Superset",
+      "resource": "kpi_approved_leave_monthly",
+      "attempt": "CSV export",
+      "expected": "allowed",
+      "actual": "allowed",
+      "pass": true,
+      "detail": "200"
+    },
+    {
+      "user": "demo_executive",
+      "boundary": "Superset",
+      "resource": "kpi_receivables_payables",
+      "attempt": "dataset listed",
+      "expected": true,
+      "actual": true,
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "user": "demo_executive",
+      "boundary": "Superset",
+      "resource": "kpi_receivables_payables",
+      "attempt": "chart data",
+      "expected": "allowed",
+      "actual": "allowed",
+      "pass": true,
+      "detail": "200"
+    },
+    {
+      "user": "demo_executive",
+      "boundary": "Superset",
+      "resource": "kpi_receivables_payables",
+      "attempt": "CSV export",
+      "expected": "allowed",
+      "actual": "allowed",
+      "pass": true,
+      "detail": "200"
+    },
+    {
+      "user": "demo_executive",
+      "boundary": "Superset",
+      "resource": "SQL Lab",
+      "attempt": "execute SQL",
+      "expected": "denied",
+      "actual": "denied",
+      "pass": true,
+      "detail": "403"
+    },
+    {
+      "user": "demo_executive",
+      "boundary": "Superset",
+      "resource": "marts.dim_employee",
+      "attempt": "register new dataset",
+      "expected": "denied",
+      "actual": "denied",
+      "pass": true,
+      "detail": "403"
+    },
+    {
+      "user": "demo_executive",
+      "boundary": "Django",
+      "resource": "hr KPI API",
+      "attempt": "run KPI function",
+      "expected": "allowed",
+      "actual": "allowed",
+      "pass": true,
+      "detail": "200"
+    },
+    {
+      "user": "demo_executive",
+      "boundary": "Django",
+      "resource": "hr AI question",
+      "attempt": "ask",
+      "expected": "answered",
+      "actual": "answered",
+      "pass": true,
+      "detail": "There are 16 active employees as of 25 October 2026."
+    },
+    {
+      "user": "demo_executive",
+      "boundary": "Django",
+      "resource": "accounts KPI API",
+      "attempt": "run KPI function",
+      "expected": "allowed",
+      "actual": "allowed",
+      "pass": true,
+      "detail": "200"
+    },
+    {
+      "user": "demo_executive",
+      "boundary": "Django",
+      "resource": "accounts AI question",
+      "attempt": "ask",
+      "expected": "answered",
+      "actual": "answered",
+      "pass": true,
+      "detail": "Outstanding receivables as of 25 October 2026: BTN 166,700.00 (10 open documents)."
+    },
+    {
+      "user": "demo_executive",
+      "boundary": "Django",
+      "resource": "KPI API",
+      "attempt": "tampered: SQL in a parameter",
+      "expected": "rejected",
+      "actual": "rejected",
+      "pass": true,
+      "detail": "invalid_filter"
+    },
+    {
+      "user": "demo_executive",
+      "boundary": "Django",
+      "resource": "KPI API",
+      "attempt": "tampered: unknown function",
+      "expected": "rejected",
+      "actual": "rejected",
+      "pass": true,
+      "detail": "unsupported"
+    },
+    {
+      "user": "demo_executive",
+      "boundary": "Django",
+      "resource": "KPI API",
+      "attempt": "tampered: filter on a non-filter column",
+      "expected": "rejected",
+      "actual": "rejected",
+      "pass": true,
+      "detail": "invalid_filter"
+    },
+    {
+      "user": "demo_executive",
+      "boundary": "Django",
+      "resource": "KPI API",
+      "attempt": "tampered: SQL injection in a filter value",
+      "expected": "rejected",
+      "actual": "rejected",
+      "pass": true,
+      "detail": "invalid_filter"
+    },
+    {
+      "user": "demo_executive",
+      "boundary": "Django",
+      "resource": "KPI API",
+      "attempt": "tampered: as_of injection",
+      "expected": "rejected",
+      "actual": "rejected",
+      "pass": true,
+      "detail": "invalid_filter"
+    },
+    {
+      "user": "demo_branch",
+      "boundary": "Superset",
+      "resource": "kpi_headcount",
+      "attempt": "dataset listed",
+      "expected": true,
+      "actual": true,
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "user": "demo_branch",
+      "boundary": "Superset",
+      "resource": "kpi_headcount",
+      "attempt": "chart data",
+      "expected": "allowed",
+      "actual": "allowed",
+      "pass": true,
+      "detail": "200"
+    },
+    {
+      "user": "demo_branch",
+      "boundary": "Superset",
+      "resource": "kpi_headcount",
+      "attempt": "rows limited to own branch (RLS)",
+      "expected": true,
+      "actual": true,
+      "pass": true,
+      "detail": "{'odoo:odoo-sandbox:1'}"
+    },
+    {
+      "user": "demo_branch",
+      "boundary": "Superset",
+      "resource": "kpi_headcount",
+      "attempt": "CSV export",
+      "expected": "allowed",
+      "actual": "allowed",
+      "pass": true,
+      "detail": "200"
+    },
+    {
+      "user": "demo_branch",
+      "boundary": "Superset",
+      "resource": "kpi_approved_leave_monthly",
+      "attempt": "dataset listed",
+      "expected": true,
+      "actual": true,
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "user": "demo_branch",
+      "boundary": "Superset",
+      "resource": "kpi_approved_leave_monthly",
+      "attempt": "chart data",
+      "expected": "allowed",
+      "actual": "allowed",
+      "pass": true,
+      "detail": "200"
+    },
+    {
+      "user": "demo_branch",
+      "boundary": "Superset",
+      "resource": "kpi_approved_leave_monthly",
+      "attempt": "CSV export",
+      "expected": "allowed",
+      "actual": "allowed",
+      "pass": true,
+      "detail": "200"
+    },
+    {
+      "user": "demo_branch",
+      "boundary": "Superset",
+      "resource": "kpi_receivables_payables",
+      "attempt": "dataset listed",
+      "expected": true,
+      "actual": true,
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "user": "demo_branch",
+      "boundary": "Superset",
+      "resource": "kpi_receivables_payables",
+      "attempt": "chart data",
+      "expected": "allowed",
+      "actual": "allowed",
+      "pass": true,
+      "detail": "200"
+    },
+    {
+      "user": "demo_branch",
+      "boundary": "Superset",
+      "resource": "kpi_receivables_payables",
+      "attempt": "rows limited to own branch (RLS)",
+      "expected": true,
+      "actual": true,
+      "pass": true,
+      "detail": "{'odoo:odoo-sandbox:1'}"
+    },
+    {
+      "user": "demo_branch",
+      "boundary": "Superset",
+      "resource": "kpi_receivables_payables",
+      "attempt": "CSV export",
+      "expected": "allowed",
+      "actual": "allowed",
+      "pass": true,
+      "detail": "200"
+    },
+    {
+      "user": "demo_branch",
+      "boundary": "Superset",
+      "resource": "SQL Lab",
+      "attempt": "execute SQL",
+      "expected": "denied",
+      "actual": "denied",
+      "pass": true,
+      "detail": "403"
+    },
+    {
+      "user": "demo_branch",
+      "boundary": "Superset",
+      "resource": "marts.dim_employee",
+      "attempt": "register new dataset",
+      "expected": "denied",
+      "actual": "denied",
+      "pass": true,
+      "detail": "403"
+    },
+    {
+      "user": "demo_branch",
+      "boundary": "Django",
+      "resource": "hr KPI API",
+      "attempt": "run KPI function",
+      "expected": "allowed",
+      "actual": "allowed",
+      "pass": true,
+      "detail": "200"
+    },
+    {
+      "user": "demo_branch",
+      "boundary": "Django",
+      "resource": "hr AI question",
+      "attempt": "ask",
+      "expected": "answered",
+      "actual": "answered",
+      "pass": true,
+      "detail": "There are 7 active employees as of 25 October 2026."
+    },
+    {
+      "user": "demo_branch",
+      "boundary": "Django",
+      "resource": "accounts KPI API",
+      "attempt": "run KPI function",
+      "expected": "allowed",
+      "actual": "allowed",
+      "pass": true,
+      "detail": "200"
+    },
+    {
+      "user": "demo_branch",
+      "boundary": "Django",
+      "resource": "accounts AI question",
+      "attempt": "ask",
+      "expected": "answered",
+      "actual": "answered",
+      "pass": true,
+      "detail": "Outstanding receivables as of 25 October 2026: BTN 101,500.00 (5 open documents)."
+    },
+    {
+      "user": "demo_branch",
+      "boundary": "Django",
+      "resource": "KPI API",
+      "attempt": "tampered: SQL in a parameter",
+      "expected": "rejected",
+      "actual": "rejected",
+      "pass": true,
+      "detail": "invalid_filter"
+    },
+    {
+      "user": "demo_branch",
+      "boundary": "Django",
+      "resource": "KPI API",
+      "attempt": "tampered: unknown function",
+      "expected": "rejected",
+      "actual": "rejected",
+      "pass": true,
+      "detail": "unsupported"
+    },
+    {
+      "user": "demo_branch",
+      "boundary": "Django",
+      "resource": "KPI API",
+      "attempt": "tampered: filter on a non-filter column",
+      "expected": "rejected",
+      "actual": "rejected",
+      "pass": true,
+      "detail": "invalid_filter"
+    },
+    {
+      "user": "demo_branch",
+      "boundary": "Django",
+      "resource": "KPI API",
+      "attempt": "tampered: SQL injection in a filter value",
+      "expected": "rejected",
+      "actual": "rejected",
+      "pass": true,
+      "detail": "invalid_filter"
+    },
+    {
+      "user": "demo_branch",
+      "boundary": "Django",
+      "resource": "KPI API",
+      "attempt": "tampered: as_of injection",
+      "expected": "rejected",
+      "actual": "rejected",
+      "pass": true,
+      "detail": "invalid_filter"
+    },
+    {
+      "user": "demo_branch",
+      "boundary": "Django",
+      "resource": "branch scope",
+      "attempt": "widen scope via other branch",
+      "expected": "denied",
+      "actual": "denied",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "user": "demo_branch",
+      "boundary": "Django",
+      "resource": "branch scope",
+      "attempt": "widen scope via other organisation",
+      "expected": "denied",
+      "actual": "denied",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "user": "demo_branch",
+      "boundary": "Django",
+      "resource": "branch scope",
+      "attempt": "group by branch shows only own branch",
+      "expected": true,
+      "actual": true,
+      "pass": true,
+      "detail": "['DTG Retail Pvt Ltd (head office)']"
+    },
+    {
+      "user": "superset_reader",
+      "boundary": "Database",
+      "resource": "raw.source_record",
+      "attempt": "select",
+      "expected": "denied",
+      "actual": "denied",
+      "pass": true,
+      "detail": "InsufficientPrivilege"
+    },
+    {
+      "user": "superset_reader",
+      "boundary": "Database",
+      "resource": "staging.stg_odoo__hr_employee",
+      "attempt": "select",
+      "expected": "denied",
+      "actual": "denied",
+      "pass": true,
+      "detail": "InsufficientPrivilege"
+    },
+    {
+      "user": "superset_reader",
+      "boundary": "Database",
+      "resource": "marts.dim_employee",
+      "attempt": "select",
+      "expected": "denied",
+      "actual": "denied",
+      "pass": true,
+      "detail": "InsufficientPrivilege"
+    },
+    {
+      "user": "superset_reader",
+      "boundary": "Database",
+      "resource": "marts.dim_customer",
+      "attempt": "select",
+      "expected": "denied",
+      "actual": "denied",
+      "pass": true,
+      "detail": "InsufficientPrivilege"
+    },
+    {
+      "user": "superset_reader",
+      "boundary": "Database",
+      "resource": "marts.data_freshness",
+      "attempt": "insert",
+      "expected": "denied",
+      "actual": "denied",
+      "pass": true,
+      "detail": "InsufficientPrivilege"
+    },
+    {
+      "user": "kpi_reader",
+      "boundary": "Database",
+      "resource": "raw.source_record",
+      "attempt": "select",
+      "expected": "denied",
+      "actual": "denied",
+      "pass": true,
+      "detail": "InsufficientPrivilege"
+    },
+    {
+      "user": "kpi_reader",
+      "boundary": "Database",
+      "resource": "staging.stg_odoo__hr_employee",
+      "attempt": "select",
+      "expected": "denied",
+      "actual": "denied",
+      "pass": true,
+      "detail": "InsufficientPrivilege"
+    },
+    {
+      "user": "kpi_reader",
+      "boundary": "Database",
+      "resource": "marts.dim_employee",
+      "attempt": "select",
+      "expected": "denied",
+      "actual": "denied",
+      "pass": true,
+      "detail": "InsufficientPrivilege"
+    },
+    {
+      "user": "kpi_reader",
+      "boundary": "Database",
+      "resource": "marts.dim_customer",
+      "attempt": "select",
+      "expected": "denied",
+      "actual": "denied",
+      "pass": true,
+      "detail": "InsufficientPrivilege"
+    },
+    {
+      "user": "kpi_reader",
+      "boundary": "Database",
+      "resource": "marts.data_freshness",
+      "attempt": "insert",
+      "expected": "denied",
+      "actual": "denied",
+      "pass": true,
+      "detail": "InsufficientPrivilege"
+    }
+  ],
+  "passed": 95,
+  "total": 95
+}

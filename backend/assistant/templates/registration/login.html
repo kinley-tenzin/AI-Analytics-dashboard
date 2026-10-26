@@ -1,0 +1,18 @@
+{% extends "assistant/base.html" %}
+{% block title %}Log in · DrukSmart KPI Assistant{% endblock %}
+{% block content %}
+<section class="card narrow">
+  <h1>Log in</h1>
+  <p class="muted">Use your DrukSmart backend account. (Superset has its own login in this prototype.)</p>
+  {% if form.errors %}<p class="msg msg-error" role="alert">Username or password is incorrect.</p>{% endif %}
+  <form method="post" action="{% url 'login' %}">
+    {% csrf_token %}
+    <label for="id_username">Username</label>
+    <input id="id_username" name="username" autocomplete="username" required autofocus>
+    <label for="id_password">Password</label>
+    <input id="id_password" name="password" type="password" autocomplete="current-password" required>
+    <input type="hidden" name="next" value="{{ next }}">
+    <button type="submit" class="primary">Log in</button>
+  </form>
+</section>
+{% endblock %}

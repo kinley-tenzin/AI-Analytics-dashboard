@@ -1,0 +1,218 @@
+table_name: kpi_approved_leave_monthly
+main_dttm_col: period_month
+currency_code_column: null
+description: HR-03 approved leave per calendar month of the leave START date. Organisation,
+  branch and department are the employee's current ones.
+default_endpoint: null
+offset: 0
+cache_timeout: null
+catalog: druksmart_analytics
+schema: marts
+sql: null
+params: null
+template_params: null
+filter_select_enabled: true
+fetch_values_predicate: null
+extra: null
+normalize_columns: false
+always_filter_main_dttm: false
+folders: null
+uuid: 8eb31ed0-b03d-4651-bab2-f52441f9760d
+metrics:
+- metric_name: approved_leave_days
+  verbose_name: Approved leave days
+  metric_type: null
+  expression: SUM(approved_leave_days)
+  description: Sum of leave days of approved requests starting in the period (half
+    days = 0.5).
+  d3format: ',.1f'
+  currency: null
+  extra:
+    certification:
+      certified_by: DrukSmart data engineering (dbt)
+      details: KPI HR-03
+  warning_text: null
+- metric_name: approved_requests
+  verbose_name: Approved leave requests
+  metric_type: null
+  expression: SUM(approved_requests)
+  description: Number of approved leave requests starting in the period.
+  d3format: ',d'
+  currency: null
+  extra:
+    certification:
+      certified_by: DrukSmart data engineering (dbt)
+      details: KPI HR-03
+  warning_text: null
+columns:
+- column_name: approved_leave_days
+  verbose_name: Approved leave days (row value)
+  is_dttm: false
+  is_active: true
+  type: NUMERIC
+  advanced_data_type: null
+  groupby: false
+  filterable: true
+  expression: ''
+  description: null
+  python_date_format: null
+  datetime_format: null
+  extra: null
+- column_name: employees_on_leave
+  verbose_name: Employees on leave (row value
+  is_dttm: false
+  is_active: true
+  type: BIGINT
+  advanced_data_type: null
+  groupby: false
+  filterable: true
+  expression: ''
+  description: null
+  python_date_format: null
+  datetime_format: null
+  extra: null
+- column_name: approved_requests
+  verbose_name: Approved requests (row value)
+  is_dttm: false
+  is_active: true
+  type: BIGINT
+  advanced_data_type: null
+  groupby: false
+  filterable: true
+  expression: ''
+  description: null
+  python_date_format: null
+  datetime_format: null
+  extra: null
+- column_name: period_month
+  verbose_name: Leave month (start date)
+  is_dttm: true
+  is_active: true
+  type: DATE
+  advanced_data_type: null
+  groupby: true
+  filterable: true
+  expression: ''
+  description: null
+  python_date_format: null
+  datetime_format: null
+  extra: null
+- column_name: branch_key
+  verbose_name: Branch key
+  is_dttm: false
+  is_active: true
+  type: TEXT
+  advanced_data_type: null
+  groupby: false
+  filterable: true
+  expression: ''
+  description: null
+  python_date_format: null
+  datetime_format: null
+  extra: null
+- column_name: department_key
+  verbose_name: Department key
+  is_dttm: false
+  is_active: true
+  type: TEXT
+  advanced_data_type: null
+  groupby: false
+  filterable: true
+  expression: ''
+  description: null
+  python_date_format: null
+  datetime_format: null
+  extra: null
+- column_name: source_system
+  verbose_name: Source ERP
+  is_dttm: false
+  is_active: true
+  type: TEXT
+  advanced_data_type: null
+  groupby: true
+  filterable: true
+  expression: ''
+  description: null
+  python_date_format: null
+  datetime_format: null
+  extra: null
+- column_name: organisation_key
+  verbose_name: Organisation key
+  is_dttm: false
+  is_active: true
+  type: TEXT
+  advanced_data_type: null
+  groupby: false
+  filterable: true
+  expression: ''
+  description: null
+  python_date_format: null
+  datetime_format: null
+  extra: null
+- column_name: leave_type_name
+  verbose_name: Leave type
+  is_dttm: false
+  is_active: true
+  type: TEXT
+  advanced_data_type: null
+  groupby: true
+  filterable: true
+  expression: ''
+  description: null
+  python_date_format: null
+  datetime_format: null
+  extra: null
+- column_name: source_instance
+  verbose_name: Source instance
+  is_dttm: false
+  is_active: true
+  type: TEXT
+  advanced_data_type: null
+  groupby: true
+  filterable: true
+  expression: ''
+  description: null
+  python_date_format: null
+  datetime_format: null
+  extra: null
+- column_name: branch_name
+  verbose_name: Branch
+  is_dttm: false
+  is_active: true
+  type: TEXT
+  advanced_data_type: null
+  groupby: true
+  filterable: true
+  expression: ''
+  description: null
+  python_date_format: null
+  datetime_format: null
+  extra: null
+- column_name: department_name
+  verbose_name: Department
+  is_dttm: false
+  is_active: true
+  type: TEXT
+  advanced_data_type: null
+  groupby: true
+  filterable: true
+  expression: ''
+  description: null
+  python_date_format: null
+  datetime_format: null
+  extra: null
+- column_name: organisation_name
+  verbose_name: Organisation
+  is_dttm: false
+  is_active: true
+  type: TEXT
+  advanced_data_type: null
+  groupby: true
+  filterable: true
+  expression: ''
+  description: null
+  python_date_format: null
+  datetime_format: null
+  extra: null
+version: 1.0.0
+database_uuid: 9e2d2908-3e93-4d57-a580-a8f802a9ec14

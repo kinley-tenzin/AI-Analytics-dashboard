@@ -1,0 +1,358 @@
+{
+  "_meta": {
+    "synthetic": true,
+    "notice": "SYNTHETIC TEST DATA - fictional organisations, people and amounts. Not real ERP data.",
+    "source_system": "odoo",
+    "source_instance": "odoo-dtg-retail",
+    "entity": "account.move",
+    "extraction_batch_id": "odoo-2026-10-31-account_move",
+    "extracted_at": "2026-10-31T17:30:00Z",
+    "extraction_mode": "incremental",
+    "checkpoint_utc": "2026-09-30T17:30:00Z",
+    "request": {
+      "method": "POST",
+      "path": "/json/2/account.move/search_read",
+      "body": {
+        "domain": [
+          [
+            "write_date",
+            ">",
+            "2026-09-30 17:30:00"
+          ]
+        ],
+        "order": "id asc",
+        "limit": 200,
+        "offset": 0,
+        "context": {
+          "active_test": false
+        }
+      }
+    }
+  },
+  "response": [
+    {
+      "id": 402,
+      "name": "INV/2026/00002",
+      "move_type": "out_invoice",
+      "state": "posted",
+      "payment_state": "partial",
+      "partner_id": [
+        302,
+        "Zangpo Builders"
+      ],
+      "company_id": [
+        1,
+        "DTG Retail Pvt Ltd"
+      ],
+      "invoice_date": "2026-08-20",
+      "invoice_date_due": "2026-09-19",
+      "currency_id": [
+        120,
+        "BTN"
+      ],
+      "amount_total": 20000.0,
+      "amount_residual": 8000.0,
+      "amount_total_signed": 20000.0,
+      "amount_residual_signed": 8000.0,
+      "reversed_entry_id": false,
+      "write_date": "2026-10-08 04:00:00"
+    },
+    {
+      "id": 403,
+      "name": "INV/2026/00003",
+      "move_type": "out_invoice",
+      "state": "posted",
+      "payment_state": "paid",
+      "partner_id": [
+        303,
+        "Lhaki Traders"
+      ],
+      "company_id": [
+        1,
+        "DTG Retail Pvt Ltd"
+      ],
+      "invoice_date": "2026-09-10",
+      "invoice_date_due": "2026-10-10",
+      "currency_id": [
+        120,
+        "BTN"
+      ],
+      "amount_total": 15000.0,
+      "amount_residual": 0.0,
+      "amount_total_signed": 15000.0,
+      "amount_residual_signed": 0.0,
+      "reversed_entry_id": false,
+      "write_date": "2026-10-05 04:00:00"
+    },
+    {
+      "id": 404,
+      "name": "INV/2026/00008",
+      "move_type": "out_invoice",
+      "state": "posted",
+      "payment_state": "not_paid",
+      "partner_id": [
+        301,
+        "Norbu Hardware"
+      ],
+      "company_id": [
+        1,
+        "DTG Retail Pvt Ltd"
+      ],
+      "invoice_date": "2026-10-03",
+      "invoice_date_due": "2026-11-02",
+      "currency_id": [
+        120,
+        "BTN"
+      ],
+      "amount_total": 8000.0,
+      "amount_residual": 8000.0,
+      "amount_total_signed": 8000.0,
+      "amount_residual_signed": 8000.0,
+      "reversed_entry_id": false,
+      "write_date": "2026-10-03 04:00:00"
+    },
+    {
+      "id": 408,
+      "name": "INV/2026/00009",
+      "move_type": "out_invoice",
+      "state": "posted",
+      "payment_state": "not_paid",
+      "partner_id": [
+        301,
+        "Norbu Hardware"
+      ],
+      "company_id": [
+        1,
+        "DTG Retail Pvt Ltd"
+      ],
+      "invoice_date": "2026-10-10",
+      "invoice_date_due": "2026-11-09",
+      "currency_id": [
+        120,
+        "BTN"
+      ],
+      "amount_total": 30000.0,
+      "amount_residual": 30000.0,
+      "amount_total_signed": 30000.0,
+      "amount_residual_signed": 30000.0,
+      "reversed_entry_id": false,
+      "write_date": "2026-10-10 04:00:00"
+    },
+    {
+      "id": 409,
+      "name": "INV/2026/00010",
+      "move_type": "out_invoice",
+      "state": "posted",
+      "payment_state": "not_paid",
+      "partner_id": [
+        302,
+        "Zangpo Builders"
+      ],
+      "company_id": [
+        2,
+        "DTG Retail - Phuentsholing"
+      ],
+      "invoice_date": "2026-10-01",
+      "invoice_date_due": "2026-10-01",
+      "currency_id": [
+        120,
+        "BTN"
+      ],
+      "amount_total": 4000.0,
+      "amount_residual": 4000.0,
+      "amount_total_signed": 4000.0,
+      "amount_residual_signed": 4000.0,
+      "reversed_entry_id": false,
+      "write_date": "2026-10-01 04:00:00"
+    },
+    {
+      "id": 413,
+      "name": "INV/2026/00011",
+      "move_type": "out_invoice",
+      "state": "posted",
+      "payment_state": "reversed",
+      "partner_id": [
+        303,
+        "Lhaki Traders"
+      ],
+      "company_id": [
+        1,
+        "DTG Retail Pvt Ltd"
+      ],
+      "invoice_date": "2026-10-12",
+      "invoice_date_due": "2026-11-11",
+      "currency_id": [
+        120,
+        "BTN"
+      ],
+      "amount_total": 6000.0,
+      "amount_residual": 0.0,
+      "amount_total_signed": 6000.0,
+      "amount_residual_signed": 0.0,
+      "reversed_entry_id": false,
+      "write_date": "2026-10-14 05:00:00"
+    },
+    {
+      "id": 414,
+      "name": "RINV/2026/00002",
+      "move_type": "out_refund",
+      "state": "posted",
+      "payment_state": "reversed",
+      "partner_id": [
+        303,
+        "Lhaki Traders"
+      ],
+      "company_id": [
+        1,
+        "DTG Retail Pvt Ltd"
+      ],
+      "invoice_date": "2026-10-14",
+      "invoice_date_due": "2026-10-14",
+      "currency_id": [
+        120,
+        "BTN"
+      ],
+      "amount_total": 6000.0,
+      "amount_residual": 0.0,
+      "amount_total_signed": -6000.0,
+      "amount_residual_signed": 0.0,
+      "reversed_entry_id": [
+        413,
+        "INV/2026/00011"
+      ],
+      "write_date": "2026-10-14 05:00:00"
+    },
+    {
+      "id": 451,
+      "name": "BILL/2026/08/0001",
+      "move_type": "in_invoice",
+      "state": "posted",
+      "payment_state": "paid",
+      "partner_id": [
+        304,
+        "Himalayan Supplies Co"
+      ],
+      "company_id": [
+        1,
+        "DTG Retail Pvt Ltd"
+      ],
+      "invoice_date": "2026-08-10",
+      "invoice_date_due": "2026-09-09",
+      "currency_id": [
+        120,
+        "BTN"
+      ],
+      "amount_total": 12000.0,
+      "amount_residual": 0.0,
+      "amount_total_signed": -12000.0,
+      "amount_residual_signed": 0.0,
+      "reversed_entry_id": false,
+      "write_date": "2026-10-15 04:00:00"
+    },
+    {
+      "id": 453,
+      "name": "BILL/2026/09/0002",
+      "move_type": "in_invoice",
+      "state": "posted",
+      "payment_state": "partial",
+      "partner_id": [
+        306,
+        "Global Parts Ltd"
+      ],
+      "company_id": [
+        1,
+        "DTG Retail Pvt Ltd"
+      ],
+      "invoice_date": "2026-09-12",
+      "invoice_date_due": "2026-10-12",
+      "currency_id": [
+        2,
+        "USD"
+      ],
+      "amount_total": 500.0,
+      "amount_residual": 300.0,
+      "amount_total_signed": -42000.0,
+      "amount_residual_signed": -25200.0,
+      "reversed_entry_id": false,
+      "write_date": "2026-10-25 04:00:00"
+    },
+    {
+      "id": 455,
+      "name": "BILL/2026/10/0001",
+      "move_type": "in_invoice",
+      "state": "posted",
+      "payment_state": "not_paid",
+      "partner_id": [
+        305,
+        "Druk Office Mart"
+      ],
+      "company_id": [
+        2,
+        "DTG Retail - Phuentsholing"
+      ],
+      "invoice_date": "2026-10-20",
+      "invoice_date_due": "2026-11-19",
+      "currency_id": [
+        120,
+        "BTN"
+      ],
+      "amount_total": 9000.0,
+      "amount_residual": 9000.0,
+      "amount_total_signed": -9000.0,
+      "amount_residual_signed": -9000.0,
+      "reversed_entry_id": false,
+      "write_date": "2026-10-20 04:00:00"
+    },
+    {
+      "id": 456,
+      "name": "RBILL/2026/10/0001",
+      "move_type": "in_refund",
+      "state": "posted",
+      "payment_state": "not_paid",
+      "partner_id": [
+        304,
+        "Himalayan Supplies Co"
+      ],
+      "company_id": [
+        1,
+        "DTG Retail Pvt Ltd"
+      ],
+      "invoice_date": "2026-10-22",
+      "invoice_date_due": "2026-10-22",
+      "currency_id": [
+        120,
+        "BTN"
+      ],
+      "amount_total": 1000.0,
+      "amount_residual": 1000.0,
+      "amount_total_signed": 1000.0,
+      "amount_residual_signed": 1000.0,
+      "reversed_entry_id": false,
+      "write_date": "2026-10-22 04:00:00"
+    },
+    {
+      "id": 457,
+      "name": "BILL/2026/10/0002",
+      "move_type": "in_invoice",
+      "state": "posted",
+      "payment_state": "not_paid",
+      "partner_id": [
+        305,
+        "Druk Office Mart"
+      ],
+      "company_id": [
+        1,
+        "DTG Retail Pvt Ltd"
+      ],
+      "invoice_date": "2026-10-26",
+      "invoice_date_due": "2026-11-25",
+      "currency_id": false,
+      "amount_total": 2500.0,
+      "amount_residual": 2500.0,
+      "amount_total_signed": -2500.0,
+      "amount_residual_signed": -2500.0,
+      "reversed_entry_id": false,
+      "write_date": "2026-10-26 04:00:00"
+    }
+  ]
+}

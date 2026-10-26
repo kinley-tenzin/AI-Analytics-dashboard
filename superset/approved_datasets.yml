@@ -1,0 +1,26 @@
+# APPROVED datasets: the only warehouse relations Superset's database account may read.
+#
+# Used by:
+#   * warehouse/publish.py  -> GRANT SELECT on exactly these relations to
+#                              DRUKSMART_SUPERSET_READER_USER at every publication;
+#   * superset/scripts/bootstrap.py -> registers them as Superset datasets (with governed metrics)
+#                              and gives each role access to its domain(s) only.
+#
+# Everything else in `marts` (dimensions with employee/customer names, transaction-level facts)
+# and every raw/staging/intermediate table stays invisible to Superset, SQL Lab included.
+# Adding a relation here is a governance decision: document it in docs/bi/SUPERSET.md.
+version: 1
+schema: marts
+datasets:
+  - relation: kpi_headcount
+    domain: hr
+    kpis: [HR-01, HR-02]
+  - relation: kpi_approved_leave_monthly
+    domain: hr
+    kpis: [HR-03]
+  - relation: kpi_receivables_payables
+    domain: accounts
+    kpis: [AC-01, AC-02, AC-03, AC-04]
+  - relation: data_freshness
+    domain: shared          # freshness indicator shown on every dashboard
+    kpis: []

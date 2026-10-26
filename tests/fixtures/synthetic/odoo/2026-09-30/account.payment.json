@@ -1,0 +1,94 @@
+{
+  "_meta": {
+    "synthetic": true,
+    "notice": "SYNTHETIC TEST DATA - fictional organisations, people and amounts. Not real ERP data.",
+    "source_system": "odoo",
+    "source_instance": "odoo-dtg-retail",
+    "entity": "account.payment",
+    "extraction_batch_id": "odoo-2026-09-30-account_payment",
+    "extracted_at": "2026-09-30T17:30:00Z",
+    "extraction_mode": "full",
+    "checkpoint_utc": null,
+    "request": {
+      "method": "POST",
+      "path": "/json/2/account.payment/search_read",
+      "body": {
+        "domain": [],
+        "order": "id asc",
+        "limit": 200,
+        "offset": 0,
+        "context": {
+          "active_test": false
+        }
+      }
+    }
+  },
+  "response": [
+    {
+      "id": 501,
+      "name": "PBNK1/2026/00001",
+      "payment_type": "inbound",
+      "partner_type": "customer",
+      "state": "paid",
+      "partner_id": [
+        301,
+        "Norbu Hardware"
+      ],
+      "amount": 10000.0,
+      "currency_id": [
+        120,
+        "BTN"
+      ],
+      "date": "2026-08-25",
+      "reconciled_invoice_ids": [
+        401
+      ],
+      "reconciled_bill_ids": [],
+      "write_date": "2026-08-25 04:10:00"
+    },
+    {
+      "id": 502,
+      "name": "PBNK1/2026/00002",
+      "payment_type": "inbound",
+      "partner_type": "customer",
+      "state": "paid",
+      "partner_id": [
+        303,
+        "Lhaki Traders"
+      ],
+      "amount": 10000.0,
+      "currency_id": [
+        120,
+        "BTN"
+      ],
+      "date": "2026-09-25",
+      "reconciled_invoice_ids": [
+        403
+      ],
+      "reconciled_bill_ids": [],
+      "write_date": "2026-09-25 04:00:00"
+    },
+    {
+      "id": 503,
+      "name": "PBNK1/2026/00003",
+      "payment_type": "outbound",
+      "partner_type": "supplier",
+      "state": "paid",
+      "partner_id": [
+        305,
+        "Druk Office Mart"
+      ],
+      "amount": 6000.0,
+      "currency_id": [
+        120,
+        "BTN"
+      ],
+      "date": "2026-09-20",
+      "reconciled_invoice_ids": [],
+      "reconciled_bill_ids": [
+        452
+      ],
+      "write_date": "2026-09-20 04:00:00"
+    }
+  ]
+}

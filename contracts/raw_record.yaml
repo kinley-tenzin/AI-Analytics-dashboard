@@ -1,0 +1,65 @@
+# Raw record envelope: the shape of EVERY row the ingestion layer writes to the
+# `raw` schema, whatever the ERP. Implemented by druksmart_common.contracts.build_raw_record.
+contract_version: "1.0.0"
+
+fields:
+  source_system:
+    type: string
+    required: true
+    allowed: [odoo, erpnext]
+    description: Which ERP product produced the record.
+  source_instance:
+    type: string
+    required: true
+    description: >
+      Stable identifier of the ERP installation (e.g. "odoo-dtg-retail"). Two instances
+      of the same ERP are different sources. Configured per deployment, never guessed.
+  source_entity:
+    type: string
+    required: true
+    description: Source model (Odoo, e.g. "account.move") or DocType (ERPNext, e.g. "Sales Invoice").
+  source_id:
+    type: string
+    required: true
+    description: >
+      The record's own primary key, stored as text (Odoo integer `id`, ERPNext `name`).
+      Only unique WITHIN (source_system, source_instance, source_entity).
+  source_modified_at:
+    type: datetime_utc
+    required: false
+    description: >
+      Last-modified time reported by the source (Odoo `write_date`, ERPNext `modified`),
+      converted to UTC. Drives incremental extraction checkpoints.
+  extraction_batch_id:
+    type: string
+    required: true
+    description: Identifier of the extraction run (one per entity per run).
+  extracted_at:
+    type: datetime_utc
+    required: true
+    description: When the platform received the record (UTC).
+  contract_version:
+    type: string
+    required: true
+    description: Version of the source contract the payload was validated against.
+  payload:
+    type: json
+    required: true
+    description: The record exactly as returned by the API (no renaming, no type changes).
+  payload_sha256:
+    type: string
+    required: true
+    description: >
+      SHA-256 of the canonical JSON payload. Re-loading an identical record version is a
+      no-op (idempotency); a changed hash means a new version.
+
+identity:
+  record_key: [source_system, source_instance, source_entity, source_id]
+  version_key: [source_system, source_instance, source_entity, source_id, payload_sha256]
+  rules:
+    - Within one extraction batch, record_key must be unique.
+    - Across batches the same record_key may appear again; the row with the latest
+      extracted_at is the current version as of that time.
+    - Records from different source systems or instances are NEVER the same entity by
+      default, even if ids or names are equal. Cross-ERP identity requires an entry in
+      contracts/mappings/entity_mappings.yaml.

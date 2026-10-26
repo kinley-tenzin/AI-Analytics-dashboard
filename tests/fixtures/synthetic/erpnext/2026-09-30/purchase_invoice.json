@@ -1,0 +1,108 @@
+{
+  "_meta": {
+    "synthetic": true,
+    "notice": "SYNTHETIC TEST DATA - fictional organisations, people and amounts. Not real ERP data.",
+    "source_system": "erpnext",
+    "source_instance": "erpnext-dtg-services",
+    "entity": "Purchase Invoice",
+    "extraction_batch_id": "erpnext-2026-09-30-purchase_invoice",
+    "extracted_at": "2026-09-30T17:30:00Z",
+    "extraction_mode": "full",
+    "checkpoint_utc": null,
+    "instance_timezone": "Asia/Thimphu",
+    "request": {
+      "method": "GET",
+      "path": "/api/resource/Purchase Invoice",
+      "params": {
+        "filters": [],
+        "order_by": "name asc",
+        "limit_start": 0,
+        "limit_page_length": 200
+      }
+    }
+  },
+  "response": {
+    "data": [
+      {
+        "name": "ACC-PINV-2026-00001",
+        "company": "DTG Services Pvt Ltd",
+        "posting_date": "2026-08-01",
+        "due_date": "2026-08-31",
+        "currency": "BTN",
+        "conversion_rate": 1.0,
+        "grand_total": 9000.0,
+        "base_grand_total": 9000.0,
+        "outstanding_amount": 9000.0,
+        "party_account_currency": "BTN",
+        "is_return": 0,
+        "return_against": null,
+        "update_outstanding_for_self": 1,
+        "status": "Overdue",
+        "docstatus": 1,
+        "modified": "2026-09-01 10:00:00.000000",
+        "supplier": "Thunder Paper Works",
+        "bill_no": "SUP-00001"
+      },
+      {
+        "name": "ACC-PINV-2026-00002",
+        "company": "DTG Services Pvt Ltd",
+        "posting_date": "2026-09-10",
+        "due_date": "2026-10-10",
+        "currency": "BTN",
+        "conversion_rate": 1.0,
+        "grand_total": 14000.0,
+        "base_grand_total": 14000.0,
+        "outstanding_amount": 4000.0,
+        "party_account_currency": "BTN",
+        "is_return": 0,
+        "return_against": null,
+        "update_outstanding_for_self": 1,
+        "status": "Partly Paid",
+        "docstatus": 1,
+        "modified": "2026-09-25 10:00:00.000000",
+        "supplier": "Peling Logistics",
+        "bill_no": "SUP-00002"
+      },
+      {
+        "name": "ACC-PINV-2026-00003",
+        "company": "DTG Services Pvt Ltd",
+        "posting_date": "2026-09-05",
+        "due_date": "2026-09-20",
+        "currency": "INR",
+        "conversion_rate": 1.0,
+        "grand_total": 20000.0,
+        "base_grand_total": 20000.0,
+        "outstanding_amount": 20000.0,
+        "party_account_currency": "BTN",
+        "is_return": 0,
+        "return_against": null,
+        "update_outstanding_for_self": 1,
+        "status": "Overdue",
+        "docstatus": 1,
+        "modified": "2026-09-21 10:00:00.000000",
+        "supplier": "Delhi Tools Pvt Ltd",
+        "bill_no": "SUP-00003"
+      },
+      {
+        "name": "ACC-PINV-2026-00004",
+        "company": "DTG Services Pvt Ltd",
+        "posting_date": "2026-09-28",
+        "due_date": "2026-10-28",
+        "currency": "BTN",
+        "conversion_rate": 1.0,
+        "grand_total": 2000.0,
+        "base_grand_total": 2000.0,
+        "outstanding_amount": 2000.0,
+        "party_account_currency": "BTN",
+        "is_return": 0,
+        "return_against": null,
+        "update_outstanding_for_self": 1,
+        "status": "Draft",
+        "docstatus": 0,
+        "modified": "2026-09-28 10:00:00.000000",
+        "supplier": "Thunder Paper Works",
+        "bill_no": "SUP-00004"
+      }
+    ]
+  }
+}

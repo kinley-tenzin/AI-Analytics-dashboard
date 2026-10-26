@@ -1,0 +1,282 @@
+{
+  "_meta": {
+    "synthetic": true,
+    "notice": "SYNTHETIC TEST DATA - fictional organisations, people and amounts. Not real ERP data.",
+    "source_system": "odoo",
+    "source_instance": "odoo-dtg-retail",
+    "entity": "hr.employee",
+    "extraction_batch_id": "odoo-2026-10-31-hr_employee",
+    "extracted_at": "2026-10-31T17:30:00Z",
+    "extraction_mode": "full",
+    "checkpoint_utc": null,
+    "request": {
+      "method": "POST",
+      "path": "/json/2/hr.employee/search_read",
+      "body": {
+        "domain": [],
+        "order": "id asc",
+        "limit": 200,
+        "offset": 0,
+        "context": {
+          "active_test": false
+        }
+      }
+    }
+  },
+  "response": [
+    {
+      "id": 101,
+      "name": "Karma Dorji",
+      "active": true,
+      "company_id": [
+        1,
+        "DTG Retail Pvt Ltd"
+      ],
+      "department_id": [
+        1,
+        "Management"
+      ],
+      "employee_type": "employee",
+      "departure_date": false,
+      "parent_id": false,
+      "write_date": "2026-03-02 04:00:00"
+    },
+    {
+      "id": 102,
+      "name": "Sonam Choden",
+      "active": true,
+      "company_id": [
+        1,
+        "DTG Retail Pvt Ltd"
+      ],
+      "department_id": [
+        2,
+        "Sales"
+      ],
+      "employee_type": "employee",
+      "departure_date": false,
+      "parent_id": [
+        101,
+        "Karma Dorji"
+      ],
+      "write_date": "2026-03-02 04:00:00"
+    },
+    {
+      "id": 103,
+      "name": "Tshering Wangdi",
+      "active": true,
+      "company_id": [
+        1,
+        "DTG Retail Pvt Ltd"
+      ],
+      "department_id": [
+        2,
+        "Sales"
+      ],
+      "employee_type": "employee",
+      "departure_date": "2026-11-15",
+      "parent_id": [
+        101,
+        "Karma Dorji"
+      ],
+      "write_date": "2026-03-02 04:00:00"
+    },
+    {
+      "id": 104,
+      "name": "Dechen Pelmo",
+      "active": true,
+      "company_id": [
+        1,
+        "DTG Retail Pvt Ltd"
+      ],
+      "department_id": [
+        3,
+        "Finance & Accounts"
+      ],
+      "employee_type": "employee",
+      "departure_date": false,
+      "parent_id": [
+        101,
+        "Karma Dorji"
+      ],
+      "write_date": "2026-03-02 04:00:00"
+    },
+    {
+      "id": 105,
+      "name": "Ugyen Tenzin",
+      "active": true,
+      "company_id": [
+        2,
+        "DTG Retail - Phuentsholing"
+      ],
+      "department_id": [
+        4,
+        "Warehouse"
+      ],
+      "employee_type": "employee",
+      "departure_date": false,
+      "parent_id": [
+        101,
+        "Karma Dorji"
+      ],
+      "write_date": "2026-03-02 04:00:00"
+    },
+    {
+      "id": 106,
+      "name": "Pema Wangmo",
+      "active": true,
+      "company_id": [
+        2,
+        "DTG Retail - Phuentsholing"
+      ],
+      "department_id": [
+        5,
+        "Sales"
+      ],
+      "employee_type": "employee",
+      "departure_date": false,
+      "parent_id": [
+        101,
+        "Karma Dorji"
+      ],
+      "write_date": "2026-03-02 04:00:00"
+    },
+    {
+      "id": 107,
+      "name": "Kinga Lhamo",
+      "active": true,
+      "company_id": [
+        2,
+        "DTG Retail - Phuentsholing"
+      ],
+      "department_id": [
+        5,
+        "Sales"
+      ],
+      "employee_type": "contractor",
+      "departure_date": false,
+      "parent_id": [
+        101,
+        "Karma Dorji"
+      ],
+      "write_date": "2026-03-02 04:00:00"
+    },
+    {
+      "id": 108,
+      "name": "Jigme Namgyel",
+      "active": false,
+      "company_id": [
+        1,
+        "DTG Retail Pvt Ltd"
+      ],
+      "department_id": [
+        2,
+        "Sales"
+      ],
+      "employee_type": "employee",
+      "departure_date": "2026-08-15",
+      "parent_id": [
+        101,
+        "Karma Dorji"
+      ],
+      "write_date": "2026-03-02 04:00:00"
+    },
+    {
+      "id": 109,
+      "name": "Yeshey Dema",
+      "active": false,
+      "company_id": [
+        2,
+        "DTG Retail - Phuentsholing"
+      ],
+      "department_id": [
+        4,
+        "Warehouse"
+      ],
+      "employee_type": "employee",
+      "departure_date": "2026-10-20",
+      "parent_id": [
+        101,
+        "Karma Dorji"
+      ],
+      "write_date": "2026-10-21 04:00:00"
+    },
+    {
+      "id": 110,
+      "name": "Thinley Norbu",
+      "active": true,
+      "company_id": [
+        1,
+        "DTG Retail Pvt Ltd"
+      ],
+      "department_id": false,
+      "employee_type": "employee",
+      "departure_date": false,
+      "parent_id": [
+        101,
+        "Karma Dorji"
+      ],
+      "write_date": "2026-03-02 04:00:00"
+    },
+    {
+      "id": 111,
+      "name": "Chimi Yangzom",
+      "active": true,
+      "company_id": [
+        1,
+        "DTG Retail Pvt Ltd"
+      ],
+      "department_id": [
+        3,
+        "Finance & Accounts"
+      ],
+      "employee_type": "trainee",
+      "departure_date": false,
+      "parent_id": [
+        101,
+        "Karma Dorji"
+      ],
+      "write_date": "2026-03-02 04:00:00"
+    },
+    {
+      "id": 112,
+      "name": "Phurba Tshering",
+      "active": true,
+      "company_id": [
+        1,
+        "DTG Retail Pvt Ltd"
+      ],
+      "department_id": [
+        2,
+        "Sales"
+      ],
+      "employee_type": "intern",
+      "departure_date": false,
+      "parent_id": [
+        101,
+        "Karma Dorji"
+      ],
+      "write_date": "2026-03-02 04:00:00"
+    },
+    {
+      "id": 113,
+      "name": "Sangay Lhamo",
+      "active": false,
+      "company_id": [
+        1,
+        "DTG Retail Pvt Ltd"
+      ],
+      "department_id": [
+        6,
+        "Old Projects"
+      ],
+      "employee_type": "employee",
+      "departure_date": false,
+      "parent_id": [
+        101,
+        "Karma Dorji"
+      ],
+      "write_date": "2026-03-02 04:00:00"
+    }
+  ]
+}

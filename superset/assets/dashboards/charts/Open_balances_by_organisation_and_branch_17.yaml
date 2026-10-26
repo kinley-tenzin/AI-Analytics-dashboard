@@ -1,0 +1,33 @@
+slice_name: Open balances by organisation and branch
+description: Default DrukSmart Accounts Overview chart (template, bootstrap.py).
+certified_by: null
+certification_details: null
+viz_type: table
+params:
+  viz_type: table
+  query_mode: aggregate
+  groupby:
+  - organisation_name
+  - branch_name
+  - currency_code
+  metrics:
+  - outstanding_receivables
+  - overdue_receivables
+  - outstanding_payables
+  - overdue_payables
+  - open_documents
+  all_columns: []
+  percent_metrics: []
+  adhoc_filters: []
+  order_by_cols: []
+  order_desc: true
+  row_limit: 1000
+  server_page_length: 10
+  include_search: true
+  show_cell_bars: true
+  datasource: 3__table
+query_context: null
+cache_timeout: null
+uuid: 6dd4e685-7268-4424-a44d-5f515f97d934
+version: 1.0.0
+dataset_uuid: 0a8273cf-52cb-4af8-b546-02ff4b99963d

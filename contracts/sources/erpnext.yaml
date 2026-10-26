@@ -1,0 +1,237 @@
+# Source contract: ERPNext v16 + Frappe HR (HRMS) v16, Frappe REST API.
+#
+# Verification levels: source_code (frappe/erpnext, frappe/hrms, frappe/frappe branch
+# version-16), documentation, live (confirmed against the local ERPNext 16.52.0 + HRMS 16.52.0
+# sandbox in Milestone 3), assumption (not yet verified).
+# 1.1.0 (M3): Department.company is 'expected', not 'required' (root department has none);
+#             invoices gain update_outstanding_for_self (controls how returns affect balances).
+contract_version: "1.1.0"
+source_system: erpnext
+documented_versions: ["16"]
+
+api:
+  style: frappe_rest_v1
+  request: "GET {base_url}/api/resource/{doctype}?fields=[...]&filters=[...]&order_by=...&limit_start=N&limit_page_length=M"
+  headers:
+    Authorization: "token {api_key}:{api_secret}"   # source_code: frappe/auth.py
+    Accept: "application/json"
+  response: '{"data": [...]} for lists; {"data": {...}} for one document (source_code: frappe/api/__init__.py)'
+  child_tables: >
+    List calls return parent fields only. Child tables (e.g. Payment Entry `references`) need
+    GET /api/resource/{doctype}/{name} per document (assumption: child rows included in the
+    serialised document; verify in sandbox).
+  authorisation: >
+    Requests run as the key owner with role and user permissions applied; the list endpoint
+    uses permission-checked get_list (source_code). Use a dedicated user with read-only roles.
+  pagination:
+    method: limit_start/limit_page_length
+    default_page_size: 20     # source_code: frappe/api/v1.py; ALWAYS pass an explicit page size
+    page_size: 200
+    stable_order: "name asc"
+  incremental_filter: '[["modified", ">", "{checkpoint_local}"]]'   # modified is a standard filterable field (source_code)
+
+value_conventions:
+  empty_values: [null, ""]
+  link: "Linked document's `name` string (not a numeric id)"
+  check: "Integer 0/1"
+  docstatus: {0: draft, 1: submitted, 2: cancelled}   # source_code: frappe/model/docstatus.py
+  date_format: "%Y-%m-%d"
+  datetime_format: "%Y-%m-%d %H:%M:%S.%f"   # assumption: microseconds usually present; parser also accepts none
+  datetime_timezone: instance                # naive values in the site's System Settings time zone (assumption)
+  instance_timezone_default: Asia/Thimphu
+
+# Standard fields present on every DocType (source_code: frappe/model/__init__.py default_fields):
+# doctype, name, owner, creation, modified, modified_by, docstatus, idx
+
+entities:
+  Company:
+    canonical: organisation_unit
+    module: hr
+    primary_key: name
+    modified_field: modified
+    extraction: full
+    fields:
+      name: {type: string, required: true, verification: source_code}
+      abbr: {type: string, required: true, verification: assumption}
+      default_currency: {type: link, target: Currency, required: true, verification: assumption}
+      modified: {type: datetime, required: true, verification: source_code}
+
+  Branch:
+    canonical: branch
+    module: hr
+    primary_key: name
+    modified_field: modified
+    extraction: full
+    fields:
+      name: {type: string, required: true, verification: assumption}
+      modified: {type: datetime, required: true, verification: source_code}
+
+  Department:
+    canonical: department
+    module: hr
+    primary_key: name
+    modified_field: modified
+    extraction: full
+    fields:
+      name: {type: string, required: true, verification: source_code, notes: "Usually '<department_name> - <company abbr>'."}
+      department_name: {type: string, required: true, verification: source_code}
+      parent_department: {type: link, target: Department, verification: source_code}
+      company: {type: link, target: Company, expected: true, verification: live,
+                notes: "DocType marks it required, but the tree root 'All Departments' has none (seen live, M3)."}
+      is_group: {type: check, verification: source_code}
+      disabled: {type: check, verification: source_code}
+      modified: {type: datetime, required: true, verification: source_code}
+
+  Employee:
+    canonical: employee
+    module: hr
+    primary_key: name
+    modified_field: modified
+    extraction: incremental
+    fields:
+      name: {type: string, required: true, verification: source_code, notes: "Naming series HR-EMP-."}
+      employee_name: {type: string, required: true, verification: source_code}
+      status: {type: selection, required: true, values: [Active, Inactive, Suspended, Left], verification: source_code}
+      company: {type: link, target: Company, required: true, verification: source_code}
+      department: {type: link, target: Department, expected: true, verification: source_code}
+      branch: {type: link, target: Branch, expected: true, verification: source_code}
+      date_of_joining: {type: date, required: true, verification: source_code}
+      relieving_date: {type: date, verification: source_code, notes: "Mandatory when status = Left."}
+      modified: {type: datetime, required: true, verification: source_code}
+    checks:
+      - {rule: date_order, start: date_of_joining, end: relieving_date, severity: error}
+
+  Leave Application:
+    canonical: leave_request
+    module: hr
+    primary_key: name
+    modified_field: modified
+    extraction: incremental
+    fields:
+      name: {type: string, required: true, verification: source_code, notes: "Naming series HR-LAP-.YYYY.-"}
+      employee: {type: link, target: Employee, required: true, verification: source_code}
+      leave_type: {type: link, target: Leave Type, required: true, verification: source_code}
+      status: {type: selection, required: true, values: [Open, Approved, Rejected, Cancelled], verification: source_code}
+      docstatus: {type: selection, required: true, values: [0, 1, 2], verification: source_code}
+      from_date: {type: date, required: true, verification: source_code}
+      to_date: {type: date, required: true, verification: source_code}
+      total_leave_days: {type: number, required: true, verification: source_code}
+      half_day: {type: check, verification: source_code}
+      company: {type: link, target: Company, required: true, verification: source_code}
+      department: {type: link, target: Department, verification: source_code}
+      posting_date: {type: date, required: true, verification: source_code}
+      modified: {type: datetime, required: true, verification: source_code}
+    checks:
+      - {rule: date_order, start: from_date, end: to_date, severity: error}
+
+  Customer:
+    canonical: business_partner
+    module: accounts
+    primary_key: name
+    modified_field: modified
+    extraction: incremental
+    fields:
+      name: {type: string, required: true, verification: assumption}
+      customer_name: {type: string, required: true, verification: assumption}
+      tax_id: {type: string, verification: assumption, notes: "Evidence for identity matching only."}
+      disabled: {type: check, verification: assumption}
+      modified: {type: datetime, required: true, verification: source_code}
+
+  Supplier:
+    canonical: business_partner
+    module: accounts
+    primary_key: name
+    modified_field: modified
+    extraction: incremental
+    fields:
+      name: {type: string, required: true, verification: assumption}
+      supplier_name: {type: string, required: true, verification: assumption}
+      tax_id: {type: string, verification: assumption}
+      disabled: {type: check, verification: assumption}
+      modified: {type: datetime, required: true, verification: source_code}
+
+  Sales Invoice:
+    canonical: accounting_document
+    module: accounts
+    primary_key: name
+    modified_field: modified
+    extraction: incremental
+    fields:
+      name: {type: string, required: true, verification: source_code}
+      customer: {type: link, target: Customer, required: true, verification: source_code}
+      company: {type: link, target: Company, required: true, verification: source_code}
+      posting_date: {type: date, required: true, verification: source_code}
+      due_date: {type: date, expected: true, verification: source_code,
+                 notes: "Document-level; instalments live in the Payment Schedule child table."}
+      currency: {type: link, target: Currency, required: true, verification: source_code}
+      conversion_rate: {type: number, required: true, verification: source_code}
+      grand_total: {type: number, required: true, verification: source_code, notes: "Document currency; negative on returns."}
+      base_grand_total: {type: number, required: true, verification: source_code, notes: "Company currency."}
+      outstanding_amount: {type: number, required: true, verification: source_code,
+                           notes: "In party_account_currency, NOT necessarily company currency."}
+      party_account_currency: {type: link, target: Currency, required: true, verification: assumption}
+      is_return: {type: check, required: true, verification: source_code}
+      return_against: {type: link, target: Sales Invoice, verification: source_code}
+      update_outstanding_for_self: {type: check, verification: live,
+                                    notes: "Returns only. 1 (default in v16): the return keeps its own negative outstanding and the original is unchanged. 0: the return reduces the original invoice's outstanding."}
+      status: {type: selection, required: true, verification: source_code,
+               values: [Draft, Return, Credit Note Issued, Submitted, Paid, Partly Paid, Unpaid,
+                        Unpaid and Discounted, Partly Paid and Discounted, Overdue and Discounted,
+                        Overdue, Cancelled, Internal Transfer]}
+      docstatus: {type: selection, required: true, values: [0, 1, 2], verification: source_code}
+      modified: {type: datetime, required: true, verification: source_code}
+
+  Purchase Invoice:
+    canonical: accounting_document
+    module: accounts
+    primary_key: name
+    modified_field: modified
+    extraction: incremental
+    fields:
+      name: {type: string, required: true, verification: source_code}
+      supplier: {type: link, target: Supplier, required: true, verification: source_code}
+      bill_no: {type: string, verification: source_code, notes: "Supplier's own invoice number."}
+      company: {type: link, target: Company, required: true, verification: assumption}
+      posting_date: {type: date, required: true, verification: source_code}
+      due_date: {type: date, expected: true, verification: source_code}
+      currency: {type: link, target: Currency, required: true, verification: source_code}
+      conversion_rate: {type: number, required: true, verification: assumption}
+      grand_total: {type: number, required: true, verification: source_code}
+      base_grand_total: {type: number, required: true, verification: assumption}
+      outstanding_amount: {type: number, required: true, verification: source_code}
+      party_account_currency: {type: link, target: Currency, required: true, verification: assumption}
+      is_return: {type: check, required: true, verification: source_code}
+      return_against: {type: link, target: Purchase Invoice, verification: source_code}
+      update_outstanding_for_self: {type: check, verification: live, notes: "See Sales Invoice."}
+      status: {type: selection, required: true, verification: source_code,
+               values: [Draft, Return, Debit Note Issued, Submitted, Paid, Partly Paid, Unpaid,
+                        Overdue, Cancelled, Internal Transfer]}
+      docstatus: {type: selection, required: true, values: [0, 1, 2], verification: source_code}
+      modified: {type: datetime, required: true, verification: source_code}
+
+  Payment Entry:
+    canonical: payment
+    module: accounts
+    primary_key: name
+    modified_field: modified
+    extraction: incremental
+    detail_fetch: true   # `references` child table needs the single-document endpoint
+    fields:
+      name: {type: string, required: true, verification: source_code}
+      payment_type: {type: selection, required: true, values: [Receive, Pay, Internal Transfer], verification: source_code}
+      party_type: {type: string, expected: true, verification: source_code, notes: "Customer / Supplier / Employee ..."}
+      party: {type: string, expected: true, verification: source_code}
+      posting_date: {type: date, required: true, verification: source_code}
+      paid_amount: {type: number, required: true, verification: source_code}
+      paid_from_account_currency: {type: link, target: Currency, required: true, verification: source_code}
+      unallocated_amount: {type: number, verification: source_code}
+      docstatus: {type: selection, required: true, values: [0, 1, 2], verification: source_code}
+      references:
+        type: table
+        verification: source_code
+        child_fields:
+          reference_doctype: {type: string, required: true, verification: source_code}
+          reference_name: {type: string, required: true, verification: source_code}
+          allocated_amount: {type: number, required: true, verification: source_code}
+          due_date: {type: date, verification: source_code}
+      modified: {type: datetime, required: true, verification: source_code}

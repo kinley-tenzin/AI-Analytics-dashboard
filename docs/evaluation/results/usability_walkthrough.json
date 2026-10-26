@@ -1,0 +1,62 @@
+[
+  {
+    "role": "HR Viewer",
+    "ui": "Superset HR dashboard",
+    "actions": 5,
+    "shown": 16.0,
+    "expected": 16,
+    "completed": true,
+    "task": "T1 Find the current HR headcount",
+    "seconds": 11.5
+  },
+  {
+    "role": "HR Viewer",
+    "ui": "Superset HR dashboard, Department filter",
+    "actions": 9,
+    "shown": 5.0,
+    "expected": 5,
+    "completed": true,
+    "task": "T2 Filter employees by department (Sales)",
+    "seconds": 14.2
+  },
+  {
+    "role": "Accounts Viewer",
+    "ui": "Superset Accounts dashboard",
+    "actions": 5,
+    "shown": 166700.0,
+    "expected": 166700.0,
+    "completed": true,
+    "task": "T3 View outstanding receivables",
+    "seconds": 9.9
+  },
+  {
+    "role": "Accounts Viewer",
+    "ui": "Superset ageing chart",
+    "actions": 5,
+    "shown": "ageing chart rendered",
+    "expected": "3 overdue buckets in the data",
+    "completed": true,
+    "task": "T4 Identify overdue invoice categories",
+    "seconds": 10.4
+  },
+  {
+    "role": "Accounts Viewer",
+    "ui": "Superset chart menu -> Download -> Export to .CSV",
+    "actions": 9,
+    "shown": "3 CSV lines",
+    "expected": "header + rows of the permitted table",
+    "completed": true,
+    "task": "T5 Export permitted analytical results (CSV)",
+    "seconds": 10.6
+  },
+  {
+    "role": "Executive",
+    "ui": "Django assistant",
+    "actions": 6,
+    "shown": "Overdue balances as of 25 October 2026: payables BTN 31,700.00; receivables BTN 149,700.00.",
+    "expected": "overdue receivables BTN 149,700.00",
+    "completed": true,
+    "task": "T6 Ask an AI question and read the answer",
+    "seconds": 1.5
+  }
+]

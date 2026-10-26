@@ -1,0 +1,23 @@
+slice_name: Employee records by employment status (active vs not active)
+description: Default DrukSmart HR Overview chart (template, bootstrap.py).
+certified_by: null
+certification_details: null
+viz_type: pie
+params:
+  viz_type: pie
+  groupby:
+  - employment_status
+  metric: employee_records
+  adhoc_filters: []
+  row_limit: 100
+  donut: true
+  show_labels: true
+  label_type: key_value
+  show_legend: true
+  sort_by_metric: true
+  datasource: 1__table
+query_context: null
+cache_timeout: null
+uuid: fc3e6c6d-f1db-456a-accd-a068ad007b28
+version: 1.0.0
+dataset_uuid: f511f404-4de9-4573-8277-0925c7e7b194

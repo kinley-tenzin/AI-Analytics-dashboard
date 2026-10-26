@@ -1,0 +1,25 @@
+slice_name: Active headcount by department
+description: Default DrukSmart HR Overview chart (template, bootstrap.py).
+certified_by: null
+certification_details: null
+viz_type: echarts_timeseries_bar
+params:
+  viz_type: echarts_timeseries_bar
+  x_axis: department_name
+  metrics:
+  - active_headcount
+  groupby: []
+  adhoc_filters: []
+  orientation: horizontal
+  row_limit: 10000
+  show_legend: false
+  show_value: true
+  rich_tooltip: true
+  x_axis_sort_asc: true
+  truncateYAxis: false
+  datasource: 1__table
+query_context: null
+cache_timeout: null
+uuid: bc86059d-5ae7-4bbf-aaa3-af84277e9121
+version: 1.0.0
+dataset_uuid: f511f404-4de9-4573-8277-0925c7e7b194

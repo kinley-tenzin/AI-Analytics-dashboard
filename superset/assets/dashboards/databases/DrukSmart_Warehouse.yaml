@@ -1,0 +1,21 @@
+database_name: DrukSmart Warehouse
+sqlalchemy_uri: postgresql+psycopg2://druksmart_superset_reader:XXXXXXXXXX@postgres:5432/druksmart_analytics
+cache_timeout: null
+expose_in_sqllab: true
+allow_run_async: false
+allow_ctas: false
+allow_cvas: false
+allow_dml: false
+allow_file_upload: false
+extra:
+  allows_virtual_table_explore: false
+  schemas_allowed_for_file_upload: []
+  metadata_params: {}
+  engine_params:
+    connect_args:
+      connect_timeout: 10
+      options: -c default_transaction_read_only=on -c statement_timeout=60000
+impersonate_user: false
+configuration_method: sqlalchemy_form
+uuid: 9e2d2908-3e93-4d57-a580-a8f802a9ec14
+version: 1.0.0

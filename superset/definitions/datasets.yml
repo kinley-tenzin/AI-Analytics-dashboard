@@ -1,0 +1,180 @@
+# GOVERNED Superset datasets: labels, filterable columns, date columns and CERTIFIED metrics.
+#
+# Applied by superset/scripts/bootstrap.py. Each dataset is a view/table from
+# superset/approved_datasets.yml. Metrics only re-aggregate the KPI columns dbt already computes
+# (docs/data/KPI_CATALOGUE.md); no business rule is re-implemented in Superset. Datasets are
+# flagged "managed externally", so the Superset UI will not let anyone (except via this file)
+# change these definitions. Chart authors may still add ad-hoc chart-level metrics, which never
+# alter the governed ones.
+#
+# currency: AUTO = Superset formats amounts with the currency in the row's currency_code column
+# (dataset currency_code_column); no currency symbol is hard-coded.
+
+certified_by: DrukSmart data engineering (dbt)
+
+datasets:
+  - table: kpi_headcount
+    description: >
+      HR-01 / HR-02 active headcount per HR snapshot date. POINT-IN-TIME: headcount must not be
+      summed across snapshot dates; dashboards select one snapshot date.
+    main_dttm_col: snapshot_date
+    columns:
+      snapshot_date: {label: Snapshot date, is_dttm: true}
+      source_system: {label: Source ERP}
+      source_instance: {label: Source instance}
+      organisation_name: {label: Organisation}
+      branch_name: {label: Branch}
+      department_name: {label: Department}
+      employee_category: {label: Employee category}
+      employment_status: {label: Employment status}
+      organisation_key: {label: Organisation key, groupby: false}
+      branch_key: {label: Branch key, groupby: false}
+      department_key: {label: Department key, groupby: false}
+      active_headcount: {label: Active headcount (row value), groupby: false}
+      employee_records: {label: Employee records (row value), groupby: false}
+    metrics:
+      - name: active_headcount
+        label: Active headcount
+        expression: SUM(active_headcount)
+        format: ",d"
+        kpi: HR-01 / HR-02
+        description: Employees whose status on the snapshot date is 'active' (KPI_CATALOGUE HR-01).
+        warning: Point-in-time metric. Filter to ONE snapshot date; do not sum across dates.
+      - name: employee_records
+        label: Employee records (all statuses)
+        expression: SUM(employee_records)
+        format: ",d"
+        kpi: HR-01
+        description: Every employee record known on the snapshot date, whatever its status.
+        warning: Point-in-time metric. Filter to ONE snapshot date; do not sum across dates.
+      - name: not_active_records
+        label: Not-active employee records
+        expression: SUM(employee_records) - SUM(active_headcount)
+        format: ",d"
+        kpi: HR-01
+        description: Records that are not active on the snapshot date (left, inactive, suspended, not yet joined).
+        warning: Point-in-time metric. Filter to ONE snapshot date; do not sum across dates.
+
+  - table: kpi_approved_leave_monthly
+    description: >
+      HR-03 approved leave per calendar month of the leave START date. Organisation, branch and
+      department are the employee's current ones.
+    main_dttm_col: period_month
+    columns:
+      period_month: {label: Leave month (start date), is_dttm: true}
+      source_system: {label: Source ERP}
+      source_instance: {label: Source instance}
+      organisation_name: {label: Organisation}
+      branch_name: {label: Branch}
+      department_name: {label: Department}
+      leave_type_name: {label: Leave type}
+      organisation_key: {label: Organisation key, groupby: false}
+      branch_key: {label: Branch key, groupby: false}
+      department_key: {label: Department key, groupby: false}
+      approved_requests: {label: Approved requests (row value), groupby: false}
+      approved_leave_days: {label: Approved leave days (row value), groupby: false}
+      employees_on_leave: {label: Employees on leave (row value, NOT additive), groupby: false}
+    metrics:
+      - name: approved_requests
+        label: Approved leave requests
+        expression: SUM(approved_requests)
+        format: ",d"
+        kpi: HR-03
+        description: Number of approved leave requests starting in the period.
+      - name: approved_leave_days
+        label: Approved leave days
+        expression: SUM(approved_leave_days)
+        format: ",.1f"
+        kpi: HR-03
+        description: Sum of leave days of approved requests starting in the period (half days = 0.5).
+
+  - table: kpi_receivables_payables
+    description: >
+      AC-01..AC-04 open receivables and payables per accounts snapshot (as-of) date, in each
+      organisation's company currency. POINT-IN-TIME: balances must not be summed across dates.
+    main_dttm_col: snapshot_date
+    currency_code_column: currency_code
+    columns:
+      snapshot_date: {label: As-of date, is_dttm: true}
+      source_system: {label: Source ERP}
+      source_instance: {label: Source instance}
+      ledger: {label: Ledger}
+      organisation_name: {label: Organisation}
+      currency_code: {label: Currency}
+      branch_name: {label: Branch}
+      ageing_bucket: {label: Ageing bucket (code)}
+      ageing_bucket_label: {label: Ageing bucket}
+      organisation_key: {label: Organisation key, groupby: false}
+      branch_key: {label: Branch key, groupby: false}
+      outstanding_amount: {label: Outstanding amount (row value), groupby: false}
+      overdue_amount: {label: Overdue amount (row value), groupby: false}
+      open_documents: {label: Open documents (row value), groupby: false}
+    metrics:
+      - name: outstanding_receivables
+        label: Outstanding receivables
+        expression: "SUM(CASE WHEN ledger = 'receivable' THEN outstanding_amount ELSE 0 END)"
+        format: ",.2f"
+        currency: AUTO
+        kpi: AC-01
+        description: Open customer balances on the as-of date (credit notes negative; drafts and cancelled excluded).
+        warning: Point-in-time metric. Filter to ONE as-of date and ONE currency.
+      - name: outstanding_payables
+        label: Outstanding payables
+        expression: "SUM(CASE WHEN ledger = 'payable' THEN outstanding_amount ELSE 0 END)"
+        format: ",.2f"
+        currency: AUTO
+        kpi: AC-02
+        description: Open supplier balances on the as-of date.
+        warning: Point-in-time metric. Filter to ONE as-of date and ONE currency.
+      - name: overdue_receivables
+        label: Overdue receivables
+        expression: "SUM(CASE WHEN ledger = 'receivable' THEN overdue_amount ELSE 0 END)"
+        format: ",.2f"
+        currency: AUTO
+        kpi: AC-03
+        description: Positive receivable balances whose due date is before the as-of date.
+        warning: Point-in-time metric. Filter to ONE as-of date and ONE currency.
+      - name: overdue_payables
+        label: Overdue payables
+        expression: "SUM(CASE WHEN ledger = 'payable' THEN overdue_amount ELSE 0 END)"
+        format: ",.2f"
+        currency: AUTO
+        kpi: AC-03
+        description: Positive payable balances whose due date is before the as-of date.
+        warning: Point-in-time metric. Filter to ONE as-of date and ONE currency.
+      - name: outstanding_amount
+        label: Outstanding amount
+        expression: SUM(outstanding_amount)
+        format: ",.2f"
+        currency: AUTO
+        kpi: AC-04
+        description: Open balance; split by Ledger (never add receivables and payables together).
+        warning: Group or filter by Ledger. Point-in-time metric (ONE as-of date, ONE currency).
+      - name: open_documents
+        label: Open documents
+        expression: SUM(open_documents)
+        format: ",d"
+        kpi: AC-04
+        description: Number of posted documents with a non-zero open balance.
+
+  - table: data_freshness
+    description: Latest snapshot date per source instance and domain of the PUBLISHED marts.
+    main_dttm_col: published_at
+    columns:
+      source_system: {label: Source ERP}
+      source_instance: {label: Source instance}
+      domain: {label: Domain}
+      latest_snapshot_date: {label: Data as of, is_dttm: true}
+      snapshot_dates_available: {label: Snapshot dates available, groupby: false}
+      built_at: {label: Built at, is_dttm: true}
+      published_at: {label: Published at, is_dttm: true}
+      pipeline_run_id: {label: Pipeline run}
+      source_mode: {label: Source mode}
+    # Computed by PostgreSQL at query time, so the dashboard shows how old the data is NOW
+    # (Milestone 8, defect D3). Requires the chart-data cache to be off (defect D2).
+    calculated_columns:
+      hours_since_publication:
+        label: Hours since publication
+        type: NUMERIC
+        expression: "round((extract(epoch from (now() - published_at)) / 3600)::numeric, 1)"
+    metrics: []

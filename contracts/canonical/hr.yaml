@@ -1,0 +1,73 @@
+# Canonical HR model: one standard representation for Odoo and ERPNext HR data.
+# Value maps here are the single source of truth; tests check they cover every
+# source value listed in contracts/sources/*.yaml.
+contract_version: "1.0.0"
+
+keys:
+  rule: >
+    Every canonical key is "{source_system}:{source_instance}:{source_id}". Keys are
+    therefore never shared between ERPs or instances, even when ids or names are equal.
+    A real-world person/department appearing in both ERPs is linked ONLY through a
+    verified entry in contracts/mappings/entity_mappings.yaml.
+
+entities:
+  employee:
+    grain: one row per employee record per source instance
+    fields:
+      employee_key: "source_system:source_instance:source_id"
+      source_system: odoo | erpnext
+      source_instance: string
+      source_employee_id: "Odoo hr.employee.id | ERPNext Employee.name"
+      employee_name: string (display only, never used for matching)
+      organisation_unit_key: "legal company (Odoo res.company root/branch, ERPNext Company)"
+      branch_key: "Odoo company_id (branch company) | ERPNext Employee.branch | null -> 'unassigned'"
+      department_key: "Odoo department_id | ERPNext department | null -> 'unassigned'"
+      employment_status: "active | inactive | suspended | left"
+      employee_category: "Odoo employee_type | ERPNext: 'unspecified'"
+      joined_on: "Odoo: not available to the read-only role (contract dates need hr.group_hr_manager) | ERPNext date_of_joining"
+      left_on: "Odoo departure_date | ERPNext relieving_date"
+    status_rules:
+      odoo:
+        - {when: "active = true AND (departure_date is empty OR departure_date > as_of_date)", status: active}
+        - {when: "active = true AND departure_date <= as_of_date", status: left}
+        - {when: "active = false AND departure_date is set", status: left}
+        - {when: "active = false AND departure_date is empty", status: inactive}
+      erpnext:
+        status_map: {Active: active, Inactive: inactive, Suspended: suspended, Left: left}
+        extra: >
+          'Active' with date_of_joining > as_of_date is NOT yet active (future joiner).
+          'Active' with relieving_date <= as_of_date is treated as left.
+    counts_in_headcount: [active]    # 'suspended' excluded pending DrukSmart decision DS-HR-02
+
+  department:
+    grain: one row per department record per source instance
+    fields:
+      department_key: "source_system:source_instance:source_id"
+      department_name: "Odoo name | ERPNext department_name"
+      parent_department_key: "Odoo parent_id | ERPNext parent_department"
+      organisation_unit_key: "Odoo company_id | ERPNext company"
+      is_active: "Odoo active | ERPNext NOT disabled"
+    unassigned_member: {department_key: unassigned, department_name: "Unassigned"}
+    note: >
+      Departments with the same name in different companies or ERPs remain separate
+      (e.g. Odoo 'Sales' in two branch companies). A cross-ERP department hierarchy needs
+      DrukSmart confirmation (DS-ORG-01).
+
+  leave_request:
+    grain: one row per leave request (application) per source instance
+    fields:
+      leave_key: "source_system:source_instance:source_id"
+      employee_key: string
+      leave_type: "Odoo holiday_status_id name | ERPNext leave_type"
+      start_date: "Odoo request_date_from | ERPNext from_date"
+      end_date: "Odoo request_date_to | ERPNext to_date"
+      leave_days: "Odoo number_of_days | ERPNext total_leave_days"
+      approval_status: "pending | approved | rejected | cancelled"
+    status_rules:
+      odoo:
+        status_map: {confirm: pending, validate1: pending, validate: approved, refuse: rejected, cancel: cancelled}
+      erpnext:
+        rule: "docstatus decides first, then status"
+        docstatus_2: cancelled
+        docstatus_0: pending          # not submitted = not final, even if status says Approved
+        docstatus_1_status_map: {Approved: approved, Rejected: rejected, Cancelled: cancelled, Open: pending}

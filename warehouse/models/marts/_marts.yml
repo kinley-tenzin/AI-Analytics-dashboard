@@ -1,0 +1,237 @@
+version: 2
+
+# Every fact states its GRAIN first; tests enforce it (unique_combination) and its
+# foreign keys (relationships to the conformed dimensions).
+# The same keys are also created as PostgreSQL PRIMARY / FOREIGN KEY constraints (post_hook,
+# macros/star_constraints.sql), so the star schema is visible in the database (pgAdmin ERD).
+# counterparty_key has no constraint: it points to dim_customer OR dim_supplier (by ledger).
+
+models:
+  # ----------------------------------------------------------------- dimensions
+  - name: dim_date
+    description: Conformed calendar. Grain = one row per date.
+    config:
+      post_hook:
+        - "{{ primary_key(['date_key']) }}"
+    columns:
+      - {name: date_key, data_tests: [unique, not_null]}
+
+  - name: dim_organisation
+    description: Legal organisations (Odoo root companies, ERPNext companies). Type 1.
+    config:
+      post_hook:
+        - "{{ primary_key(['organisation_key']) }}"
+    columns:
+      - {name: organisation_key, data_tests: [unique, not_null]}
+
+  - name: dim_branch
+    description: >
+      Branches: Odoo companies (root = head office), ERPNext Branch master, one 'Unassigned' per
+      instance. organisation_resolution explains how the organisation was determined.
+    config:
+      post_hook:
+        - "{{ primary_key(['branch_key']) }}"
+    columns:
+      - {name: branch_key, data_tests: [unique, not_null]}
+
+  - name: dim_department
+    description: Departments per instance (never merged across companies/ERPs) + 'Unassigned'.
+    config:
+      post_hook:
+        - "{{ primary_key(['department_key']) }}"
+    columns:
+      - {name: department_key, data_tests: [unique, not_null]}
+
+  - name: dim_customer
+    description: Customers. unified_customer_id merges across ERPs only via verified mappings.
+    config:
+      post_hook:
+        - "{{ primary_key(['customer_key']) }}"
+    columns:
+      - {name: customer_key, data_tests: [unique, not_null]}
+      - {name: unified_customer_id, data_tests: [not_null]}
+
+  - name: dim_supplier
+    columns:
+      - {name: supplier_key, data_tests: [unique, not_null]}
+
+  - name: dim_employee
+    description: Employees, Type 1 current attributes (SCD2 not justified; see model header).
+    config:
+      post_hook:
+        - "{{ primary_key(['supplier_key']) }}"
+    config:
+      post_hook:
+        - "{{ primary_key(['employee_key']) }}"
+    columns:
+      - {name: employee_key, data_tests: [unique, not_null]}
+
+  # ---------------------------------------------------------------------- facts
+  - name: fct_headcount_snapshot
+    description: >
+      PERIODIC SNAPSHOT. Grain: one row per employee per HR snapshot date per source instance.
+      headcount = 1 if employment_status = 'active'. Not additive across snapshot dates.
+    config:
+      post_hook:
+        - "{{ primary_key(['snapshot_date_key', 'employee_key']) }}"
+        - "{{ foreign_key('snapshot_date_key', 'dim_date', 'date_key') }}"
+        - "{{ foreign_key('employee_key', 'dim_employee', 'employee_key') }}"
+        - "{{ foreign_key('department_key', 'dim_department', 'department_key') }}"
+        - "{{ foreign_key('branch_key', 'dim_branch', 'branch_key') }}"
+        - "{{ foreign_key('organisation_key', 'dim_organisation', 'organisation_key') }}"
+    data_tests:
+      - unique_combination: {arguments: {columns: [snapshot_date, employee_key]}}
+    columns:
+      - name: snapshot_date_key
+        data_tests: [not_null, {relationships: {arguments: {to: ref('dim_date'), field: date_key}}}]
+      - name: employee_key
+        data_tests: [not_null, {relationships: {arguments: {to: ref('dim_employee'), field: employee_key}}}]
+      - name: department_key
+        data_tests: [not_null, {relationships: {arguments: {to: ref('dim_department'), field: department_key}}}]
+      - name: branch_key
+        data_tests: [not_null, {relationships: {arguments: {to: ref('dim_branch'), field: branch_key}}}]
+      - name: employment_status
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: [active, inactive, suspended, left, not_yet_joined]
+
+  - name: fct_leave_request
+    description: >
+      TRANSACTION fact. Grain: one row per leave request per source instance (latest version).
+      Approved leave = approval_status 'approved'; attributed to the start-date period.
+    config:
+      post_hook:
+        - "{{ primary_key(['leave_key']) }}"
+        - "{{ foreign_key('start_date_key', 'dim_date', 'date_key') }}"
+        - "{{ foreign_key('employee_key', 'dim_employee', 'employee_key') }}"
+        - "{{ foreign_key('department_key', 'dim_department', 'department_key') }}"
+        - "{{ foreign_key('branch_key', 'dim_branch', 'branch_key') }}"
+        - "{{ foreign_key('organisation_key', 'dim_organisation', 'organisation_key') }}"
+    data_tests:
+      - unique_combination: {arguments: {columns: [leave_key]}}
+    columns:
+      - name: start_date_key
+        data_tests: [not_null, {relationships: {arguments: {to: ref('dim_date'), field: date_key}}}]
+      - name: employee_key
+        description: Leave of employees not (yet) extracted would fail this test rather than be dropped.
+        data_tests: [not_null, {relationships: {arguments: {to: ref('dim_employee'), field: employee_key}}}]
+      - {name: leave_days, data_tests: [not_null]}
+
+  - name: fct_accounting_document
+    description: >
+      TRANSACTION fact. Grain: one row per invoice / vendor bill / credit note per source instance
+      (latest version, all states). amount_total_company is a document value, NOT a balance.
+    config:
+      post_hook:
+        - "{{ primary_key(['document_key']) }}"
+        - "{{ foreign_key('document_date_key', 'dim_date', 'date_key') }}"
+        - "{{ foreign_key('due_date_key', 'dim_date', 'date_key') }}"
+        - "{{ foreign_key('branch_key', 'dim_branch', 'branch_key') }}"
+        - "{{ foreign_key('organisation_key', 'dim_organisation', 'organisation_key') }}"
+    data_tests:
+      - unique_combination: {arguments: {columns: [document_key]}}
+    columns:
+      - name: document_date_key
+        data_tests: [{relationships: {arguments: {to: ref('dim_date'), field: date_key}}}]
+      - name: branch_key
+        data_tests: [not_null, {relationships: {arguments: {to: ref('dim_branch'), field: branch_key}}}]
+
+  - name: fct_receivable_payable_snapshot
+    description: >
+      PERIODIC SNAPSHOT. Grain: one row per posted document with non-zero outstanding per accounts
+      snapshot date per source instance. outstanding_company not additive across snapshot dates.
+    config:
+      post_hook:
+        - "{{ primary_key(['snapshot_date_key', 'document_key']) }}"
+        - "{{ foreign_key('snapshot_date_key', 'dim_date', 'date_key') }}"
+        - "{{ foreign_key('branch_key', 'dim_branch', 'branch_key') }}"
+        - "{{ foreign_key('organisation_key', 'dim_organisation', 'organisation_key') }}"
+    data_tests:
+      - unique_combination: {arguments: {columns: [snapshot_date, document_key]}}
+    columns:
+      - name: snapshot_date_key
+        data_tests: [not_null, {relationships: {arguments: {to: ref('dim_date'), field: date_key}}}]
+      - name: branch_key
+        data_tests: [not_null, {relationships: {arguments: {to: ref('dim_branch'), field: branch_key}}}]
+      - name: ageing_bucket
+        data_tests:
+          - accepted_values:
+              arguments:
+                # quoted: YAML would read 1_30 as the number 130
+                values: ["not_due", "1_30", "31_60", "61_90", "91_plus", "no_due_date", "unapplied_credit"]
+      - name: ledger
+        data_tests: [{accepted_values: {arguments: {values: [receivable, payable]}}}]
+
+  - name: fct_payment
+    description: >
+      TRANSACTION fact. Grain: one row per payment per source instance (latest version).
+      unallocated_amount = advance not applied to invoices (reported separately, DS-AC-07).
+    config:
+      post_hook:
+        - "{{ primary_key(['payment_key']) }}"
+        - "{{ foreign_key('payment_date_key', 'dim_date', 'date_key') }}"
+    data_tests:
+      - unique_combination: {arguments: {columns: [payment_key]}}
+    columns:
+      - name: direction
+        data_tests: [{accepted_values: {arguments: {values: [received, paid]}}}]
+      - name: document_state
+        data_tests: [{accepted_values: {arguments: {values: [draft, posted, cancelled]}}}]
+      - name: payment_date_key
+        data_tests: [{relationships: {arguments: {to: ref('dim_date'), field: date_key}}}]
+
+  # ------------------------------------------------------------------ KPI views
+  # Governed datasets for Superset and the AI KPI functions. The *_name / currency_code columns
+  # are display labels; not_null tests make sure every key resolved to a label.
+  - name: kpi_headcount
+    description: HR-01 / HR-02 (+ employment status for active vs inactive comparisons).
+    data_tests:
+      - unique_combination:
+          arguments:
+            columns: [snapshot_date, source_instance, organisation_key, branch_key, department_key,
+                      employee_category, employment_status]
+    columns:
+      - {name: organisation_name, data_tests: [not_null]}
+      - {name: branch_name, data_tests: [not_null]}
+      - {name: department_name, data_tests: [not_null]}
+  - name: kpi_approved_leave_monthly
+    description: HR-03. employees_on_leave is a distinct count (not additive).
+    data_tests:
+      - unique_combination:
+          arguments:
+            columns: [period_month, source_instance, organisation_key, branch_key, department_key,
+                      leave_type_name]
+    columns:
+      - {name: organisation_name, data_tests: [not_null]}
+      - {name: branch_name, data_tests: [not_null]}
+      - {name: department_name, data_tests: [not_null]}
+  - name: kpi_approved_leave_requests
+    description: >
+      HR-03 approved leave at request grain for the Django KPI service (distinct employees over any
+      period). Backend-only; returns aggregates only.
+    columns:
+      - {name: leave_key, data_tests: [unique, not_null]}
+      - {name: employee_key, data_tests: [not_null]}
+      - {name: start_date, data_tests: [not_null]}
+      - {name: organisation_name, data_tests: [not_null]}
+      - {name: branch_name, data_tests: [not_null]}
+      - {name: department_name, data_tests: [not_null]}
+  - name: kpi_receivables_payables
+    description: AC-01..AC-04 per snapshot date, ledger, organisation, branch and ageing bucket.
+    data_tests:
+      - unique_combination:
+          arguments:
+            columns: [snapshot_date, source_instance, ledger, organisation_key, branch_key,
+                      ageing_bucket]
+    columns:
+      - {name: organisation_name, data_tests: [not_null]}
+      - {name: currency_code, data_tests: [not_null]}
+      - {name: branch_name, data_tests: [not_null]}
+      - {name: ageing_bucket_label, data_tests: [not_null]}
+  - name: data_freshness
+    description: >
+      Latest snapshot date per instance and domain of the PUBLISHED marts, with publication time,
+      pipeline run id and source mode (filled in at publication).
+    data_tests:
+      - unique_combination: {arguments: {columns: [source_instance, domain]}}

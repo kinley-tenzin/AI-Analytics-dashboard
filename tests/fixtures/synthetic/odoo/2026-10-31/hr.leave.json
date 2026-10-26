@@ -1,0 +1,225 @@
+{
+  "_meta": {
+    "synthetic": true,
+    "notice": "SYNTHETIC TEST DATA - fictional organisations, people and amounts. Not real ERP data.",
+    "source_system": "odoo",
+    "source_instance": "odoo-dtg-retail",
+    "entity": "hr.leave",
+    "extraction_batch_id": "odoo-2026-10-31-hr_leave",
+    "extracted_at": "2026-10-31T17:30:00Z",
+    "extraction_mode": "full",
+    "checkpoint_utc": null,
+    "request": {
+      "method": "POST",
+      "path": "/json/2/hr.leave/search_read",
+      "body": {
+        "domain": [],
+        "order": "id asc",
+        "limit": 200,
+        "offset": 0,
+        "context": {
+          "active_test": false
+        }
+      }
+    }
+  },
+  "response": [
+    {
+      "id": 201,
+      "employee_id": [
+        101,
+        "Karma Dorji"
+      ],
+      "holiday_status_id": [
+        1,
+        "Paid Time Off"
+      ],
+      "state": "validate",
+      "request_date_from": "2026-10-05",
+      "request_date_to": "2026-10-07",
+      "number_of_days": 3.0,
+      "department_id": [
+        1,
+        "Management"
+      ],
+      "write_date": "2026-10-05 05:00:00"
+    },
+    {
+      "id": 202,
+      "employee_id": [
+        102,
+        "Sonam Choden"
+      ],
+      "holiday_status_id": [
+        2,
+        "Sick Time Off"
+      ],
+      "state": "validate",
+      "request_date_from": "2026-10-12",
+      "request_date_to": "2026-10-12",
+      "number_of_days": 1.0,
+      "department_id": [
+        2,
+        "Sales"
+      ],
+      "write_date": "2026-10-12 05:00:00"
+    },
+    {
+      "id": 203,
+      "employee_id": [
+        104,
+        "Dechen Pelmo"
+      ],
+      "holiday_status_id": [
+        1,
+        "Paid Time Off"
+      ],
+      "state": "confirm",
+      "request_date_from": "2026-10-20",
+      "request_date_to": "2026-10-22",
+      "number_of_days": 3.0,
+      "department_id": [
+        3,
+        "Finance & Accounts"
+      ],
+      "write_date": "2026-10-20 05:00:00"
+    },
+    {
+      "id": 204,
+      "employee_id": [
+        105,
+        "Ugyen Tenzin"
+      ],
+      "holiday_status_id": [
+        1,
+        "Paid Time Off"
+      ],
+      "state": "refuse",
+      "request_date_from": "2026-10-14",
+      "request_date_to": "2026-10-15",
+      "number_of_days": 2.0,
+      "department_id": [
+        4,
+        "Warehouse"
+      ],
+      "write_date": "2026-10-14 05:00:00"
+    },
+    {
+      "id": 205,
+      "employee_id": [
+        106,
+        "Pema Wangmo"
+      ],
+      "holiday_status_id": [
+        1,
+        "Paid Time Off"
+      ],
+      "state": "validate1",
+      "request_date_from": "2026-10-26",
+      "request_date_to": "2026-10-28",
+      "number_of_days": 3.0,
+      "department_id": [
+        5,
+        "Sales"
+      ],
+      "write_date": "2026-10-26 05:00:00"
+    },
+    {
+      "id": 206,
+      "employee_id": [
+        102,
+        "Sonam Choden"
+      ],
+      "holiday_status_id": [
+        1,
+        "Paid Time Off"
+      ],
+      "state": "validate",
+      "request_date_from": "2026-10-27",
+      "request_date_to": "2026-10-28",
+      "number_of_days": 2.0,
+      "department_id": [
+        2,
+        "Sales"
+      ],
+      "write_date": "2026-10-27 05:00:00"
+    },
+    {
+      "id": 207,
+      "employee_id": [
+        103,
+        "Tshering Wangdi"
+      ],
+      "holiday_status_id": [
+        1,
+        "Paid Time Off"
+      ],
+      "state": "cancel",
+      "request_date_from": "2026-10-01",
+      "request_date_to": "2026-10-02",
+      "number_of_days": 2.0,
+      "department_id": [
+        2,
+        "Sales"
+      ],
+      "write_date": "2026-10-01 05:00:00"
+    },
+    {
+      "id": 208,
+      "employee_id": [
+        101,
+        "Karma Dorji"
+      ],
+      "holiday_status_id": [
+        1,
+        "Paid Time Off"
+      ],
+      "state": "validate",
+      "request_date_from": "2026-09-22",
+      "request_date_to": "2026-09-23",
+      "number_of_days": 2.0,
+      "department_id": [
+        1,
+        "Management"
+      ],
+      "write_date": "2026-09-22 05:00:00"
+    },
+    {
+      "id": 209,
+      "employee_id": [
+        107,
+        "Kinga Lhamo"
+      ],
+      "holiday_status_id": [
+        2,
+        "Sick Time Off"
+      ],
+      "state": "validate",
+      "request_date_from": "2026-10-30",
+      "request_date_to": "2026-11-03",
+      "number_of_days": 3.0,
+      "department_id": [
+        5,
+        "Sales"
+      ],
+      "write_date": "2026-10-30 05:00:00"
+    },
+    {
+      "id": 210,
+      "employee_id": [
+        110,
+        "Thinley Norbu"
+      ],
+      "holiday_status_id": [
+        1,
+        "Paid Time Off"
+      ],
+      "state": "validate",
+      "request_date_from": "2026-10-18",
+      "request_date_to": "2026-10-16",
+      "number_of_days": 1.0,
+      "department_id": false,
+      "write_date": "2026-10-18 05:00:00"
+    }
+  ]
+}

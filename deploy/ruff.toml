@@ -1,0 +1,3 @@
+# Operations script: long docker/psql command lines read better unwrapped; 120 columns here only.
+extend = "../pyproject.toml"
+line-length = 120

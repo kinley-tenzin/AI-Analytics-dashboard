@@ -1,0 +1,4 @@
+# Evaluation scripts carry long report table headers, scenario descriptions and embedded Odoo
+# shell scripts; allow 120 columns here only. Everything else follows pyproject.toml.
+extend = "../pyproject.toml"
+line-length = 120

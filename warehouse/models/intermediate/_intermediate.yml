@@ -1,0 +1,75 @@
+version: 2
+
+models:
+  - name: int_snapshot_dates
+    description: >
+      Dates on which a dated snapshot exists per instance and domain (hr / accounts): local
+      calendar dates with a successful extraction of every key entity of the domain.
+    data_tests:
+      - unique_combination: {arguments: {columns: [source_instance, domain, snapshot_date]}}
+
+  - name: int_organisation_units
+    description: Organisations and branches of both ERPs, plus one 'unassigned' branch per instance.
+    data_tests:
+      - unique_combination: {arguments: {columns: [unit_type, unit_key]}}
+    columns:
+      - name: resolution
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: [source, single_company_instance, ambiguous, unassigned]
+
+  - name: int_departments
+    data_tests:
+      - unique_combination: {arguments: {columns: [department_key]}}
+
+  - name: int_employee_versions
+    description: Canonical employee attributes for every extracted version.
+    data_tests:
+      - unique_combination: {arguments: {columns: [record_version_id]}}
+    columns:
+      - name: department_key
+        data_tests:
+          - not_null
+          - relationships: {arguments: {to: ref('int_departments'), field: department_key}}
+
+  - name: int_leave_requests
+    data_tests:
+      - unique_combination: {arguments: {columns: [leave_key]}}
+    columns:
+      - name: approval_status
+        description: From seed map_leave_approval_status; 'unmapped' would reveal a missing mapping.
+        data_tests:
+          - accepted_values: {arguments: {values: [pending, approved, rejected, cancelled]}}
+
+  - name: int_partners
+    data_tests:
+      - unique_combination: {arguments: {columns: [partner_key, partner_role]}}
+
+  - name: int_accounting_document_versions
+    description: Canonical documents (every version) with signed company-currency amounts.
+    data_tests:
+      - unique_combination: {arguments: {columns: [record_version_id]}}
+    columns:
+      - name: ledger
+        data_tests: [not_null, {accepted_values: {arguments: {values: [receivable, payable]}}}]
+      - name: document_kind
+        data_tests: [not_null, {accepted_values: {arguments: {values: [invoice, credit_note]}}}]
+      - name: document_state
+        data_tests: [not_null, {accepted_values: {arguments: {values: [draft, posted, cancelled]}}}]
+      - name: currency_resolution
+        description: Posted documents whose outstanding currency cannot be converted must be fixed.
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: [ok]
+              config:
+                where: "document_state = 'posted'"
+
+  - name: int_payment_allocations
+    data_tests:
+      - unique_combination: {arguments: {columns: [payment_key, document_key]}}
+    columns:
+      - name: allocation_basis
+        data_tests:
+          - accepted_values: {arguments: {values: [exact, single_link, ambiguous]}}

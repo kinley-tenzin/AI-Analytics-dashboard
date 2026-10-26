@@ -1,0 +1,18 @@
+slice_name: Outstanding payables
+description: Default DrukSmart Accounts Overview chart (template, bootstrap.py).
+certified_by: null
+certification_details: null
+viz_type: big_number_total
+params:
+  viz_type: big_number_total
+  metric: outstanding_payables
+  adhoc_filters: []
+  subheader: open supplier balances (AC-02)
+  header_font_size: 0.4
+  subheader_font_size: 0.15
+  datasource: 3__table
+query_context: null
+cache_timeout: null
+uuid: 78392a5f-d5c7-4241-8fa0-06e45b5867a3
+version: 1.0.0
+dataset_uuid: 0a8273cf-52cb-4af8-b546-02ff4b99963d

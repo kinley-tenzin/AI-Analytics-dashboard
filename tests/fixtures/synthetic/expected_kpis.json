@@ -1,0 +1,154 @@
+{
+  "_meta": {
+    "synthetic": true,
+    "notice": "Expected KPI results for the SYNTHETIC fixtures, calculated BY HAND from the record tables (see 'working'). Not produced by code. Future dbt marts must reproduce these numbers.",
+    "kpi_catalogue": "docs/data/KPI_CATALOGUE.md",
+    "instances": {"odoo": "odoo-dtg-retail", "erpnext": "erpnext-dtg-services"},
+    "currency": "BTN (company currency of both legal companies)",
+    "state_rule": "As of date D, each record's state is its latest version among batches extracted on or before D."
+  },
+
+  "rejected_records": {
+    "working": "Records with contract errors are quarantined and excluded from every KPI.",
+    "odoo": {
+      "hr.employee": ["112"],
+      "hr.leave": ["210"],
+      "account.move": ["457"]
+    },
+    "erpnext": {
+      "Employee": ["HR-EMP-00011", "HR-EMP-00012"],
+      "Leave Application": ["HR-LAP-2026-00009"],
+      "Sales Invoice": ["ACC-SINV-2026-00010"]
+    }
+  },
+
+  "HR-01_active_headcount": {
+    "as_of_date": "2026-10-31",
+    "working": [
+      "Odoo active: 101,102,103 (leaves 2026-11-15),104,105,106,107 (contractor),110,111 (trainee) = 9. Not active: 108,109 (left), 113 (archived, inactive), 112 rejected.",
+      "ERPNext active: HR-EMP-00001,00002,00003,00004,00005,00009,00010 = 7. Not active: 00006 Left, 00007 Suspended, 00008 Inactive, 00013 joins 2026-11-03, 00011/00012 rejected."
+    ],
+    "by_instance": {"odoo-dtg-retail": 9, "erpnext-dtg-services": 7},
+    "total": 16,
+    "by_branch": {
+      "odoo:odoo-dtg-retail:1": 6,
+      "odoo:odoo-dtg-retail:2": 3,
+      "erpnext:erpnext-dtg-services:Paro": 3,
+      "erpnext:erpnext-dtg-services:Bumthang": 3,
+      "erpnext:erpnext-dtg-services:unassigned": 1
+    },
+    "policy_alternative_odoo_employee_and_worker_only": {
+      "working": "If DrukSmart excludes contractor/student/trainee/freelance (DS-HR-01): 9 - 107 - 111 = 7.",
+      "odoo-dtg-retail": 7
+    }
+  },
+
+  "HR-02_headcount_by_department": {
+    "as_of_date": "2026-10-31",
+    "working": [
+      "Odoo: dept 1 Management {101}; dept 2 Sales/HO {102,103}; dept 3 Finance {104,111}; dept 4 Warehouse {105}; dept 5 Sales/Phuentsholing {106,107}; unassigned {110}.",
+      "ERPNext: Operations {00001,00002}; Accounts {00003}; Sales {00004,00005}; Human Resources {00009}; unassigned {00010}.",
+      "Odoo dept 2 and dept 5 are both called 'Sales' but are different departments."
+    ],
+    "counts": {
+      "odoo:odoo-dtg-retail:1": 1,
+      "odoo:odoo-dtg-retail:2": 2,
+      "odoo:odoo-dtg-retail:3": 2,
+      "odoo:odoo-dtg-retail:4": 1,
+      "odoo:odoo-dtg-retail:5": 2,
+      "odoo:odoo-dtg-retail:unassigned": 1,
+      "erpnext:erpnext-dtg-services:Operations - DSV": 2,
+      "erpnext:erpnext-dtg-services:Accounts - DSV": 1,
+      "erpnext:erpnext-dtg-services:Sales - DSV": 2,
+      "erpnext:erpnext-dtg-services:Human Resources - DSV": 1,
+      "erpnext:erpnext-dtg-services:unassigned": 1
+    }
+  },
+
+  "HR-03_approved_leave": {
+    "period": {"start": "2026-10-01", "end": "2026-10-31"},
+    "working": [
+      "Rule: approved requests whose START date is in the period; whole request counted (DS-HR-03).",
+      "Odoo approved (state=validate) starting in Oct: 201 (3d, emp 101), 202 (1d, 102), 206 (2d, 102), 209 (3d, 107) -> 4 requests, 9 days, 3 employees. Excluded: 203 confirm, 204 refuse, 205 validate1, 207 cancel, 208 starts Sep, 210 rejected.",
+      "ERPNext approved (docstatus=1 and status=Approved) starting in Oct: 00001 (2d, E1), 00002 (0.5d, E2), 00007 (2d, E1) -> 3 requests, 4.5 days, 2 employees. Excluded: 00003 Open, 00004 Rejected, 00005 Cancelled, 00006 not submitted, 00008 starts Sep, 00009 rejected."
+    ],
+    "by_instance": {
+      "odoo-dtg-retail": {"requests": 4, "days": 9.0, "employees": 3},
+      "erpnext-dtg-services": {"requests": 3, "days": 4.5, "employees": 2}
+    },
+    "total": {"requests": 7, "days": 13.5, "employees": 5}
+  },
+
+  "accounts": {
+    "ageing_buckets": ["not_due", "1_30", "31_60", "61_90", "91_plus", "no_due_date", "unapplied_credit"],
+
+    "2026-09-30": {
+      "working": [
+        "Uses the 2026-09-30 batch only.",
+        "Odoo AR: 402 20000 (due 09-19, 11d -> 1_30); 403 5000 (due 10-10, not due); 406 USD1000x84=84000 (due 10-15, not due); 407 credit -2000; 411 7500 (due 07-01, 91d -> 91_plus); 412 3000 (due 08-09, 52d -> 31_60). 401 paid 0; 404 draft, 405 cancelled excluded. Total 117500; overdue 20000+3000+7500=30500.",
+        "Odoo AP: 451 12000 (due 09-09, 21d -> 1_30); 453 USD500x84=42000 (due 10-12, not due); 452 paid; 454 draft. Total 54000; overdue 12000.",
+        "ERPNext AR: SINV-00001 25000 (due 09-11, 19d -> 1_30); 00003 8000 (not due); 00006 INR 10000 (not due); 00002 paid; RET-00001 applied (0); 00004 draft, 00005 cancelled excluded. Total 43000; overdue 25000.",
+        "ERPNext AP: PINV-00001 9000 (due 08-31, 30d -> 1_30); 00002 4000 (not due); 00003 20000 (due 09-20, 10d -> 1_30); 00004 draft. Total 33000; overdue 29000."
+      ],
+      "AC-01_outstanding_receivables": {"odoo-dtg-retail": 117500.0, "erpnext-dtg-services": 43000.0, "total": 160500.0},
+      "AC-02_outstanding_payables": {"odoo-dtg-retail": 54000.0, "erpnext-dtg-services": 33000.0, "total": 87000.0},
+      "AC-03_overdue_receivables": {"odoo-dtg-retail": 30500.0, "erpnext-dtg-services": 25000.0, "total": 55500.0},
+      "AC-03_overdue_payables": {"odoo-dtg-retail": 12000.0, "erpnext-dtg-services": 29000.0, "total": 41000.0},
+      "AC-04_receivables_ageing": {
+        "odoo-dtg-retail": {"not_due": 89000.0, "1_30": 20000.0, "31_60": 3000.0, "61_90": 0.0, "91_plus": 7500.0, "no_due_date": 0.0, "unapplied_credit": -2000.0},
+        "erpnext-dtg-services": {"not_due": 18000.0, "1_30": 25000.0, "31_60": 0.0, "61_90": 0.0, "91_plus": 0.0, "no_due_date": 0.0, "unapplied_credit": 0.0}
+      },
+      "AC-04_payables_ageing": {
+        "odoo-dtg-retail": {"not_due": 42000.0, "1_30": 12000.0, "31_60": 0.0, "61_90": 0.0, "91_plus": 0.0, "no_due_date": 0.0, "unapplied_credit": 0.0},
+        "erpnext-dtg-services": {"not_due": 4000.0, "1_30": 29000.0, "31_60": 0.0, "61_90": 0.0, "91_plus": 0.0, "no_due_date": 0.0, "unapplied_credit": 0.0}
+      }
+    },
+
+    "2026-10-31": {
+      "working": [
+        "Latest version per document from the 2026-09-30 and 2026-10-31 batches (406, 407, 411, 412 unchanged since September).",
+        "Odoo AR: 402 8000 (due 09-19, 42d -> 31_60); 404 8000 (now posted, due 11-02, not due); 406 84000 (due 10-15, 16d -> 1_30); 407 -2000 credit; 408 30000 (not due); 409 4000 (due 10-01, 30d -> 1_30, branch company 2); 411 7500 (122d -> 91_plus); 412 3000 (83d -> 61_90); 403 paid; 413/414 reversed (0). Total 142500; overdue 8000+84000+4000+7500+3000=106500.",
+        "Odoo AP: 453 USD300x84=25200 (due 10-12, 19d -> 1_30); 455 9000 (not due, company 2); 456 -1000 credit; 451 paid; 457 rejected. Total 33200; overdue 25200.",
+        "ERPNext AR: SINV-00001 10000 (due 09-11, 50d -> 31_60); 00003 8000 (due 10-15, 16d -> 1_30); 00004 5000 (submitted, not due); 00006 10000 (due 10-18, 13d -> 1_30); 00007 22000 (not due); 00008 USD300 -> 25200 BTN (due 10-02, 29d -> 1_30); RET-00002 -1500 credit; 00010 rejected. Total 78700; overdue 10000+8000+10000+25200=53200.",
+        "ERPNext AP: PINV-00002 3000 (due 10-10, 21d -> 1_30); 00003 20000 (due 09-20, 41d -> 31_60); 00005 7000 (not due); 00001 paid; 00004 cancelled; RET-00001 applied (0). Total 30000; overdue 23000."
+      ],
+      "AC-01_outstanding_receivables": {"odoo-dtg-retail": 142500.0, "erpnext-dtg-services": 78700.0, "total": 221200.0},
+      "AC-02_outstanding_payables": {"odoo-dtg-retail": 33200.0, "erpnext-dtg-services": 30000.0, "total": 63200.0},
+      "AC-03_overdue_receivables": {"odoo-dtg-retail": 106500.0, "erpnext-dtg-services": 53200.0, "total": 159700.0},
+      "AC-03_overdue_payables": {"odoo-dtg-retail": 25200.0, "erpnext-dtg-services": 23000.0, "total": 48200.0},
+      "AC-04_receivables_ageing": {
+        "odoo-dtg-retail": {"not_due": 38000.0, "1_30": 88000.0, "31_60": 8000.0, "61_90": 3000.0, "91_plus": 7500.0, "no_due_date": 0.0, "unapplied_credit": -2000.0},
+        "erpnext-dtg-services": {"not_due": 27000.0, "1_30": 43200.0, "31_60": 10000.0, "61_90": 0.0, "91_plus": 0.0, "no_due_date": 0.0, "unapplied_credit": -1500.0}
+      },
+      "AC-04_payables_ageing": {
+        "odoo-dtg-retail": {"not_due": 9000.0, "1_30": 25200.0, "31_60": 0.0, "61_90": 0.0, "91_plus": 0.0, "no_due_date": 0.0, "unapplied_credit": -1000.0},
+        "erpnext-dtg-services": {"not_due": 7000.0, "1_30": 3000.0, "31_60": 20000.0, "61_90": 0.0, "91_plus": 0.0, "no_due_date": 0.0, "unapplied_credit": 0.0}
+      },
+      "AC-01_receivables_by_branch": {
+        "working": "Odoo branch = invoice company_id. ERPNext invoices carry no branch -> unassigned (DS-AC-05).",
+        "odoo:odoo-dtg-retail:1": 138500.0,
+        "odoo:odoo-dtg-retail:2": 4000.0,
+        "erpnext:erpnext-dtg-services:unassigned": 78700.0
+      },
+      "AC-02_payables_by_branch": {
+        "odoo:odoo-dtg-retail:1": 24200.0,
+        "odoo:odoo-dtg-retail:2": 9000.0,
+        "erpnext:erpnext-dtg-services:unassigned": 30000.0
+      },
+      "AC-01_receivables_by_counterparty_selected": {
+        "working": [
+          "Lhaki Traders is a VERIFIED cross-ERP mapping: Odoo 303 (403 0 + 406 84000 + 413 0) + ERPNext (00002 0 + 00007 22000) = 106000.",
+          "Norbu Hardware is NOT mapped (different TPN): Odoo 301 = 404 8000 + 408 30000 + 411 7500 = 45500; ERPNext = 00001 10000 + 00004 5000 + 00006 10000 = 25000."
+        ],
+        "partner:lhaki-traders": 106000.0,
+        "odoo:odoo-dtg-retail:301": 45500.0,
+        "erpnext:erpnext-dtg-services:Norbu Hardware": 25000.0
+      },
+      "unallocated_advances_received": {
+        "working": "ERPNext ACC-PAY-2026-00007 (5000, no references). Odoo 508 is a draft payment. Reported separately, not netted (DS-AC-07).",
+        "odoo-dtg-retail": 0.0,
+        "erpnext-dtg-services": 5000.0
+      }
+    }
+  }
+}

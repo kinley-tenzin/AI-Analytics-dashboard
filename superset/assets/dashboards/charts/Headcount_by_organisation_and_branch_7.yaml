@@ -1,0 +1,30 @@
+slice_name: Headcount by organisation and branch
+description: Default DrukSmart HR Overview chart (template, bootstrap.py).
+certified_by: null
+certification_details: null
+viz_type: table
+params:
+  viz_type: table
+  query_mode: aggregate
+  groupby:
+  - organisation_name
+  - branch_name
+  metrics:
+  - active_headcount
+  - not_active_records
+  - employee_records
+  all_columns: []
+  percent_metrics: []
+  adhoc_filters: []
+  order_by_cols: []
+  order_desc: true
+  row_limit: 1000
+  server_page_length: 10
+  include_search: true
+  show_cell_bars: true
+  datasource: 1__table
+query_context: null
+cache_timeout: null
+uuid: 90f007b3-aaeb-43dd-ade5-ede373acc6f5
+version: 1.0.0
+dataset_uuid: f511f404-4de9-4573-8277-0925c7e7b194

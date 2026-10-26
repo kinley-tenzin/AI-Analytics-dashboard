@@ -1,0 +1,23 @@
+{#
+  DrukSmart override of Superset's own customisation hook: this template is included in the <head>
+  of every Superset page, including dashboards embedded in the website (superset/spa.html).
+  Mounted by compose.yaml; replaces the official file, which is an empty placeholder.
+
+  Native filter panel: Superset pins "Apply filters / Clear all" to the bottom of the panel, far
+  below short filter lists. These rules put the buttons directly under the last filter; a long
+  list still scrolls. Superset's class names are generated, so only data-test hooks are used.
+  Re-check after a Superset upgrade (python frontend/scripts/browser_check.py, website_browser).
+#}
+<style id="druksmart-filter-bar">
+  div:has(> [data-test="filterbar-action-buttons"]) > div:has(+ [data-test="filterbar-action-buttons"]) {
+    height: auto !important;
+    max-height: calc(100% - 170px);
+    flex: 0 1 auto;
+  }
+  div:has(+ [data-test="filterbar-action-buttons"]) > div:first-child {
+    padding-bottom: 0 !important;
+  }
+  [data-test="filterbar-action-buttons"] {
+    position: static !important;
+  }
+</style>

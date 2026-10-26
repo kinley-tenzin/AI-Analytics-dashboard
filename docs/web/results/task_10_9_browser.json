@@ -1,0 +1,778 @@
+{
+  "checked_at": "2026-10-25T16:58:43+00:00",
+  "base": "http://127.0.0.1:8000",
+  "passed": 154,
+  "failed": 0,
+  "results": [
+    {
+      "check": "demo_hr: anonymous visit redirected to sign-in",
+      "ok": true,
+      "detail": "http://127.0.0.1:8000/app/login?next=%2Fhr"
+    },
+    {
+      "check": "demo_hr: returned to the requested page after sign-in",
+      "ok": true,
+      "detail": "http://127.0.0.1:8000/app/hr"
+    },
+    {
+      "check": "demo_hr: session cookie is HttpOnly and SameSite=Lax",
+      "ok": true,
+      "detail": "{'httpOnly': True, 'sameSite': 'Lax'}"
+    },
+    {
+      "check": "demo_hr: page scripts cannot read the session cookie",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "demo_hr: overview heading",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "demo_hr: navigation shows exactly the role's pages",
+      "ok": true,
+      "detail": "['Overview', 'HR Analytics', 'Ask AI', 'Reports', 'Manage dashboards']"
+    },
+    {
+      "check": "demo_hr: sidebar opens Overview",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "demo_hr: sidebar opens HR Analytics",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "demo_hr: sidebar opens Ask AI",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "demo_hr: sidebar opens Reports",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "demo_hr: sidebar opens Manage dashboards",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "demo_hr: Accounts Analytics denied",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "demo_hr: Administration denied",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "demo_hr: /api/v1/me/ matches the user",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "demo_hr: sign out ends the session",
+      "ok": true,
+      "detail": "me -> 401"
+    },
+    {
+      "check": "demo_hr: Back after sign-out shows sign-in, not the page",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "demo_hr: no console errors (incl. CSP)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "demo_accounts: anonymous visit redirected to sign-in",
+      "ok": true,
+      "detail": "http://127.0.0.1:8000/app/login?next=%2Faccounts"
+    },
+    {
+      "check": "demo_accounts: returned to the requested page after sign-in",
+      "ok": true,
+      "detail": "http://127.0.0.1:8000/app/accounts"
+    },
+    {
+      "check": "demo_accounts: session cookie is HttpOnly and SameSite=Lax",
+      "ok": true,
+      "detail": "{'httpOnly': True, 'sameSite': 'Lax'}"
+    },
+    {
+      "check": "demo_accounts: page scripts cannot read the session cookie",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "demo_accounts: overview heading",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "demo_accounts: navigation shows exactly the role's pages",
+      "ok": true,
+      "detail": "['Overview', 'Accounts Analytics', 'Ask AI', 'Reports', 'Manage dashboards']"
+    },
+    {
+      "check": "demo_accounts: sidebar opens Overview",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "demo_accounts: sidebar opens Accounts Analytics",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "demo_accounts: sidebar opens Ask AI",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "demo_accounts: sidebar opens Reports",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "demo_accounts: sidebar opens Manage dashboards",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "demo_accounts: HR Analytics denied",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "demo_accounts: Administration denied",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "demo_accounts: /api/v1/me/ matches the user",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "demo_accounts: sign out ends the session",
+      "ok": true,
+      "detail": "me -> 401"
+    },
+    {
+      "check": "demo_accounts: Back after sign-out shows sign-in, not the page",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "demo_accounts: no console errors (incl. CSP)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "demo_executive: anonymous visit redirected to sign-in",
+      "ok": true,
+      "detail": "http://127.0.0.1:8000/app/login?next=%2Fhr"
+    },
+    {
+      "check": "demo_executive: returned to the requested page after sign-in",
+      "ok": true,
+      "detail": "http://127.0.0.1:8000/app/hr"
+    },
+    {
+      "check": "demo_executive: session cookie is HttpOnly and SameSite=Lax",
+      "ok": true,
+      "detail": "{'httpOnly': True, 'sameSite': 'Lax'}"
+    },
+    {
+      "check": "demo_executive: page scripts cannot read the session cookie",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "demo_executive: overview heading",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "demo_executive: navigation shows exactly the role's pages",
+      "ok": true,
+      "detail": "['Overview', 'HR Analytics', 'Accounts Analytics', 'Ask AI', 'Reports']"
+    },
+    {
+      "check": "demo_executive: sidebar opens Overview",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "demo_executive: sidebar opens HR Analytics",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "demo_executive: sidebar opens Accounts Analytics",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "demo_executive: sidebar opens Ask AI",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "demo_executive: sidebar opens Reports",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "demo_executive: Manage dashboards denied",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "demo_executive: Administration denied",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "demo_executive: /api/v1/me/ matches the user",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "demo_executive: sign out ends the session",
+      "ok": true,
+      "detail": "me -> 401"
+    },
+    {
+      "check": "demo_executive: Back after sign-out shows sign-in, not the page",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "demo_executive: no console errors (incl. CSP)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "demo_branch: anonymous visit redirected to sign-in",
+      "ok": true,
+      "detail": "http://127.0.0.1:8000/app/login?next=%2Fhr"
+    },
+    {
+      "check": "demo_branch: returned to the requested page after sign-in",
+      "ok": true,
+      "detail": "http://127.0.0.1:8000/app/hr"
+    },
+    {
+      "check": "demo_branch: session cookie is HttpOnly and SameSite=Lax",
+      "ok": true,
+      "detail": "{'httpOnly': True, 'sameSite': 'Lax'}"
+    },
+    {
+      "check": "demo_branch: page scripts cannot read the session cookie",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "demo_branch: overview heading",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "demo_branch: navigation shows exactly the role's pages",
+      "ok": true,
+      "detail": "['Overview', 'HR Analytics', 'Accounts Analytics', 'Ask AI', 'Reports']"
+    },
+    {
+      "check": "demo_branch: sidebar opens Overview",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "demo_branch: sidebar opens HR Analytics",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "demo_branch: sidebar opens Accounts Analytics",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "demo_branch: sidebar opens Ask AI",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "demo_branch: sidebar opens Reports",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "demo_branch: Manage dashboards denied",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "demo_branch: Administration denied",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "demo_branch: branch restriction shown",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "demo_branch: /api/v1/me/ matches the user",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "demo_branch: sign out ends the session",
+      "ok": true,
+      "detail": "me -> 401"
+    },
+    {
+      "check": "demo_branch: Back after sign-out shows sign-in, not the page",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "demo_branch: no console errors (incl. CSP)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "empty form is rejected in the browser",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "wrong credentials give the generic message",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "password field is cleared",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "still on the sign-in page",
+      "ok": true,
+      "detail": "http://127.0.0.1:8000/app/login"
+    },
+    {
+      "check": "demo_executive: embedded 'Active headcount' = KPI service",
+      "ok": true,
+      "detail": "16.0 vs 16.0"
+    },
+    {
+      "check": "demo_executive: embedded 'Outstanding receivables' = KPI service",
+      "ok": true,
+      "detail": "166700.0 vs 166700.0"
+    },
+    {
+      "check": "demo_executive: embedded 'Outstanding payables' = KPI service",
+      "ok": true,
+      "detail": "37700.0 vs 37700.0"
+    },
+    {
+      "check": "demo_executive: embedded 'Overdue receivables' = KPI service",
+      "ok": true,
+      "detail": "149700.0 vs 149700.0"
+    },
+    {
+      "check": "demo_executive: embedded 'Overdue payables' = KPI service",
+      "ok": true,
+      "detail": "31700.0 vs 31700.0"
+    },
+    {
+      "check": "demo_executive: no console errors with embedded dashboards",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "demo_branch: embedded 'Active headcount' = KPI service",
+      "ok": true,
+      "detail": "7.0 vs 7.0"
+    },
+    {
+      "check": "demo_branch: embedded 'Outstanding receivables' = KPI service",
+      "ok": true,
+      "detail": "101500.0 vs 101500.0"
+    },
+    {
+      "check": "demo_branch: embedded 'Outstanding payables' = KPI service",
+      "ok": true,
+      "detail": "24200.0 vs 24200.0"
+    },
+    {
+      "check": "demo_branch: embedded 'Overdue receivables' = KPI service",
+      "ok": true,
+      "detail": "103500.0 vs 103500.0"
+    },
+    {
+      "check": "demo_branch: embedded 'Overdue payables' = KPI service",
+      "ok": true,
+      "detail": "25200.0 vs 25200.0"
+    },
+    {
+      "check": "demo_branch: no console errors with embedded dashboards",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "demo_hr: embedded 'Active headcount' = KPI service",
+      "ok": true,
+      "detail": "16.0 vs 16.0"
+    },
+    {
+      "check": "demo_hr: no console errors with embedded dashboards",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "demo_accounts: embedded 'Outstanding receivables' = KPI service",
+      "ok": true,
+      "detail": "166700.0 vs 166700.0"
+    },
+    {
+      "check": "demo_accounts: embedded 'Outstanding payables' = KPI service",
+      "ok": true,
+      "detail": "37700.0 vs 37700.0"
+    },
+    {
+      "check": "demo_accounts: embedded 'Overdue receivables' = KPI service",
+      "ok": true,
+      "detail": "149700.0 vs 149700.0"
+    },
+    {
+      "check": "demo_accounts: embedded 'Overdue payables' = KPI service",
+      "ok": true,
+      "detail": "31700.0 vs 31700.0"
+    },
+    {
+      "check": "demo_accounts: no console errors with embedded dashboards",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "branch manager sees less than the organisation: Active headcount",
+      "ok": true,
+      "detail": "7.0 vs 16.0"
+    },
+    {
+      "check": "branch manager sees less than the organisation: Outstanding receivables",
+      "ok": true,
+      "detail": "101500.0 vs 166700.0"
+    },
+    {
+      "check": "Ask AI: answer contains the KPI service's overdue receivables",
+      "ok": true,
+      "detail": "Answer from warehouse data\nDeterministic rules, no language model\n\nOverdue balances as of 25 October 2026: payables BTN 31,700.00; receivables BTN 149,700.00.\n\nOverdue balances \u00b7 AC-03\nAs of 25 Oct 20"
+    },
+    {
+      "check": "Ask AI: labelled as warehouse data and as no language model",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "Ask AI: an unsupported question is refused without data",
+      "ok": true,
+      "detail": "Not supported\nDeterministic rules, no language model\n\nThis does not look like a question about a supported HR or Accounts KPI.\n\nHow many active employees are there?\nHow many employees work in each dep"
+    },
+    {
+      "check": "Ask AI: a vague question gets a clarification and no data",
+      "ok": true,
+      "detail": "Needs clarification\nDeterministic rules, no language model\n\nWhich KPI do you mean? For example:\n\nHow many active employees are there?\nHow many employees work in each department?\nHow many employees are"
+    },
+    {
+      "check": "Ask AI: a clarification option is answered with the KPI value",
+      "ok": true,
+      "detail": "Answer from warehouse data\nDeterministic rules, no language model\n\nThere are 16 active employees as of 25 October 2026.\n\nActive employee headcount \u00b7 HR-01, HR-02\nAs of 25 Oct 2026\nRefreshed 21 h ago\nS"
+    },
+    {
+      "check": "Reports: the CSV download sums to the KPI headcount",
+      "ok": true,
+      "detail": "16 vs 16.0"
+    },
+    {
+      "check": "Reports: the preview shows a table",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "Ask AI and Reports: no console errors",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "Administration: in the administrator's menu",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "Administration: status shows Superset and the service account",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "Administration: users with roles and branches",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "Manage dashboards: the administrator sees both modules' official dashboards",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "Administration: no console errors",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "HR Manager: editor link to the HR dashboard in Superset",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "HR Manager: manages the HR page only",
+      "ok": true,
+      "detail": "Dashboards shown in the website\nDASHBOARD\tMODULE PAGE\tTYPE\tSHOWN TO USERS\tACTIONS\nHR Overview\nSuperset: druksmart-hr\n\tHR\tOfficial\t\nShow HR Overview to HR users:\nVisible\t\nSuperset"
+    },
+    {
+      "check": "HR Manager: can publish on the HR page only",
+      "ok": true,
+      "detail": "['HR']"
+    },
+    {
+      "check": "HR Manager pages: no console errors",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "Executive: no editor link (view only)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "accessibility: sign-in page",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "accessibility: overview",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "accessibility: HR analytics",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "accessibility: Accounts analytics",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "accessibility: Ask AI with an answer",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "accessibility: reports with a preview",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "accessibility: not-found page",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "accessibility: administration",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "journey demo_executive: 1 opening the website asks to sign in",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "journey demo_executive: 2-3 signed in; the overview shows the authorised headcount",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "journey demo_executive: 4 the HR dashboard shows the same headcount",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "journey demo_executive: 5 a chart's CSV export from the dashboard matches the headcount",
+      "ok": true,
+      "detail": "16 vs 16.0"
+    },
+    {
+      "check": "journey demo_executive: 6-7 the Accounts dashboard shows the same receivables",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "journey demo_executive: 8-10 Ask AI answers with the verified receivables",
+      "ok": true,
+      "detail": "Answer from warehouse data\nDeterministic rules, no language model\n\nOutstanding receivables as of 25 October 2026: BTN 166,700.00 (10 open documents).\n\nOutstanding receivables \u00b7 AC-01\nAs of 25 Oct 2026"
+    },
+    {
+      "check": "journey demo_executive: 11 the report export sums to the receivables",
+      "ok": true,
+      "detail": "166700.0 vs 166700.0"
+    },
+    {
+      "check": "journey demo_executive: 12 signed out; the API refuses the old session",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "journey demo_executive: no console errors",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "journey demo_branch: 1 opening the website asks to sign in",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "journey demo_branch: 2-3 signed in; the overview shows the authorised headcount",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "journey demo_branch: 4 the HR dashboard shows the same headcount",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "journey demo_branch: 5 a chart's CSV export from the dashboard matches the headcount",
+      "ok": true,
+      "detail": "7 vs 7.0"
+    },
+    {
+      "check": "journey demo_branch: 6-7 the Accounts dashboard shows the same receivables",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "journey demo_branch: 8-10 Ask AI answers with the verified receivables",
+      "ok": true,
+      "detail": "Answer from warehouse data\nDeterministic rules, no language model\n\nOutstanding receivables as of 25 October 2026: BTN 101,500.00 (5 open documents).\n\nOutstanding receivables \u00b7 AC-01\nAs of 25 Oct 2026\n"
+    },
+    {
+      "check": "journey demo_branch: 11 the report export sums to the receivables",
+      "ok": true,
+      "detail": "101500.0 vs 101500.0"
+    },
+    {
+      "check": "journey demo_branch: 12 signed out; the API refuses the old session",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "journey demo_branch: no console errors",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "phone 375px: no horizontal scrolling",
+      "ok": true,
+      "detail": "overflow 0px"
+    },
+    {
+      "check": "phone: sidebar hidden, menu button shown",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "phone: drawer navigates and closes",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "phone: Escape closes the drawer",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "phone: unknown page shows not-found inside the app",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "phone: no console errors",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "tablet 820px: no horizontal scrolling",
+      "ok": true,
+      "detail": "overflow 0px"
+    },
+    {
+      "check": "tablet: sidebar hidden, menu button shown",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "tablet: drawer navigates and closes",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "tablet: Escape closes the drawer",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "tablet: unknown page shows not-found inside the app",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "tablet: no console errors",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "desktop 1440px: no horizontal scrolling",
+      "ok": true,
+      "detail": "overflow 0px"
+    },
+    {
+      "check": "desktop: sidebar always visible, no menu/close buttons",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "desktop: unknown page shows not-found inside the app",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "desktop: no console errors",
+      "ok": true,
+      "detail": ""
+    }
+  ]
+}

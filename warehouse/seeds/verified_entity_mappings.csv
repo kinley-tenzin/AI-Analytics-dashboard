@@ -1,0 +1,3 @@
+entity,unified_id,member_key,verified_by,verified_on
+business_partner,partner:lhaki-traders,erpnext:erpnext-dtg-services:Lhaki Traders,SYNTHETIC - finance contact (example),2026-10-20
+business_partner,partner:lhaki-traders,odoo:odoo-dtg-retail:303,SYNTHETIC - finance contact (example),2026-10-20

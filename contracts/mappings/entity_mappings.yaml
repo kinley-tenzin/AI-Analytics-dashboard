@@ -1,0 +1,26 @@
+# Verified cross-ERP identity mappings.
+#
+# Records from different ERPs are DIFFERENT entities unless listed here. Matching names,
+# matching tax IDs or matching codes are only CANDIDATES; a human must verify them and
+# record who verified, when and on what evidence. Unverified candidates must not be listed.
+#
+# The entries below are SYNTHETIC examples that match the test fixtures in
+# tests/fixtures/synthetic/. Replace them with DrukSmart-verified mappings for real data.
+contract_version: "1.0.0"
+
+mappings:
+  - entity: business_partner
+    unified_id: partner:lhaki-traders
+    members:
+      - odoo:odoo-dtg-retail:303
+      - erpnext:erpnext-dtg-services:Lhaki Traders
+    evidence: "Same TPN (TPN-LHK-1001) in both ERPs; confirmed by finance contact."
+    verified_by: "SYNTHETIC - finance contact (example)"
+    verified_on: 2026-10-20
+    synthetic: true
+
+# Deliberately NOT mapped (documented so nobody 'fixes' it by merging):
+#   - Employee "Pema Wangmo": exists in Odoo (id 106) and ERPNext (HR-EMP-00001). Same name,
+#     no verified evidence that it is the same person -> two employees.
+#   - Customer "Norbu Hardware": Odoo partner 301 (TPN-NRB-2001) and ERPNext customer
+#     "Norbu Hardware" (TPN-NRB-2999). Same name, different TPN -> two customers.

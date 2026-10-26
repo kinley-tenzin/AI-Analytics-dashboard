@@ -1,0 +1,6 @@
+source_system,source_payment_type,direction
+erpnext,Internal Transfer,excluded
+erpnext,Pay,paid
+erpnext,Receive,received
+odoo,inbound,received
+odoo,outbound,paid

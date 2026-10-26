@@ -1,0 +1,19 @@
+slice_name: Active headcount
+description: Default DrukSmart HR Overview chart (template, bootstrap.py).
+certified_by: null
+certification_details: null
+viz_type: big_number_total
+params:
+  viz_type: big_number_total
+  metric: active_headcount
+  adhoc_filters: []
+  subheader: employees active on the snapshot date
+  header_font_size: 0.4
+  subheader_font_size: 0.15
+  datasource: 1__table
+query_context: '{"datasource":{"id":1,"type":"table"},"force":false,"queries":[{"filters":[],"extras":{"having":"","where":""},"applied_time_extras":{},"columns":[],"metrics":["active_headcount"],"annotation_layers":[],"series_limit":0,"group_others_when_limit_reached":false,"order_desc":true,"url_params":{},"custom_params":{},"custom_form_data":{}}],"form_data":{"adhoc_filters":[],"datasource":"1__table","header_font_size":0.4,"metric":"active_headcount","slice_id":1,"subheader":"employees
+  active on the snapshot date","subheader_font_size":0.15,"viz_type":"big_number_total","force":false,"result_format":"json","result_type":"full"},"result_format":"json","result_type":"full"}'
+cache_timeout: null
+uuid: 048f0f9c-9b2f-47f1-8336-d8c5cc508cd3
+version: 1.0.0
+dataset_uuid: f511f404-4de9-4573-8277-0925c7e7b194

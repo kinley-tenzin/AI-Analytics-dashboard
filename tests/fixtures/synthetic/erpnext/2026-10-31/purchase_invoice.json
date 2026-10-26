@@ -1,0 +1,134 @@
+{
+  "_meta": {
+    "synthetic": true,
+    "notice": "SYNTHETIC TEST DATA - fictional organisations, people and amounts. Not real ERP data.",
+    "source_system": "erpnext",
+    "source_instance": "erpnext-dtg-services",
+    "entity": "Purchase Invoice",
+    "extraction_batch_id": "erpnext-2026-10-31-purchase_invoice",
+    "extracted_at": "2026-10-31T17:30:00Z",
+    "extraction_mode": "incremental",
+    "checkpoint_utc": "2026-09-30T17:30:00Z",
+    "instance_timezone": "Asia/Thimphu",
+    "request": {
+      "method": "GET",
+      "path": "/api/resource/Purchase Invoice",
+      "params": {
+        "filters": [
+          [
+            "modified",
+            ">",
+            "2026-09-30 23:30:00"
+          ]
+        ],
+        "order_by": "name asc",
+        "limit_start": 0,
+        "limit_page_length": 200
+      }
+    }
+  },
+  "response": {
+    "data": [
+      {
+        "name": "ACC-PINV-2026-00001",
+        "company": "DTG Services Pvt Ltd",
+        "posting_date": "2026-08-01",
+        "due_date": "2026-08-31",
+        "currency": "BTN",
+        "conversion_rate": 1.0,
+        "grand_total": 9000.0,
+        "base_grand_total": 9000.0,
+        "outstanding_amount": 0.0,
+        "party_account_currency": "BTN",
+        "is_return": 0,
+        "return_against": null,
+        "update_outstanding_for_self": 1,
+        "status": "Paid",
+        "docstatus": 1,
+        "modified": "2026-10-03 10:00:00.000000",
+        "supplier": "Thunder Paper Works",
+        "bill_no": "SUP-00001"
+      },
+      {
+        "name": "ACC-PINV-2026-00002",
+        "company": "DTG Services Pvt Ltd",
+        "posting_date": "2026-09-10",
+        "due_date": "2026-10-10",
+        "currency": "BTN",
+        "conversion_rate": 1.0,
+        "grand_total": 14000.0,
+        "base_grand_total": 14000.0,
+        "outstanding_amount": 3000.0,
+        "party_account_currency": "BTN",
+        "is_return": 0,
+        "return_against": null,
+        "update_outstanding_for_self": 1,
+        "status": "Partly Paid",
+        "docstatus": 1,
+        "modified": "2026-10-18 10:00:00.000000",
+        "supplier": "Peling Logistics",
+        "bill_no": "SUP-00002"
+      },
+      {
+        "name": "ACC-PINV-2026-00004",
+        "company": "DTG Services Pvt Ltd",
+        "posting_date": "2026-09-28",
+        "due_date": "2026-10-28",
+        "currency": "BTN",
+        "conversion_rate": 1.0,
+        "grand_total": 2000.0,
+        "base_grand_total": 2000.0,
+        "outstanding_amount": 2000.0,
+        "party_account_currency": "BTN",
+        "is_return": 0,
+        "return_against": null,
+        "update_outstanding_for_self": 1,
+        "status": "Cancelled",
+        "docstatus": 2,
+        "modified": "2026-10-12 10:00:00.000000",
+        "supplier": "Thunder Paper Works",
+        "bill_no": "SUP-00004"
+      },
+      {
+        "name": "ACC-PINV-2026-00005",
+        "company": "DTG Services Pvt Ltd",
+        "posting_date": "2026-10-15",
+        "due_date": "2026-11-14",
+        "currency": "BTN",
+        "conversion_rate": 1.0,
+        "grand_total": 7000.0,
+        "base_grand_total": 7000.0,
+        "outstanding_amount": 7000.0,
+        "party_account_currency": "BTN",
+        "is_return": 0,
+        "return_against": null,
+        "update_outstanding_for_self": 1,
+        "status": "Unpaid",
+        "docstatus": 1,
+        "modified": "2026-10-15 10:00:00.000000",
+        "supplier": "Peling Logistics",
+        "bill_no": "SUP-00005"
+      },
+      {
+        "name": "ACC-PINV-RET-2026-00001",
+        "company": "DTG Services Pvt Ltd",
+        "posting_date": "2026-10-18",
+        "due_date": "2026-10-18",
+        "currency": "BTN",
+        "conversion_rate": 1.0,
+        "grand_total": -1000.0,
+        "base_grand_total": -1000.0,
+        "outstanding_amount": 0.0,
+        "party_account_currency": "BTN",
+        "is_return": 1,
+        "return_against": "ACC-PINV-2026-00002",
+        "update_outstanding_for_self": 0,
+        "status": "Return",
+        "docstatus": 1,
+        "modified": "2026-10-18 10:00:00.000000",
+        "supplier": "Peling Logistics",
+        "bill_no": "SUP-00001"
+      }
+    ]
+  }
+}

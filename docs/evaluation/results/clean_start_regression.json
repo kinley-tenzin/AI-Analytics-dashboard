@@ -1,0 +1,126 @@
+{
+  "run_at": "2026-10-25T03:28:30",
+  "stages": [
+    {
+      "stage": "lint",
+      "covers": "ruff lint + format check",
+      "status": "passed",
+      "seconds": 0.3,
+      "summary": [
+        "All checks passed!"
+      ]
+    },
+    {
+      "stage": "format",
+      "covers": "ruff format check",
+      "status": "passed",
+      "seconds": 0.3,
+      "summary": [
+        "161 files already formatted"
+      ]
+    },
+    {
+      "stage": "unit",
+      "covers": "contracts, connectors (fake APIs), ingestion logic, KPI oracle, DAG static checks, Superset definitions, Django registry/rules/Gemini(mocked)/API, consistency guards",
+      "status": "passed",
+      "seconds": 12.7,
+      "summary": [
+        "........................................................................ [ 94%]",
+        "...................                                                      [100%]",
+        "379 passed, 26 deselected in 9.50s"
+      ]
+    },
+    {
+      "stage": "database",
+      "covers": "PostgreSQL roles/schemas, raw ingestion against the DB, publication swap/grants",
+      "status": "passed",
+      "seconds": 10.0,
+      "summary": [
+        "......................                                                   [100%]",
+        "22 passed, 473 deselected in 7.40s"
+      ]
+    },
+    {
+      "stage": "warehouse",
+      "covers": "fixtures -> connectors -> raw -> dbt build + data tests -> hand-calculated KPIs; Django KPI service on the same marts",
+      "status": "passed",
+      "seconds": 30.9,
+      "summary": [
+        "...................                                                      [100%]",
+        "19 passed, 476 deselected in 28.37s"
+      ]
+    },
+    {
+      "stage": "live_erp",
+      "covers": "read-only connectivity, contracts and idempotent loading against the ERP sandboxes",
+      "status": "passed",
+      "seconds": 14.8,
+      "summary": [
+        "..............                                                           [100%]",
+        "14 passed, 481 deselected in 12.35s"
+      ]
+    },
+    {
+      "stage": "kpi_service",
+      "covers": "Django KPI functions vs fact tables, scope, restricted DB account",
+      "status": "passed",
+      "seconds": 5.9,
+      "summary": [
+        ".................                                                        [100%]",
+        "17 passed, 478 deselected in 3.31s"
+      ]
+    },
+    {
+      "stage": "superset",
+      "covers": "Superset access boundary, RLS, CSV export, KPIs; Superset = KPI service",
+      "status": "passed",
+      "seconds": 25.1,
+      "summary": [
+        "............................................                             [100%]",
+        "44 passed, 451 deselected in 22.26s"
+      ]
+    },
+    {
+      "stage": "dashboards_browser",
+      "covers": "dashboards per role in headless Edge; KPI cards = warehouse",
+      "status": "passed",
+      "seconds": 154.4,
+      "summary": [
+        "         Outstanding payables: 24,200.00  (= warehouse)",
+        "         Overdue payables: 25,200.00  (= warehouse)",
+        "browser check: all passed"
+      ]
+    },
+    {
+      "stage": "reconciliation",
+      "covers": "source ERPs = dbt = Superset = Django = AI answers (all KPIs, per ERP)",
+      "status": "passed",
+      "seconds": 7.4,
+      "summary": [
+        "[PASS] ai text contains source value: overdue_receivable",
+        "[PASS] ai text contains source value: leave_employees",
+        "30/30 reconciliation checks passed -> C:\\Users\\ASUS\\FYP\\docs\\evaluation\\results\\reconciliation_regression.json"
+      ]
+    },
+    {
+      "stage": "access_matrix",
+      "covers": "every role x resource at Superset, Django and database boundaries",
+      "status": "passed",
+      "seconds": 51.0,
+      "summary": [
+        "access matrix: 115/115 checks as expected"
+      ]
+    },
+    {
+      "stage": "assistant_eval",
+      "covers": "AI assistant evaluation set (held-out set) against fact-table references",
+      "status": "passed",
+      "seconds": 3.0,
+      "summary": [
+        "    \"restricted\": \"2/2\"",
+        "  }",
+        "}"
+      ]
+    }
+  ]
+}

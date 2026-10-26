@@ -1,0 +1,33 @@
+slice_name: HR data freshness
+description: Default DrukSmart HR Overview chart (template, bootstrap.py).
+certified_by: null
+certification_details: null
+viz_type: table
+params:
+  viz_type: table
+  query_mode: raw
+  all_columns:
+  - source_instance
+  - source_system
+  - latest_snapshot_date
+  - published_at
+  - hours_since_publication
+  - pipeline_run_id
+  - source_mode
+  adhoc_filters:
+  - clause: WHERE
+    expressionType: SIMPLE
+    subject: domain
+    operator: IN
+    comparator:
+    - hr
+  order_by_cols: []
+  row_limit: 100
+  server_page_length: 10
+  table_timestamp_format: '%Y-%m-%d %H:%M'
+  datasource: 4__table
+query_context: null
+cache_timeout: null
+uuid: 5503e1df-a039-435a-a3a3-64e0595e9c6f
+version: 1.0.0
+dataset_uuid: 843e8aed-9fa8-4297-82e7-150212c054ba

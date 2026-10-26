@@ -1,0 +1,175 @@
+# Superset ACCESS MODEL: roles, their dataset access, row-level security and demo users.
+#
+# Applied by superset/scripts/bootstrap.py (idempotent: role permissions are SET to exactly what
+# is listed here on every run). Enforcement happens inside Superset, which is the system that
+# queries the data for dashboards, charts, Explore and CSV export (CLAUDE.md section 2).
+#
+# Each user gets ONE DrukSmart role. A role = a permission BASE + data DOMAINS (+ optional RLS).
+#   viewer  base: Superset's Gamma permissions MINUS everything that creates or changes objects
+#                 (charts, dashboards, tags, themes), RLS rule reading and self-registration.
+#   creator base: Gamma MINUS RLS reading, self-registration and admin-like extras. Can create
+#                 and edit its OWN charts/dashboards; cannot edit datasets (governed metrics).
+#                 Used by the HR and Accounts MANAGERS (ADR-044): they build dashboards with the
+#                 datasets of THEIR module only; the official templates stay admin-owned.
+# No DrukSmart role has SQL Lab, database-level access or dataset write permissions.
+# The Superset built-in Admin role is the Administrator.
+
+bases:
+  viewer:
+    from: Gamma
+    remove:
+      - [can_write, Chart]
+      - [can_write, Dashboard]
+      - [can_write, Tag]
+      - [can_write, Theme]
+      - [can_bulk_create, Tag]
+      - [can_tag, Chart]
+      - [can_tag, Dashboard]
+      - [can_export, Chart]          # chart/dashboard DEFINITION export (not data)
+      - [can_export, Dashboard]
+      - [can_export, Theme]
+      - [can_export_as_example, Dashboard]
+      - [can_delete_embedded, Dashboard]
+      - [can_invalidate, CacheRestApi]
+      - [can_read, RowLevelSecurity]
+      - [menu_access, Databases]
+      - ["*", UserRegistrationsRestAPI]
+  creator:
+    from: Gamma
+    remove:
+      - [can_write, Theme]
+      - [can_export_as_example, Dashboard]
+      - [can_delete_embedded, Dashboard]
+      - [can_read, RowLevelSecurity]
+      - [menu_access, Databases]
+      - ["*", UserRegistrationsRestAPI]
+  # Embedded viewers in the website (Milestone 10): viewer permissions MINUS everything that leads
+  # out of the website into Superset itself (Explore / "Edit chart", "View query", share links):
+  # a guest has no Superset session there. Kept: CSV/Excel/image download, cross-filtering, Drill by
+  # (needs the Explore form-data cache) and View as table. No DrukSmart role has `can_samples`, so
+  # "Drill to detail" (raw dataset rows) is not offered to anyone but the administrator.
+  guest:
+    from: Gamma
+    remove:
+      - [can_write, Chart]
+      - [can_write, Dashboard]
+      - [can_write, Tag]
+      - [can_write, Theme]
+      - [can_bulk_create, Tag]
+      - [can_tag, Chart]
+      - [can_tag, Dashboard]
+      - [can_export, Chart]
+      - [can_export, Dashboard]
+      - [can_export, Theme]
+      - [can_export_as_example, Dashboard]
+      - [can_delete_embedded, Dashboard]
+      - [can_invalidate, CacheRestApi]
+      - [can_read, RowLevelSecurity]
+      - [menu_access, Databases]
+      - ["*", UserRegistrationsRestAPI]
+      - [can_explore, Superset]
+      - [can_read, Explore]
+      - [can_write, ExplorePermalinkRestApi]
+      - [can_view_query, Dashboard]
+      - [can_share_chart, Superset]
+      - [can_share_dashboard, Superset]
+      - [can_list, SavedQuery]
+      - [can_export_streaming_csv, SQLLab]
+  # Website backend's service account (Milestone 10): viewer permissions PLUS issuing guest tokens
+  # and setting a dashboard's embedding configuration. It never creates or edits charts/dashboards.
+  service:
+    from: Gamma
+    remove:
+      - [can_write, Chart]
+      - [can_write, Dashboard]
+      - [can_write, Tag]
+      - [can_write, Theme]
+      - [can_bulk_create, Tag]
+      - [can_tag, Chart]
+      - [can_tag, Dashboard]
+      - [can_export, Chart]
+      - [can_export, Dashboard]
+      - [can_export, Theme]
+      - [can_export_as_example, Dashboard]
+      - [can_delete_embedded, Dashboard]
+      - [can_invalidate, CacheRestApi]
+      - [can_read, RowLevelSecurity]
+      - [menu_access, Databases]
+      - ["*", UserRegistrationsRestAPI]
+    add:
+      - [can_grant_guest_token, SecurityRestApi]
+      - [can_set_embedded, Dashboard]
+
+# Datasets per domain (relations from superset/approved_datasets.yml).
+domains:
+  hr: [kpi_headcount, kpi_approved_leave_monthly, data_freshness]
+  accounts: [kpi_receivables_payables, data_freshness]
+
+roles:
+  # The website is for managers and senior management (ADR-044): the module managers author
+  # dashboards for their own module; the executive and branch managers use them.
+  - name: DrukSmart HR Manager
+    base: creator
+    domains: [hr]
+    dashboards: [hr]
+  - name: DrukSmart Accounts Manager
+    base: creator
+    domains: [accounts]
+    dashboards: [accounts]
+  - name: DrukSmart Executive
+    base: viewer
+    domains: [hr, accounts]
+    dashboards: [hr, accounts]
+  # Branch manager: both domains, but ROW-LEVEL SECURITY limits every query to the branches below.
+  - name: DrukSmart Branch Manager
+    base: viewer
+    domains: [hr, accounts]
+    dashboards: [hr, accounts]
+  # Embedded viewers (guest tokens) act with this role only: viewer permissions and NO dataset
+  # access of its own. Superset lets a guest query only the charts of the dashboard in its token,
+  # with the token's RLS rules. Name = GUEST_ROLE_NAME in superset/docker/superset_config.py.
+  - name: DrukSmart Embedded Guest
+    base: guest
+    domains: []
+    dashboards: []
+  # The website backend's service account (see `embedding` below).
+  - name: DrukSmart Portal Service
+    base: service
+    domains: [hr, accounts]
+    dashboards: [hr, accounts]
+
+# Row-level security (Superset "Regular" filters: the clause is ANDed to every query of the
+# listed datasets for users with the role, including Explore, drill-down and CSV export).
+# branch_keys come from marts.dim_branch; change them to the real branch of each manager.
+row_level_security:
+  - name: Branch manager - demo branch
+    role: DrukSmart Branch Manager
+    group_key: branch
+    tables: [kpi_headcount, kpi_approved_leave_monthly, kpi_receivables_payables]
+    branch_keys: ["odoo:odoo-sandbox:1"]          # DTG Retail Pvt Ltd (head office), sandbox
+    description: Demo branch manager restricted to one branch.
+
+# DEMO users for local testing of the role matrix, created only when
+# SUPERSET_DEMO_USER_PASSWORD is set in .env. Real users are created by an administrator.
+demo_users:
+  - {username: demo_hr, role: DrukSmart HR Manager, first_name: Demo, last_name: HR Manager}
+  - {username: demo_accounts, role: DrukSmart Accounts Manager, first_name: Demo, last_name: Accounts Manager}
+  - {username: demo_executive, role: DrukSmart Executive, first_name: Demo, last_name: Executive}
+  - {username: demo_branch, role: DrukSmart Branch Manager, first_name: Demo, last_name: Branch Manager}
+
+# Roles and demo users of earlier milestones, REMOVED by the bootstrap if they still exist
+# (ADR-044: the viewer roles became manager roles; the separate creator role was retired).
+retired_roles: [DrukSmart HR Viewer, DrukSmart Accounts Viewer, DrukSmart Dashboard Creator]
+retired_demo_users: [demo_creator]
+
+# EMBEDDING in the DrukSmart website (Milestone 10, docs/web/EMBEDDING.md). The bootstrap
+# enables embedding for the default dashboards (only DRUKSMART_WEB_ORIGIN may frame them) and
+# creates the service account (password SUPERSET_PORTAL_SERVICE_PASSWORD, backend container only).
+embedding:
+  guest_role: DrukSmart Embedded Guest
+  service_role: DrukSmart Portal Service
+  service_user: {first_name: DrukSmart, last_name: Portal Service}
+  dashboards: [hr, accounts]
+  # Datasets WITHOUT branch data: safe to show to branch-restricted users unfiltered. A dashboard
+  # that uses any dataset neither here nor in row_level_security[].tables is refused to them.
+  branch_neutral_tables: [data_freshness]

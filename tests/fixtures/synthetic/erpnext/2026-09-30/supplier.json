@@ -1,0 +1,49 @@
+{
+  "_meta": {
+    "synthetic": true,
+    "notice": "SYNTHETIC TEST DATA - fictional organisations, people and amounts. Not real ERP data.",
+    "source_system": "erpnext",
+    "source_instance": "erpnext-dtg-services",
+    "entity": "Supplier",
+    "extraction_batch_id": "erpnext-2026-09-30-supplier",
+    "extracted_at": "2026-09-30T17:30:00Z",
+    "extraction_mode": "full",
+    "checkpoint_utc": null,
+    "instance_timezone": "Asia/Thimphu",
+    "request": {
+      "method": "GET",
+      "path": "/api/resource/Supplier",
+      "params": {
+        "filters": [],
+        "order_by": "name asc",
+        "limit_start": 0,
+        "limit_page_length": 200
+      }
+    }
+  },
+  "response": {
+    "data": [
+      {
+        "name": "Thunder Paper Works",
+        "supplier_name": "Thunder Paper Works",
+        "tax_id": "TPN-TPW-7001",
+        "disabled": 0,
+        "modified": "2026-02-01 10:00:00.000000"
+      },
+      {
+        "name": "Peling Logistics",
+        "supplier_name": "Peling Logistics",
+        "tax_id": "TPN-PLG-8001",
+        "disabled": 0,
+        "modified": "2026-02-01 10:00:00.000000"
+      },
+      {
+        "name": "Delhi Tools Pvt Ltd",
+        "supplier_name": "Delhi Tools Pvt Ltd",
+        "tax_id": null,
+        "disabled": 0,
+        "modified": "2026-02-01 10:00:00.000000"
+      }
+    ]
+  }
+}

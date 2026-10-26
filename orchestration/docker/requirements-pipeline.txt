@@ -1,0 +1,11 @@
+# Python packages for the DrukSmart pipeline venv inside the Airflow image (/opt/druksmart-venv).
+# Kept separate from Airflow's own environment so dbt and Airflow dependencies never conflict.
+# MUST match the pins in pyproject.toml (checked by tests/unit/test_orchestration.py).
+psycopg[binary]==3.3.6
+python-dotenv==1.2.4
+PyYAML==6.0.3
+httpx==0.28.1
+tzdata==2026.5
+dbt-core==1.12.0
+dbt-postgres==1.11.0
+dbt-core-experimental-parser==2.0.0a4

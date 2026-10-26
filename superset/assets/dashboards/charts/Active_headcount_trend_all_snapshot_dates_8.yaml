@@ -1,0 +1,29 @@
+slice_name: Active headcount trend (all snapshot dates)
+description: Default DrukSmart HR Overview chart (template, bootstrap.py).
+certified_by: null
+certification_details: null
+viz_type: echarts_timeseries_line
+params:
+  viz_type: echarts_timeseries_line
+  x_axis: snapshot_date
+  time_grain_sqla: P1D
+  metrics:
+  - active_headcount
+  groupby:
+  - organisation_name
+  adhoc_filters:
+  - clause: WHERE
+    expressionType: SIMPLE
+    subject: snapshot_date
+    operator: TEMPORAL_RANGE
+    comparator: No filter
+  row_limit: 10000
+  show_legend: true
+  rich_tooltip: true
+  markerEnabled: true
+  datasource: 1__table
+query_context: null
+cache_timeout: null
+uuid: 7e9889f9-a885-4b10-aa83-5f326d95f227
+version: 1.0.0
+dataset_uuid: f511f404-4de9-4573-8277-0925c7e7b194

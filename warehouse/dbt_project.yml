@@ -1,0 +1,44 @@
+name: druksmart_warehouse
+version: "1.0.0"
+config-version: 2
+profile: druksmart
+
+model-paths: ["models"]
+seed-paths: ["seeds"]
+test-paths: ["tests"]
+macro-paths: ["macros"]
+target-path: "target"
+clean-targets: ["target", "dbt_packages", "logs"]
+
+vars:
+  # Calendar dates (snapshot dates, leave periods, ageing) are evaluated in this time zone.
+  reporting_timezone: "Asia/Thimphu"
+  # Range of the generated date dimension.
+  date_dimension_start: "2015-01-01"
+  date_dimension_end: "2035-12-31"
+
+seeds:
+  druksmart_warehouse:
+    +schema: staging
+    map_leave_approval_status:
+      +column_types: {docstatus: integer}
+    map_document_type:
+      +column_types: {is_return: integer}
+    map_document_sign:
+      +column_types: {document_sign: integer}
+    verified_entity_mappings:
+      +column_types: {verified_on: date}
+
+models:
+  druksmart_warehouse:
+    staging:
+      +schema: staging
+      +materialized: view
+    intermediate:
+      +schema: intermediate
+      +materialized: table
+    marts:
+      +schema: marts
+      +materialized: table
+      kpi:
+        +materialized: view

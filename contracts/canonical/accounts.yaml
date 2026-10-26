@@ -1,0 +1,78 @@
+# Canonical Accounts model (receivables and payables) for Odoo and ERPNext.
+contract_version: "1.0.0"
+
+conventions:
+  reporting_currency: "Company currency of each legal company. Both reference companies use BTN; mixing currencies requires DS-AC-03."
+  sign: >
+    Canonical amounts are POSITIVE when they increase what is owed (invoice / vendor bill)
+    and NEGATIVE for credit notes. Computed as document_sign * abs(source amount), so the
+    result does not depend on each ERP's own sign convention.
+  exchange_rate: >
+    Company-currency amounts use the rate stored on the document (Odoo signed company
+    amounts; ERPNext conversion_rate). No period-end revaluation (DS-AC-04).
+
+entities:
+  accounting_document:
+    grain: one row per invoice / credit note per source instance (latest version as of the snapshot)
+    fields:
+      document_key: "source_system:source_instance:source_id"
+      ledger: "receivable | payable"
+      document_kind: "invoice | credit_note"
+      document_state: "draft | posted | cancelled"
+      counterparty_key: "source_system:source_instance:<partner id or name>"
+      branch_key: "Odoo company_id | ERPNext: 'unassigned' (no branch on invoices by default, DS-AC-05)"
+      document_date: "Odoo invoice_date | ERPNext posting_date"
+      due_date: "Odoo invoice_date_due | ERPNext due_date"
+      currency_code: "Odoo currency_id name | ERPNext currency"
+      amount_total_company: "document_sign * abs(Odoo amount_total_signed | ERPNext base_grand_total)"
+      outstanding_company: "see outstanding_rules"
+      payment_status: "unpaid | partially_paid | paid (derived identically for both ERPs)"
+    type_map:
+      odoo:   # move_type -> (ledger, document_kind); other move types are not extracted
+        out_invoice: [receivable, invoice]
+        out_refund: [receivable, credit_note]
+        in_invoice: [payable, invoice]
+        in_refund: [payable, credit_note]
+      erpnext:  # doctype + is_return
+        Sales Invoice: {0: [receivable, invoice], 1: [receivable, credit_note]}
+        Purchase Invoice: {0: [payable, invoice], 1: [payable, credit_note]}
+    state_map:
+      odoo: {draft: draft, posted: posted, cancel: cancelled}
+      erpnext_docstatus: {0: draft, 1: posted, 2: cancelled}
+    document_sign: {invoice: 1, credit_note: -1}
+    outstanding_rules:
+      odoo: "document_sign * abs(amount_residual_signed)"
+      erpnext: >
+        document_sign * abs(outstanding_amount) * F, where F = 1 when party_account_currency
+        equals the company currency, and F = conversion_rate when party_account_currency equals
+        the document currency. Any other combination is a data-quality error.
+    included_in_balances: "document_state = posted (drafts and cancelled documents never count)"
+    excluded_payment_states:
+      odoo: [invoicing_legacy]   # legacy imports without journal items (DS-AC-06)
+    derived_payment_status:
+      - {when: "outstanding_company = 0", status: paid}
+      - {when: "abs(outstanding_company) = abs(amount_total_company)", status: unpaid}
+      - {otherwise: partially_paid}
+    source_status_cross_check:   # used only to detect inconsistencies, not to drive KPIs
+      odoo_payment_state: {not_paid: unpaid, partial: partially_paid, paid: paid, in_payment: paid, reversed: paid}
+      erpnext_status: {Paid: paid, Partly Paid: partially_paid, Unpaid: unpaid}
+
+  payment:
+    grain: one row per payment document per source instance
+    fields:
+      payment_key: "source_system:source_instance:source_id"
+      direction: "received | paid"
+      document_state: "draft | posted | cancelled"
+      payment_date: "Odoo date | ERPNext posting_date"
+      amount: "payment currency"
+      allocations: "list of (document_key, allocated_amount)"
+    direction_map:
+      odoo: {inbound: received, outbound: paid}
+      erpnext: {Receive: received, Pay: paid, Internal Transfer: excluded}
+    state_map:
+      odoo: {draft: draft, in_process: posted, paid: posted, canceled: cancelled, rejected: cancelled}
+      erpnext_docstatus: {0: draft, 1: posted, 2: cancelled}
+    allocation_sources:
+      odoo: "reconciled_invoice_ids / reconciled_bill_ids (links only). Exact amounts: account.partial.reconcile (deferred)."
+      erpnext: "Payment Entry `references` child rows (reference_name, allocated_amount)."
+    unallocated_advances: "Reported separately; NOT netted against receivables/payables (DS-AC-07)."

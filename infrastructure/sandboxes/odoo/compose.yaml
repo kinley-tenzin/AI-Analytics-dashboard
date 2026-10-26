@@ -1,0 +1,47 @@
+# LOCAL Odoo 19 Community SANDBOX for connector development and live read-only tests.
+# Not part of the platform. Holds only synthetic data. Separate project, database and volumes
+# from the analytics warehouse.
+#
+#   docker compose --env-file ../../../.env -f infrastructure/sandboxes/odoo/compose.yaml up -d
+#
+# See docs/connectors/SANDBOXES.md.
+
+name: druksmart-odoo-sandbox
+
+services:
+  db:
+    restart: unless-stopped   # come back after Docker Desktop restarts (M8 defect D4)
+    image: postgres:17.11-bookworm
+    environment:
+      POSTGRES_USER: odoo
+      POSTGRES_PASSWORD: ${ODOO_SANDBOX_DB_PASSWORD:?set ODOO_SANDBOX_DB_PASSWORD in .env}
+      POSTGRES_DB: postgres
+    volumes:
+      - odoo_db:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U odoo -d postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 12
+
+  odoo:
+    restart: unless-stopped   # come back after Docker Desktop restarts (M8 defect D4)
+    image: odoo:19.0
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      HOST: db
+      USER: odoo
+      PASSWORD: ${ODOO_SANDBOX_DB_PASSWORD}
+    # One fixed database; the web database manager is disabled.
+    command: ["--database=druksmart_sandbox", "--db-filter=^druksmart_sandbox$", "--no-database-list"]
+    ports:
+      - "127.0.0.1:${ODOO_SANDBOX_PORT:-8069}:8069"
+    volumes:
+      - odoo_data:/var/lib/odoo
+      - ./seed:/mnt/seed:ro
+
+volumes:
+  odoo_db:
+  odoo_data:

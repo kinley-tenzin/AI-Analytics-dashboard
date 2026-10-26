@@ -1,0 +1,34 @@
+{
+  "_meta": {
+    "synthetic": true,
+    "notice": "SYNTHETIC TEST DATA - fictional organisations, people and amounts. Not real ERP data.",
+    "source_system": "erpnext",
+    "source_instance": "erpnext-dtg-services",
+    "entity": "Company",
+    "extraction_batch_id": "erpnext-2026-10-31-company",
+    "extracted_at": "2026-10-31T17:30:00Z",
+    "extraction_mode": "full",
+    "checkpoint_utc": null,
+    "instance_timezone": "Asia/Thimphu",
+    "request": {
+      "method": "GET",
+      "path": "/api/resource/Company",
+      "params": {
+        "filters": [],
+        "order_by": "name asc",
+        "limit_start": 0,
+        "limit_page_length": 200
+      }
+    }
+  },
+  "response": {
+    "data": [
+      {
+        "name": "DTG Services Pvt Ltd",
+        "abbr": "DSV",
+        "default_currency": "BTN",
+        "modified": "2026-01-10 10:00:00.000000"
+      }
+    ]
+  }
+}

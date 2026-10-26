@@ -1,0 +1,27 @@
+slice_name: Ageing of open balances by ledger
+description: Default DrukSmart Accounts Overview chart (template, bootstrap.py).
+certified_by: null
+certification_details: null
+viz_type: echarts_timeseries_bar
+params:
+  viz_type: echarts_timeseries_bar
+  x_axis: ageing_bucket_label
+  metrics:
+  - outstanding_amount
+  groupby:
+  - ledger
+  adhoc_filters: []
+  orientation: vertical
+  row_limit: 10000
+  show_legend: true
+  show_value: true
+  rich_tooltip: true
+  x_axis_sort_asc: true
+  truncateYAxis: false
+  xAxisLabelRotation: 45
+  datasource: 3__table
+query_context: null
+cache_timeout: null
+uuid: bae303ba-6164-4e1b-aa7a-afdc285e4076
+version: 1.0.0
+dataset_uuid: 0a8273cf-52cb-4af8-b546-02ff4b99963d

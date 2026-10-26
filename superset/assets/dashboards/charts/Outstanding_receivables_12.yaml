@@ -1,0 +1,18 @@
+slice_name: Outstanding receivables
+description: Default DrukSmart Accounts Overview chart (template, bootstrap.py).
+certified_by: null
+certification_details: null
+viz_type: big_number_total
+params:
+  viz_type: big_number_total
+  metric: outstanding_receivables
+  adhoc_filters: []
+  subheader: open customer balances (AC-01)
+  header_font_size: 0.4
+  subheader_font_size: 0.15
+  datasource: 3__table
+query_context: null
+cache_timeout: null
+uuid: dfe62bdd-e026-4f01-b13b-bd2e985c4fce
+version: 1.0.0
+dataset_uuid: 0a8273cf-52cb-4af8-b546-02ff4b99963d

@@ -1,0 +1,664 @@
+dashboard_title: DrukSmart Accounts Overview
+description: null
+css: null
+slug: druksmart-accounts
+certified_by: null
+certification_details: null
+published: true
+uuid: b6dba089-cdc9-4482-8561-580d3e49b0c9
+position:
+  DASHBOARD_VERSION_KEY: v2
+  ROOT_ID:
+    type: ROOT
+    id: ROOT_ID
+    children:
+    - GRID_ID
+  GRID_ID:
+    type: GRID
+    id: GRID_ID
+    children:
+    - ROW-accounts-1
+    - ROW-accounts-2
+    - ROW-accounts-3
+    - ROW-accounts-4
+    - ROW-N-75L73FK7
+    parents:
+    - ROOT_ID
+  HEADER_ID:
+    id: HEADER_ID
+    type: HEADER
+    meta:
+      text: DrukSmart Accounts Overview
+  ROW-accounts-1:
+    type: ROW
+    id: ROW-accounts-1
+    children:
+    - MARKDOWN-accounts-intro
+    - CHART-ac_freshness
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    meta:
+      background: BACKGROUND_TRANSPARENT
+  MARKDOWN-accounts-intro:
+    type: MARKDOWN
+    id: MARKDOWN-accounts-intro
+    children: []
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - ROW-accounts-1
+    meta:
+      width: 8
+      height: 38
+      code: '### DrukSmart Accounts overview
+
+        Balances are **open amounts as of the selected *As-of date*** (default: the
+        latest extracted
+
+        date), in each organisation''s company currency; never add amounts of different
+        currencies.
+
+        Drafts and cancelled documents are excluded; credit notes reduce balances.
+        Source:
+
+        `marts.kpi_receivables_payables` (AC-01..AC-04 in `docs/data/KPI_CATALOGUE.md`).
+        If a chart says
+
+        *No results*, the current filters (or your access rights) leave no data to
+        show.'
+  CHART-ac_freshness:
+    type: CHART
+    id: CHART-ac_freshness
+    children: []
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - ROW-accounts-1
+    meta:
+      width: 4
+      height: 38
+      chartId: 19
+      sliceName: Accounts data freshness
+  ROW-accounts-2:
+    type: ROW
+    id: ROW-accounts-2
+    children:
+    - CHART-ac_ar
+    - CHART-ac_ar_overdue
+    - CHART-ac_ap
+    - CHART-ac_ap_overdue
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    meta:
+      background: BACKGROUND_TRANSPARENT
+  CHART-ac_ar:
+    type: CHART
+    id: CHART-ac_ar
+    children: []
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - ROW-accounts-2
+    meta:
+      width: 3
+      height: 40
+      chartId: 12
+      sliceName: Outstanding receivables
+  CHART-ac_ar_overdue:
+    type: CHART
+    id: CHART-ac_ar_overdue
+    children: []
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - ROW-accounts-2
+    meta:
+      width: 3
+      height: 40
+      chartId: 14
+      sliceName: Overdue receivables
+  CHART-ac_ap:
+    type: CHART
+    id: CHART-ac_ap
+    children: []
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - ROW-accounts-2
+    meta:
+      width: 3
+      height: 40
+      chartId: 13
+      sliceName: Outstanding payables
+  CHART-ac_ap_overdue:
+    type: CHART
+    id: CHART-ac_ap_overdue
+    children: []
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - ROW-accounts-2
+    meta:
+      width: 3
+      height: 40
+      chartId: 15
+      sliceName: Overdue payables
+  ROW-accounts-3:
+    type: ROW
+    id: ROW-accounts-3
+    children:
+    - CHART-ac_ageing
+    - CHART-ac_trend
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    meta:
+      background: BACKGROUND_TRANSPARENT
+  CHART-ac_ageing:
+    type: CHART
+    id: CHART-ac_ageing
+    children: []
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - ROW-accounts-3
+    meta:
+      width: 6
+      height: 60
+      chartId: 16
+      sliceName: Ageing of open balances by ledger
+  CHART-ac_trend:
+    type: CHART
+    id: CHART-ac_trend
+    children: []
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - ROW-accounts-3
+    meta:
+      width: 6
+      height: 60
+      chartId: 18
+      sliceName: Outstanding balance trend by ledger (all as-of dates)
+  ROW-accounts-4:
+    type: ROW
+    id: ROW-accounts-4
+    children:
+    - CHART-ac_by_branch
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    meta:
+      background: BACKGROUND_TRANSPARENT
+  CHART-ac_by_branch:
+    type: CHART
+    id: CHART-ac_by_branch
+    children: []
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - ROW-accounts-4
+    meta:
+      width: 12
+      height: 50
+      chartId: 17
+      sliceName: Open balances by organisation and branch
+  ROW-N-75L73FK7:
+    children:
+    - CHART-29BNTVCB
+    - CHART-EZXIO22H
+    - CHART-NXQT7CET
+    - CHART-M2H6Z974
+    - CHART-SPH4S96N
+    - CHART-KF60QV53
+    - CHART-DG1C9H4B
+    - CHART-2XSJFGUK
+    id: ROW-N-75L73FK7
+    meta:
+      '0': ROOT_ID
+      background: BACKGROUND_TRANSPARENT
+    type: ROW
+    parents:
+    - ROOT_ID
+    - GRID_ID
+  CHART-29BNTVCB:
+    children: []
+    id: CHART-29BNTVCB
+    meta:
+      chartId: 18
+      height: 50
+      sliceName: Outstanding balance trend by ledger (all as-of dates)
+      uuid: 62717321-c7b8-4ab4-a7f3-cad9e84456c8
+      width: 4
+    type: CHART
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - ROW-N-75L73FK7
+  CHART-EZXIO22H:
+    children: []
+    id: CHART-EZXIO22H
+    meta:
+      chartId: 13
+      height: 50
+      sliceName: Outstanding payables
+      uuid: 78392a5f-d5c7-4241-8fa0-06e45b5867a3
+      width: 4
+    type: CHART
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - ROW-N-75L73FK7
+  CHART-NXQT7CET:
+    children: []
+    id: CHART-NXQT7CET
+    meta:
+      chartId: 19
+      height: 50
+      sliceName: Accounts data freshness
+      uuid: dd776796-7c5a-42f0-8778-4633b876bdea
+      width: 4
+    type: CHART
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - ROW-N-75L73FK7
+  CHART-M2H6Z974:
+    children: []
+    id: CHART-M2H6Z974
+    meta:
+      chartId: 12
+      height: 50
+      sliceName: Outstanding receivables
+      uuid: dfe62bdd-e026-4f01-b13b-bd2e985c4fce
+      width: 4
+    type: CHART
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - ROW-N-75L73FK7
+  CHART-SPH4S96N:
+    children: []
+    id: CHART-SPH4S96N
+    meta:
+      chartId: 16
+      height: 50
+      sliceName: Ageing of open balances by ledger
+      uuid: bae303ba-6164-4e1b-aa7a-afdc285e4076
+      width: 4
+    type: CHART
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - ROW-N-75L73FK7
+  CHART-KF60QV53:
+    children: []
+    id: CHART-KF60QV53
+    meta:
+      chartId: 14
+      height: 50
+      sliceName: Overdue receivables
+      uuid: 7f7fcbc1-0632-463a-a57e-d32d550576fa
+      width: 4
+    type: CHART
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - ROW-N-75L73FK7
+  CHART-DG1C9H4B:
+    children: []
+    id: CHART-DG1C9H4B
+    meta:
+      chartId: 17
+      height: 50
+      sliceName: Open balances by organisation and branch
+      uuid: 6dd4e685-7268-4424-a44d-5f515f97d934
+      width: 4
+    type: CHART
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - ROW-N-75L73FK7
+  CHART-2XSJFGUK:
+    children: []
+    id: CHART-2XSJFGUK
+    meta:
+      chartId: 15
+      height: 50
+      sliceName: Overdue payables
+      uuid: 97e31817-012c-4fcf-8935-40cbc6ff7070
+      width: 4
+    type: CHART
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - ROW-N-75L73FK7
+metadata:
+  native_filter_configuration:
+  - id: NATIVE_FILTER-acAsOfDate
+    name: As-of date
+    type: NATIVE_FILTER
+    description: Balances as of this date (defaults to the latest).
+    cascadeParentIds: []
+    scope:
+      rootPath:
+      - ROOT_ID
+      excluded:
+      - 18
+      - 19
+    chartsInScope:
+    - 12
+    - 13
+    - 14
+    - 15
+    - 16
+    - 17
+    tabsInScope: []
+    defaultDataMask:
+      extraFormData: {}
+      filterState: {}
+      ownState: {}
+    filterType: filter_select
+    targets:
+    - column:
+        name: snapshot_date
+      datasetUuid: 0a8273cf-52cb-4af8-b546-02ff4b99963d
+    controlValues:
+      enableEmptyFilter: true
+      defaultToFirstItem: true
+      multiSelect: false
+      searchAllOptions: false
+      inverseSelection: false
+      sortAscending: false
+    requiredFirst: true
+  - id: NATIVE_FILTER-acTrendPeriod
+    name: Trend period
+    type: NATIVE_FILTER
+    description: Date range of the trend chart.
+    cascadeParentIds: []
+    scope:
+      rootPath:
+      - ROOT_ID
+      excluded:
+      - 12
+      - 13
+      - 14
+      - 15
+      - 16
+      - 17
+      - 19
+    chartsInScope:
+    - 18
+    tabsInScope: []
+    defaultDataMask:
+      extraFormData: {}
+      filterState: {}
+      ownState: {}
+    filterType: filter_time
+    targets:
+    - {}
+    controlValues:
+      enableEmptyFilter: false
+  - id: NATIVE_FILTER-acOrganisation
+    name: Organisation
+    type: NATIVE_FILTER
+    description: ''
+    cascadeParentIds: []
+    scope:
+      rootPath:
+      - ROOT_ID
+      excluded:
+      - 19
+    chartsInScope:
+    - 12
+    - 13
+    - 14
+    - 15
+    - 16
+    - 17
+    - 18
+    tabsInScope: []
+    defaultDataMask:
+      extraFormData: {}
+      filterState: {}
+      ownState: {}
+    filterType: filter_select
+    targets:
+    - column:
+        name: organisation_name
+      datasetUuid: 0a8273cf-52cb-4af8-b546-02ff4b99963d
+    controlValues:
+      enableEmptyFilter: false
+      defaultToFirstItem: false
+      multiSelect: true
+      searchAllOptions: false
+      inverseSelection: false
+      sortAscending: true
+  - id: NATIVE_FILTER-acBranch
+    name: Branch
+    type: NATIVE_FILTER
+    description: ''
+    cascadeParentIds:
+    - NATIVE_FILTER-acOrganisation
+    scope:
+      rootPath:
+      - ROOT_ID
+      excluded:
+      - 19
+    chartsInScope:
+    - 12
+    - 13
+    - 14
+    - 15
+    - 16
+    - 17
+    - 18
+    tabsInScope: []
+    defaultDataMask:
+      extraFormData: {}
+      filterState: {}
+      ownState: {}
+    filterType: filter_select
+    targets:
+    - column:
+        name: branch_name
+      datasetUuid: 0a8273cf-52cb-4af8-b546-02ff4b99963d
+    controlValues:
+      enableEmptyFilter: false
+      defaultToFirstItem: false
+      multiSelect: true
+      searchAllOptions: false
+      inverseSelection: false
+      sortAscending: true
+  - id: NATIVE_FILTER-acCurrency
+    name: Currency
+    type: NATIVE_FILTER
+    description: Amounts are only comparable within one currency.
+    cascadeParentIds: []
+    scope:
+      rootPath:
+      - ROOT_ID
+      excluded:
+      - 19
+    chartsInScope:
+    - 12
+    - 13
+    - 14
+    - 15
+    - 16
+    - 17
+    - 18
+    tabsInScope: []
+    defaultDataMask:
+      extraFormData: {}
+      filterState: {}
+      ownState: {}
+    filterType: filter_select
+    targets:
+    - column:
+        name: currency_code
+      datasetUuid: 0a8273cf-52cb-4af8-b546-02ff4b99963d
+    controlValues:
+      enableEmptyFilter: false
+      defaultToFirstItem: false
+      multiSelect: true
+      searchAllOptions: false
+      inverseSelection: false
+      sortAscending: true
+  cross_filters_enabled: true
+  chart_configuration:
+    '12':
+      id: 12
+      crossFilters:
+        scope:
+          rootPath:
+          - ROOT_ID
+          excluded:
+          - 12
+          - 13
+          - 14
+          - 15
+          - 16
+          - 17
+          - 18
+          - 19
+        chartsInScope: []
+    '13':
+      id: 13
+      crossFilters:
+        scope:
+          rootPath:
+          - ROOT_ID
+          excluded:
+          - 12
+          - 13
+          - 14
+          - 15
+          - 16
+          - 17
+          - 18
+          - 19
+        chartsInScope: []
+    '14':
+      id: 14
+      crossFilters:
+        scope:
+          rootPath:
+          - ROOT_ID
+          excluded:
+          - 12
+          - 13
+          - 14
+          - 15
+          - 16
+          - 17
+          - 18
+          - 19
+        chartsInScope: []
+    '15':
+      id: 15
+      crossFilters:
+        scope:
+          rootPath:
+          - ROOT_ID
+          excluded:
+          - 12
+          - 13
+          - 14
+          - 15
+          - 16
+          - 17
+          - 18
+          - 19
+        chartsInScope: []
+    '16':
+      id: 16
+      crossFilters:
+        scope:
+          rootPath:
+          - ROOT_ID
+          excluded:
+          - 16
+          - 19
+        chartsInScope:
+        - 12
+        - 13
+        - 14
+        - 15
+        - 17
+        - 18
+    '17':
+      id: 17
+      crossFilters:
+        scope:
+          rootPath:
+          - ROOT_ID
+          excluded:
+          - 17
+          - 19
+        chartsInScope:
+        - 12
+        - 13
+        - 14
+        - 15
+        - 16
+        - 18
+    '18':
+      id: 18
+      crossFilters:
+        scope:
+          rootPath:
+          - ROOT_ID
+          excluded:
+          - 18
+          - 19
+        chartsInScope:
+        - 12
+        - 13
+        - 14
+        - 15
+        - 16
+        - 17
+    '19':
+      id: 19
+      crossFilters:
+        scope:
+          rootPath:
+          - ROOT_ID
+          excluded:
+          - 12
+          - 13
+          - 14
+          - 15
+          - 16
+          - 17
+          - 18
+          - 19
+        chartsInScope: []
+  global_chart_configuration:
+    scope:
+      rootPath:
+      - ROOT_ID
+      excluded: []
+    chartsInScope:
+    - 12
+    - 13
+    - 14
+    - 15
+    - 16
+    - 17
+    - 18
+    - 19
+  color_scheme: supersetColors
+  refresh_frequency: 0
+  expanded_slices: {}
+  label_colors: {}
+  timed_refresh_immune_slices: []
+  default_filters: '{}'
+  shared_label_colors: []
+  map_label_colors: {}
+  color_scheme_domain: []
+theme_uuid: null
+version: 1.0.0

@@ -1,0 +1,184 @@
+{
+  "_meta": {
+    "synthetic": true,
+    "notice": "SYNTHETIC TEST DATA - fictional organisations, people and amounts. Not real ERP data.",
+    "source_system": "erpnext",
+    "source_instance": "erpnext-dtg-services",
+    "entity": "Employee",
+    "extraction_batch_id": "erpnext-2026-10-31-employee",
+    "extracted_at": "2026-10-31T17:30:00Z",
+    "extraction_mode": "full",
+    "checkpoint_utc": null,
+    "instance_timezone": "Asia/Thimphu",
+    "request": {
+      "method": "GET",
+      "path": "/api/resource/Employee",
+      "params": {
+        "filters": [],
+        "order_by": "name asc",
+        "limit_start": 0,
+        "limit_page_length": 200
+      }
+    }
+  },
+  "response": {
+    "data": [
+      {
+        "name": "HR-EMP-00001",
+        "employee_name": "Pema Wangmo",
+        "first_name": "Pema",
+        "status": "Active",
+        "company": "DTG Services Pvt Ltd",
+        "department": "Operations - DSV",
+        "branch": "Paro",
+        "date_of_joining": "2021-03-01",
+        "relieving_date": null,
+        "modified": "2026-03-02 10:00:00.000000"
+      },
+      {
+        "name": "HR-EMP-00002",
+        "employee_name": "Kezang Dorji",
+        "first_name": "Kezang",
+        "status": "Active",
+        "company": "DTG Services Pvt Ltd",
+        "department": "Operations - DSV",
+        "branch": "Paro",
+        "date_of_joining": "2022-06-15",
+        "relieving_date": null,
+        "modified": "2026-03-02 10:00:00.000000"
+      },
+      {
+        "name": "HR-EMP-00003",
+        "employee_name": "Namgay Lham",
+        "first_name": "Namgay",
+        "status": "Active",
+        "company": "DTG Services Pvt Ltd",
+        "department": "Accounts - DSV",
+        "branch": "Paro",
+        "date_of_joining": "2020-01-06",
+        "relieving_date": null,
+        "modified": "2026-03-02 10:00:00.000000"
+      },
+      {
+        "name": "HR-EMP-00004",
+        "employee_name": "Sangay Tenzin",
+        "first_name": "Sangay",
+        "status": "Active",
+        "company": "DTG Services Pvt Ltd",
+        "department": "Sales - DSV",
+        "branch": "Bumthang",
+        "date_of_joining": "2023-02-01",
+        "relieving_date": null,
+        "modified": "2026-03-02 10:00:00.000000"
+      },
+      {
+        "name": "HR-EMP-00005",
+        "employee_name": "Dorji Wangchuk",
+        "first_name": "Dorji",
+        "status": "Active",
+        "company": "DTG Services Pvt Ltd",
+        "department": "Sales - DSV",
+        "branch": "Bumthang",
+        "date_of_joining": "2024-07-01",
+        "relieving_date": null,
+        "modified": "2026-03-02 10:00:00.000000"
+      },
+      {
+        "name": "HR-EMP-00006",
+        "employee_name": "Tandin Bidha",
+        "first_name": "Tandin",
+        "status": "Left",
+        "company": "DTG Services Pvt Ltd",
+        "department": "Sales - DSV",
+        "branch": "Bumthang",
+        "date_of_joining": "2019-05-01",
+        "relieving_date": "2026-09-30",
+        "modified": "2026-10-01 10:00:00.000000"
+      },
+      {
+        "name": "HR-EMP-00007",
+        "employee_name": "Rinzin Om",
+        "first_name": "Rinzin",
+        "status": "Suspended",
+        "company": "DTG Services Pvt Ltd",
+        "department": "Human Resources - DSV",
+        "branch": "Paro",
+        "date_of_joining": "2022-09-01",
+        "relieving_date": null,
+        "modified": "2026-03-02 10:00:00.000000"
+      },
+      {
+        "name": "HR-EMP-00008",
+        "employee_name": "Wangchuk Dorji",
+        "first_name": "Wangchuk",
+        "status": "Inactive",
+        "company": "DTG Services Pvt Ltd",
+        "department": "Operations - DSV",
+        "branch": "Paro",
+        "date_of_joining": "2018-04-01",
+        "relieving_date": null,
+        "modified": "2026-03-02 10:00:00.000000"
+      },
+      {
+        "name": "HR-EMP-00009",
+        "employee_name": "Lhamo Yangchen",
+        "first_name": "Lhamo",
+        "status": "Active",
+        "company": "DTG Services Pvt Ltd",
+        "department": "Human Resources - DSV",
+        "branch": null,
+        "date_of_joining": "2025-01-15",
+        "relieving_date": null,
+        "modified": "2026-03-02 10:00:00.000000"
+      },
+      {
+        "name": "HR-EMP-00010",
+        "employee_name": "Nima Gyeltshen",
+        "first_name": "Nima",
+        "status": "Active",
+        "company": "DTG Services Pvt Ltd",
+        "department": null,
+        "branch": "Bumthang",
+        "date_of_joining": "2025-08-01",
+        "relieving_date": null,
+        "modified": "2026-03-02 10:00:00.000000"
+      },
+      {
+        "name": "HR-EMP-00011",
+        "employee_name": "Tashi Phuntsho",
+        "first_name": "Tashi",
+        "status": "Retired",
+        "company": "DTG Services Pvt Ltd",
+        "department": "Operations - DSV",
+        "branch": "Paro",
+        "date_of_joining": "2010-02-01",
+        "relieving_date": null,
+        "modified": "2026-03-02 10:00:00.000000"
+      },
+      {
+        "name": "HR-EMP-00012",
+        "employee_name": "Choki Wangmo",
+        "first_name": "Choki",
+        "status": "Active",
+        "company": null,
+        "department": "Accounts - DSV",
+        "branch": "Paro",
+        "date_of_joining": "2024-03-01",
+        "relieving_date": null,
+        "modified": "2026-03-02 10:00:00.000000"
+      },
+      {
+        "name": "HR-EMP-00013",
+        "employee_name": "Karma Choki",
+        "first_name": "Karma",
+        "status": "Active",
+        "company": "DTG Services Pvt Ltd",
+        "department": "Accounts - DSV",
+        "branch": "Paro",
+        "date_of_joining": "2026-11-03",
+        "relieving_date": null,
+        "modified": "2026-03-02 10:00:00.000000"
+      }
+    ]
+  }
+}

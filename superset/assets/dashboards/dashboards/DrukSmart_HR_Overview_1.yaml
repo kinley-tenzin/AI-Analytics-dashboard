@@ -1,0 +1,862 @@
+dashboard_title: DrukSmart HR Overview
+description: null
+css: null
+slug: druksmart-hr
+certified_by: null
+certification_details: null
+published: true
+uuid: 0fb82cb9-1d6d-44f2-a95a-4e50f83dff12
+position:
+  DASHBOARD_VERSION_KEY: v2
+  ROOT_ID:
+    type: ROOT
+    id: ROOT_ID
+    children:
+    - GRID_ID
+  GRID_ID:
+    type: GRID
+    id: GRID_ID
+    children:
+    - ROW-hr-1
+    - ROW-hr-2
+    - ROW-hr-3
+    - ROW-hr-4
+    - ROW-hr-5
+    - ROW-N-7QWLXDOA
+    parents:
+    - ROOT_ID
+  HEADER_ID:
+    id: HEADER_ID
+    type: HEADER
+    meta:
+      text: DrukSmart HR Overview
+  ROW-hr-1:
+    type: ROW
+    id: ROW-hr-1
+    children:
+    - MARKDOWN-hr-intro
+    - CHART-hr_freshness
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    meta:
+      background: BACKGROUND_TRANSPARENT
+  MARKDOWN-hr-intro:
+    type: MARKDOWN
+    id: MARKDOWN-hr-intro
+    children: []
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - ROW-hr-1
+    meta:
+      width: 8
+      height: 38
+      code: '### DrukSmart HR overview
+
+        Headcount figures are **point-in-time**: they are shown for the *Snapshot
+        date* selected in the
+
+        filter bar (default: the latest extracted date). Leave statistics follow the
+        *Leave period*
+
+        filter and are counted in the month the leave **starts**. Source: published,
+        tested warehouse
+
+        datasets (`marts.kpi_headcount`, `marts.kpi_approved_leave_monthly`). Definitions:
+
+        `docs/data/KPI_CATALOGUE.md` (HR-01..HR-03). If a chart says *No results*,
+        the current filters
+
+        (or your access rights) leave no data to show.'
+  CHART-hr_freshness:
+    type: CHART
+    id: CHART-hr_freshness
+    children: []
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - ROW-hr-1
+    meta:
+      width: 4
+      height: 38
+      chartId: 11
+      sliceName: HR data freshness
+  ROW-hr-2:
+    type: ROW
+    id: ROW-hr-2
+    children:
+    - CHART-hr_headcount
+    - CHART-hr_not_active
+    - CHART-hr_leave_days
+    - CHART-hr_leave_requests
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    meta:
+      background: BACKGROUND_TRANSPARENT
+  CHART-hr_headcount:
+    type: CHART
+    id: CHART-hr_headcount
+    children: []
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - ROW-hr-2
+    meta:
+      width: 3
+      height: 40
+      chartId: 1
+      sliceName: Active headcount
+  CHART-hr_not_active:
+    type: CHART
+    id: CHART-hr_not_active
+    children: []
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - ROW-hr-2
+    meta:
+      width: 3
+      height: 40
+      chartId: 2
+      sliceName: Not-active employee records
+  CHART-hr_leave_days:
+    type: CHART
+    id: CHART-hr_leave_days
+    children: []
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - ROW-hr-2
+    meta:
+      width: 3
+      height: 40
+      chartId: 3
+      sliceName: Approved leave days
+  CHART-hr_leave_requests:
+    type: CHART
+    id: CHART-hr_leave_requests
+    children: []
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - ROW-hr-2
+    meta:
+      width: 3
+      height: 40
+      chartId: 4
+      sliceName: Approved leave requests
+  ROW-hr-3:
+    type: ROW
+    id: ROW-hr-3
+    children:
+    - CHART-hr_by_department
+    - CHART-hr_status
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    meta:
+      background: BACKGROUND_TRANSPARENT
+  CHART-hr_by_department:
+    type: CHART
+    id: CHART-hr_by_department
+    children: []
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - ROW-hr-3
+    meta:
+      width: 6
+      height: 60
+      chartId: 5
+      sliceName: Active headcount by department
+  CHART-hr_status:
+    type: CHART
+    id: CHART-hr_status
+    children: []
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - ROW-hr-3
+    meta:
+      width: 6
+      height: 60
+      chartId: 6
+      sliceName: Employee records by employment status (active vs not active)
+  ROW-hr-4:
+    type: ROW
+    id: ROW-hr-4
+    children:
+    - CHART-hr_by_branch
+    - CHART-hr_trend
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    meta:
+      background: BACKGROUND_TRANSPARENT
+  CHART-hr_by_branch:
+    type: CHART
+    id: CHART-hr_by_branch
+    children: []
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - ROW-hr-4
+    meta:
+      width: 6
+      height: 60
+      chartId: 7
+      sliceName: Headcount by organisation and branch
+  CHART-hr_trend:
+    type: CHART
+    id: CHART-hr_trend
+    children: []
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - ROW-hr-4
+    meta:
+      width: 6
+      height: 60
+      chartId: 8
+      sliceName: Active headcount trend (all snapshot dates)
+  ROW-hr-5:
+    type: ROW
+    id: ROW-hr-5
+    children:
+    - CHART-hr_leave_by_month
+    - CHART-hr_leave_table
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    meta:
+      background: BACKGROUND_TRANSPARENT
+  CHART-hr_leave_by_month:
+    type: CHART
+    id: CHART-hr_leave_by_month
+    children: []
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - ROW-hr-5
+    meta:
+      width: 6
+      height: 60
+      chartId: 9
+      sliceName: Approved leave days by month and leave type
+  CHART-hr_leave_table:
+    type: CHART
+    id: CHART-hr_leave_table
+    children: []
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - ROW-hr-5
+    meta:
+      width: 6
+      height: 60
+      chartId: 10
+      sliceName: Approved leave by department and leave type
+  ROW-N-7QWLXDOA:
+    children:
+    - CHART-OPTSZT4S
+    - CHART-1JQJWNDG
+    - CHART-H84GSCAA
+    - CHART-OY46UIG0
+    - CHART-C1JWHS6P
+    - CHART-S9W7A5CK
+    - CHART-RZ6NT7NA
+    - CHART-P1E1Y0OB
+    - CHART-O5PA79OR
+    - CHART-SOXWPA0Y
+    - CHART-CJOTICXP
+    id: ROW-N-7QWLXDOA
+    meta:
+      '0': ROOT_ID
+      background: BACKGROUND_TRANSPARENT
+    type: ROW
+    parents:
+    - ROOT_ID
+    - GRID_ID
+  CHART-OPTSZT4S:
+    children: []
+    id: CHART-OPTSZT4S
+    meta:
+      chartId: 1
+      height: 50
+      sliceName: Active headcount
+      uuid: 048f0f9c-9b2f-47f1-8336-d8c5cc508cd3
+      width: 4
+    type: CHART
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - ROW-N-7QWLXDOA
+  CHART-1JQJWNDG:
+    children: []
+    id: CHART-1JQJWNDG
+    meta:
+      chartId: 5
+      height: 50
+      sliceName: Active headcount by department
+      uuid: bc86059d-5ae7-4bbf-aaa3-af84277e9121
+      width: 4
+    type: CHART
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - ROW-N-7QWLXDOA
+  CHART-H84GSCAA:
+    children: []
+    id: CHART-H84GSCAA
+    meta:
+      chartId: 11
+      height: 50
+      sliceName: HR data freshness
+      uuid: 5503e1df-a039-435a-a3a3-64e0595e9c6f
+      width: 4
+    type: CHART
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - ROW-N-7QWLXDOA
+  CHART-OY46UIG0:
+    children: []
+    id: CHART-OY46UIG0
+    meta:
+      chartId: 8
+      height: 50
+      sliceName: Active headcount trend (all snapshot dates)
+      uuid: 7e9889f9-a885-4b10-aa83-5f326d95f227
+      width: 4
+    type: CHART
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - ROW-N-7QWLXDOA
+  CHART-C1JWHS6P:
+    children: []
+    id: CHART-C1JWHS6P
+    meta:
+      chartId: 6
+      height: 50
+      sliceName: Employee records by employment status (active vs not active)
+      uuid: fc3e6c6d-f1db-456a-accd-a068ad007b28
+      width: 4
+    type: CHART
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - ROW-N-7QWLXDOA
+  CHART-S9W7A5CK:
+    children: []
+    id: CHART-S9W7A5CK
+    meta:
+      chartId: 9
+      height: 50
+      sliceName: Approved leave days by month and leave type
+      uuid: cbc51752-6a22-4b09-af51-7e7abde71ca4
+      width: 4
+    type: CHART
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - ROW-N-7QWLXDOA
+  CHART-RZ6NT7NA:
+    children: []
+    id: CHART-RZ6NT7NA
+    meta:
+      chartId: 2
+      height: 50
+      sliceName: Not-active employee records
+      uuid: 57a1f827-a8a9-4b3d-b10b-79fe5ae5ae71
+      width: 4
+    type: CHART
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - ROW-N-7QWLXDOA
+  CHART-P1E1Y0OB:
+    children: []
+    id: CHART-P1E1Y0OB
+    meta:
+      chartId: 7
+      height: 50
+      sliceName: Headcount by organisation and branch
+      uuid: 90f007b3-aaeb-43dd-ade5-ede373acc6f5
+      width: 4
+    type: CHART
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - ROW-N-7QWLXDOA
+  CHART-O5PA79OR:
+    children: []
+    id: CHART-O5PA79OR
+    meta:
+      chartId: 3
+      height: 50
+      sliceName: Approved leave days
+      uuid: 9b7be05e-35c4-4488-aec3-d260f886144a
+      width: 4
+    type: CHART
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - ROW-N-7QWLXDOA
+  CHART-SOXWPA0Y:
+    children: []
+    id: CHART-SOXWPA0Y
+    meta:
+      chartId: 4
+      height: 50
+      sliceName: Approved leave requests
+      uuid: 60d5f4c0-d1f2-40b8-bada-5031373c6a03
+      width: 4
+    type: CHART
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - ROW-N-7QWLXDOA
+  CHART-CJOTICXP:
+    children: []
+    id: CHART-CJOTICXP
+    meta:
+      chartId: 10
+      height: 50
+      sliceName: Approved leave by department and leave type
+      uuid: 2e68e8f9-b2f4-409c-95bb-2a2d5723c8e4
+      width: 4
+    type: CHART
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - ROW-N-7QWLXDOA
+metadata:
+  native_filter_configuration:
+  - id: NATIVE_FILTER-hrSnapshotDate
+    name: Snapshot date
+    type: NATIVE_FILTER
+    description: Point-in-time date for headcount (defaults to the latest).
+    cascadeParentIds: []
+    scope:
+      rootPath:
+      - ROOT_ID
+      excluded:
+      - 3
+      - 4
+      - 8
+      - 9
+      - 10
+      - 11
+    chartsInScope:
+    - 1
+    - 2
+    - 5
+    - 6
+    - 7
+    tabsInScope: []
+    defaultDataMask:
+      extraFormData: {}
+      filterState: {}
+      ownState: {}
+    filterType: filter_select
+    targets:
+    - column:
+        name: snapshot_date
+      datasetUuid: f511f404-4de9-4573-8277-0925c7e7b194
+    controlValues:
+      enableEmptyFilter: true
+      defaultToFirstItem: true
+      multiSelect: false
+      searchAllOptions: false
+      inverseSelection: false
+      sortAscending: false
+    requiredFirst: true
+  - id: NATIVE_FILTER-hrLeavePeriod
+    name: Leave period
+    type: NATIVE_FILTER
+    description: Months whose leave START date is in this range.
+    cascadeParentIds: []
+    scope:
+      rootPath:
+      - ROOT_ID
+      excluded:
+      - 1
+      - 2
+      - 5
+      - 6
+      - 7
+      - 8
+      - 11
+    chartsInScope:
+    - 3
+    - 4
+    - 9
+    - 10
+    tabsInScope: []
+    defaultDataMask:
+      extraFormData: {}
+      filterState: {}
+      ownState: {}
+    filterType: filter_time
+    targets:
+    - {}
+    controlValues:
+      enableEmptyFilter: false
+  - id: NATIVE_FILTER-hrOrganisation
+    name: Organisation
+    type: NATIVE_FILTER
+    description: ''
+    cascadeParentIds: []
+    scope:
+      rootPath:
+      - ROOT_ID
+      excluded:
+      - 11
+    chartsInScope:
+    - 1
+    - 2
+    - 3
+    - 4
+    - 5
+    - 6
+    - 7
+    - 8
+    - 9
+    - 10
+    tabsInScope: []
+    defaultDataMask:
+      extraFormData: {}
+      filterState: {}
+      ownState: {}
+    filterType: filter_select
+    targets:
+    - column:
+        name: organisation_name
+      datasetUuid: f511f404-4de9-4573-8277-0925c7e7b194
+    controlValues:
+      enableEmptyFilter: false
+      defaultToFirstItem: false
+      multiSelect: true
+      searchAllOptions: false
+      inverseSelection: false
+      sortAscending: true
+  - id: NATIVE_FILTER-hrBranch
+    name: Branch
+    type: NATIVE_FILTER
+    description: ''
+    cascadeParentIds:
+    - NATIVE_FILTER-hrOrganisation
+    scope:
+      rootPath:
+      - ROOT_ID
+      excluded:
+      - 11
+    chartsInScope:
+    - 1
+    - 2
+    - 3
+    - 4
+    - 5
+    - 6
+    - 7
+    - 8
+    - 9
+    - 10
+    tabsInScope: []
+    defaultDataMask:
+      extraFormData: {}
+      filterState: {}
+      ownState: {}
+    filterType: filter_select
+    targets:
+    - column:
+        name: branch_name
+      datasetUuid: f511f404-4de9-4573-8277-0925c7e7b194
+    controlValues:
+      enableEmptyFilter: false
+      defaultToFirstItem: false
+      multiSelect: true
+      searchAllOptions: false
+      inverseSelection: false
+      sortAscending: true
+  - id: NATIVE_FILTER-hrDepartment
+    name: Department
+    type: NATIVE_FILTER
+    description: ''
+    cascadeParentIds:
+    - NATIVE_FILTER-hrBranch
+    scope:
+      rootPath:
+      - ROOT_ID
+      excluded:
+      - 11
+    chartsInScope:
+    - 1
+    - 2
+    - 3
+    - 4
+    - 5
+    - 6
+    - 7
+    - 8
+    - 9
+    - 10
+    tabsInScope: []
+    defaultDataMask:
+      extraFormData: {}
+      filterState: {}
+      ownState: {}
+    filterType: filter_select
+    targets:
+    - column:
+        name: department_name
+      datasetUuid: f511f404-4de9-4573-8277-0925c7e7b194
+    controlValues:
+      enableEmptyFilter: false
+      defaultToFirstItem: false
+      multiSelect: true
+      searchAllOptions: false
+      inverseSelection: false
+      sortAscending: true
+  cross_filters_enabled: true
+  chart_configuration:
+    '1':
+      id: 1
+      crossFilters:
+        scope:
+          rootPath:
+          - ROOT_ID
+          excluded:
+          - 1
+          - 2
+          - 3
+          - 4
+          - 5
+          - 6
+          - 7
+          - 8
+          - 9
+          - 10
+          - 11
+        chartsInScope: []
+    '2':
+      id: 2
+      crossFilters:
+        scope:
+          rootPath:
+          - ROOT_ID
+          excluded:
+          - 1
+          - 2
+          - 3
+          - 4
+          - 5
+          - 6
+          - 7
+          - 8
+          - 9
+          - 10
+          - 11
+        chartsInScope: []
+    '3':
+      id: 3
+      crossFilters:
+        scope:
+          rootPath:
+          - ROOT_ID
+          excluded:
+          - 1
+          - 2
+          - 3
+          - 4
+          - 5
+          - 6
+          - 7
+          - 8
+          - 9
+          - 10
+          - 11
+        chartsInScope: []
+    '4':
+      id: 4
+      crossFilters:
+        scope:
+          rootPath:
+          - ROOT_ID
+          excluded:
+          - 1
+          - 2
+          - 3
+          - 4
+          - 5
+          - 6
+          - 7
+          - 8
+          - 9
+          - 10
+          - 11
+        chartsInScope: []
+    '5':
+      id: 5
+      crossFilters:
+        scope:
+          rootPath:
+          - ROOT_ID
+          excluded:
+          - 5
+          - 11
+        chartsInScope:
+        - 1
+        - 2
+        - 3
+        - 4
+        - 6
+        - 7
+        - 8
+        - 9
+        - 10
+    '6':
+      id: 6
+      crossFilters:
+        scope:
+          rootPath:
+          - ROOT_ID
+          excluded:
+          - 3
+          - 4
+          - 6
+          - 9
+          - 10
+          - 11
+        chartsInScope:
+        - 1
+        - 2
+        - 5
+        - 7
+        - 8
+    '7':
+      id: 7
+      crossFilters:
+        scope:
+          rootPath:
+          - ROOT_ID
+          excluded:
+          - 7
+          - 11
+        chartsInScope:
+        - 1
+        - 2
+        - 3
+        - 4
+        - 5
+        - 6
+        - 8
+        - 9
+        - 10
+    '8':
+      id: 8
+      crossFilters:
+        scope:
+          rootPath:
+          - ROOT_ID
+          excluded:
+          - 3
+          - 4
+          - 8
+          - 9
+          - 10
+          - 11
+        chartsInScope:
+        - 1
+        - 2
+        - 5
+        - 6
+        - 7
+    '9':
+      id: 9
+      crossFilters:
+        scope:
+          rootPath:
+          - ROOT_ID
+          excluded:
+          - 1
+          - 2
+          - 5
+          - 6
+          - 7
+          - 8
+          - 9
+          - 11
+        chartsInScope:
+        - 3
+        - 4
+        - 10
+    '10':
+      id: 10
+      crossFilters:
+        scope:
+          rootPath:
+          - ROOT_ID
+          excluded:
+          - 1
+          - 2
+          - 5
+          - 6
+          - 7
+          - 8
+          - 10
+          - 11
+        chartsInScope:
+        - 3
+        - 4
+        - 9
+    '11':
+      id: 11
+      crossFilters:
+        scope:
+          rootPath:
+          - ROOT_ID
+          excluded:
+          - 1
+          - 2
+          - 3
+          - 4
+          - 5
+          - 6
+          - 7
+          - 8
+          - 9
+          - 10
+          - 11
+        chartsInScope: []
+  global_chart_configuration:
+    scope:
+      rootPath:
+      - ROOT_ID
+      excluded: []
+    chartsInScope:
+    - 1
+    - 2
+    - 3
+    - 4
+    - 5
+    - 6
+    - 7
+    - 8
+    - 9
+    - 10
+    - 11
+  color_scheme: supersetColors
+  refresh_frequency: 0
+  expanded_slices: {}
+  label_colors: {}
+  timed_refresh_immune_slices: []
+  default_filters: '{}'
+  shared_label_colors: []
+  map_label_colors: {}
+  color_scheme_domain: []
+theme_uuid: null
+version: 1.0.0

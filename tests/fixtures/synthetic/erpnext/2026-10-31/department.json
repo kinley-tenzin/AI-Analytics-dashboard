@@ -1,0 +1,64 @@
+{
+  "_meta": {
+    "synthetic": true,
+    "notice": "SYNTHETIC TEST DATA - fictional organisations, people and amounts. Not real ERP data.",
+    "source_system": "erpnext",
+    "source_instance": "erpnext-dtg-services",
+    "entity": "Department",
+    "extraction_batch_id": "erpnext-2026-10-31-department",
+    "extracted_at": "2026-10-31T17:30:00Z",
+    "extraction_mode": "full",
+    "checkpoint_utc": null,
+    "instance_timezone": "Asia/Thimphu",
+    "request": {
+      "method": "GET",
+      "path": "/api/resource/Department",
+      "params": {
+        "filters": [],
+        "order_by": "name asc",
+        "limit_start": 0,
+        "limit_page_length": 200
+      }
+    }
+  },
+  "response": {
+    "data": [
+      {
+        "name": "Operations - DSV",
+        "department_name": "Operations",
+        "parent_department": null,
+        "company": "DTG Services Pvt Ltd",
+        "is_group": 0,
+        "disabled": 0,
+        "modified": "2026-01-10 10:00:00.000000"
+      },
+      {
+        "name": "Accounts - DSV",
+        "department_name": "Accounts",
+        "parent_department": null,
+        "company": "DTG Services Pvt Ltd",
+        "is_group": 0,
+        "disabled": 0,
+        "modified": "2026-01-10 10:00:00.000000"
+      },
+      {
+        "name": "Sales - DSV",
+        "department_name": "Sales",
+        "parent_department": null,
+        "company": "DTG Services Pvt Ltd",
+        "is_group": 0,
+        "disabled": 0,
+        "modified": "2026-01-10 10:00:00.000000"
+      },
+      {
+        "name": "Human Resources - DSV",
+        "department_name": "Human Resources",
+        "parent_department": null,
+        "company": "DTG Services Pvt Ltd",
+        "is_group": 0,
+        "disabled": 0,
+        "modified": "2026-01-10 10:00:00.000000"
+      }
+    ]
+  }
+}

@@ -1,0 +1,148 @@
+{
+  "run_at": "2026-10-25T22:58:46",
+  "stages": [
+    {
+      "stage": "lint",
+      "covers": "ruff lint + format check",
+      "status": "passed",
+      "seconds": 0.4,
+      "summary": [
+        "All checks passed!"
+      ]
+    },
+    {
+      "stage": "format",
+      "covers": "ruff format check",
+      "status": "passed",
+      "seconds": 0.4,
+      "summary": [
+        "200 files already formatted"
+      ]
+    },
+    {
+      "stage": "unit",
+      "covers": "contracts, connectors (fake APIs), ingestion logic, KPI oracle, DAG static checks, Superset definitions, Django registry/rules/Gemini(mocked)/API, consistency guards",
+      "status": "passed",
+      "seconds": 13.1,
+      "summary": [
+        "........................................................................ [ 87%]",
+        "...........................................................              [100%]",
+        "491 passed, 30 deselected in 10.31s"
+      ]
+    },
+    {
+      "stage": "frontend",
+      "covers": "website (Milestone 10): TypeScript type check, ESLint, Vitest unit/routing/page tests",
+      "status": "passed",
+      "seconds": 34.5,
+      "summary": [
+        "      Tests  103 passed (103)",
+        "   Start at  22:50:53",
+        "   Duration  17.94s (environment 43%, tests 28%, setup 11%, import 10%, transform 8%)"
+      ]
+    },
+    {
+      "stage": "database",
+      "covers": "PostgreSQL roles/schemas, raw ingestion against the DB, publication swap/grants",
+      "status": "passed",
+      "seconds": 12.4,
+      "summary": [
+        "......................                                                   [100%]",
+        "22 passed, 603 deselected in 9.04s"
+      ]
+    },
+    {
+      "stage": "warehouse",
+      "covers": "fixtures -> connectors -> raw -> dbt build + data tests -> hand-calculated KPIs; Django KPI service on the same marts",
+      "status": "passed",
+      "seconds": 32.6,
+      "summary": [
+        "...................                                                      [100%]",
+        "19 passed, 606 deselected in 29.97s"
+      ]
+    },
+    {
+      "stage": "live_erp",
+      "covers": "read-only connectivity, contracts and idempotent loading against the ERP sandboxes",
+      "status": "passed",
+      "seconds": 18.7,
+      "summary": [
+        "..............                                                           [100%]",
+        "14 passed, 611 deselected in 16.34s"
+      ]
+    },
+    {
+      "stage": "kpi_service",
+      "covers": "Django KPI functions vs fact tables, scope, restricted DB account",
+      "status": "passed",
+      "seconds": 9.3,
+      "summary": [
+        ".....................                                                    [100%]",
+        "21 passed, 604 deselected in 6.71s"
+      ]
+    },
+    {
+      "stage": "superset",
+      "covers": "Superset access boundary, RLS, CSV export, KPIs; Superset = KPI service",
+      "status": "passed",
+      "seconds": 49.6,
+      "summary": [
+        "..........................................................               [100%]",
+        "58 passed, 567 deselected in 46.89s"
+      ]
+    },
+    {
+      "stage": "dashboards_browser",
+      "covers": "dashboards per role in headless Edge; KPI cards = warehouse",
+      "status": "passed",
+      "seconds": 139.9,
+      "summary": [
+        "         Outstanding payables: 24,200.00  (= warehouse)",
+        "         Overdue payables: 25,200.00  (= warehouse)",
+        "browser check: all passed"
+      ]
+    },
+    {
+      "stage": "reconciliation",
+      "covers": "source ERPs = dbt = Superset = Django = AI answers (all KPIs, per ERP)",
+      "status": "passed",
+      "seconds": 7.5,
+      "summary": [
+        "[PASS] ai text contains source value: overdue_receivable",
+        "[PASS] ai text contains source value: leave_employees",
+        "30/30 reconciliation checks passed -> C:\\Users\\ASUS\\FYP\\docs\\evaluation\\results\\reconciliation_regression.json"
+      ]
+    },
+    {
+      "stage": "access_matrix",
+      "covers": "every role x resource at Superset, Django and database boundaries",
+      "status": "passed",
+      "seconds": 40.1,
+      "summary": [
+        "access matrix: 95/95 checks as expected"
+      ]
+    },
+    {
+      "stage": "website_browser",
+      "covers": "website in headless Edge: roles, sign-in, embedded dashboards = KPI service per user, Ask AI, reports, administration, WCAG 2.1 AA audit, 12-step user journey, layouts",
+      "status": "passed",
+      "seconds": 131.9,
+      "summary": [
+        "  [PASS] desktop: no console errors",
+        "",
+        "154/154 checks passed -> docs\\web\\results\\task_10_9_browser.json"
+      ]
+    },
+    {
+      "stage": "assistant_eval",
+      "covers": "AI assistant evaluation set (held-out set) against fact-table references",
+      "status": "passed",
+      "seconds": 3.2,
+      "summary": [
+        "    \"restricted\": \"2/2\"",
+        "  }",
+        "}"
+      ]
+    }
+  ]
+}

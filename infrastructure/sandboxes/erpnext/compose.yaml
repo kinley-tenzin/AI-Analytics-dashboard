@@ -1,0 +1,127 @@
+# LOCAL ERPNext 16 SANDBOX for connector development and live read-only tests.
+# Adapted from frappe_docker pwd.yml (image pinned, passwords from .env, bound to localhost,
+# scheduler and long-queue workers removed to save memory). Synthetic data only.
+#
+#   docker compose --env-file .env -f infrastructure/sandboxes/erpnext/compose.yaml up -d
+#
+# See docs/connectors/SANDBOXES.md.
+
+name: druksmart-erpnext-sandbox
+
+x-erpnext-image: &erpnext_image
+  image: frappe/erpnext:v16.52.0
+
+x-backend: &backend
+  <<: *erpnext_image
+  depends_on:
+    configurator:
+      condition: service_completed_successfully
+  volumes:
+    - sites:/home/frappe/frappe-bench/sites
+
+services:
+  configurator:
+    <<: *erpnext_image
+    entrypoint: ["bash", "-c"]
+    command:
+      - >
+        ls -1 apps > sites/apps.txt;
+        bench set-config -g db_host $$DB_HOST;
+        bench set-config -gp db_port $$DB_PORT;
+        bench set-config -g redis_cache "redis://$$REDIS_CACHE";
+        bench set-config -g redis_queue "redis://$$REDIS_QUEUE";
+        bench set-config -g redis_socketio "redis://$$REDIS_QUEUE";
+        bench set-config -gp socketio_port $$SOCKETIO_PORT;
+    environment:
+      DB_HOST: db
+      DB_PORT: "3306"
+      REDIS_CACHE: redis-cache:6379
+      REDIS_QUEUE: redis-queue:6379
+      SOCKETIO_PORT: "9000"
+    volumes:
+      - sites:/home/frappe/frappe-bench/sites
+    restart: on-failure
+
+  backend:
+    <<: *backend
+    restart: unless-stopped
+
+  create-site:
+    <<: *backend
+    entrypoint: ["bash", "-c"]
+    environment:
+      ADMIN_PASSWORD: ${ERPNEXT_SANDBOX_ADMIN_PASSWORD:?set ERPNEXT_SANDBOX_ADMIN_PASSWORD in .env}
+      DB_ROOT_PASSWORD: ${ERPNEXT_SANDBOX_DB_ROOT_PASSWORD:?set ERPNEXT_SANDBOX_DB_ROOT_PASSWORD in .env}
+    command:
+      - >
+        wait-for-it -t 180 db:3306;
+        wait-for-it -t 180 redis-cache:6379;
+        wait-for-it -t 180 redis-queue:6379;
+        if [ -d sites/frontend ]; then echo "site exists"; exit 0; fi;
+        bench new-site --mariadb-user-host-login-scope='%'
+        --admin-password="$$ADMIN_PASSWORD" --db-root-username=root
+        --db-root-password="$$DB_ROOT_PASSWORD" --install-app erpnext --set-default frontend;
+
+  db:
+    restart: unless-stopped   # come back after Docker Desktop restarts (M8 defect D4)
+    image: mariadb:11.8
+    command:
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+      - --skip-character-set-client-handshake
+      - --skip-innodb-read-only-compressed
+    environment:
+      MARIADB_ROOT_PASSWORD: ${ERPNEXT_SANDBOX_DB_ROOT_PASSWORD}
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 5s
+      timeout: 5s
+      retries: 30
+    volumes:
+      - db_data:/var/lib/mysql
+
+  frontend:
+    restart: unless-stopped   # come back after Docker Desktop restarts (M8 defect D4)
+    <<: *erpnext_image
+    command: ["nginx-entrypoint.sh"]
+    environment:
+      BACKEND: backend:8000
+      FRAPPE_SITE_NAME_HEADER: frontend
+      SOCKETIO: websocket:9000
+      UPSTREAM_REAL_IP_ADDRESS: 127.0.0.1
+      UPSTREAM_REAL_IP_HEADER: X-Forwarded-For
+      UPSTREAM_REAL_IP_RECURSIVE: "off"
+      PROXY_READ_TIMEOUT: 120
+      CLIENT_MAX_BODY_SIZE: 50m
+    volumes:
+      - sites:/home/frappe/frappe-bench/sites
+    ports:
+      - "127.0.0.1:${ERPNEXT_SANDBOX_PORT:-8090}:8080"
+    depends_on:
+      - backend
+      - websocket
+
+  websocket:
+    restart: unless-stopped   # come back after Docker Desktop restarts (M8 defect D4)
+    <<: *backend
+    command: ["node", "/home/frappe/frappe-bench/apps/frappe/socketio.js"]
+
+  queue-short:
+    restart: unless-stopped   # come back after Docker Desktop restarts (M8 defect D4)
+    <<: *backend
+    command: ["bench", "worker", "--queue", "short,default"]
+
+  redis-queue:
+    restart: unless-stopped   # come back after Docker Desktop restarts (M8 defect D4)
+    image: redis:6.2-alpine
+    volumes:
+      - redis_queue_data:/data
+
+  redis-cache:
+    restart: unless-stopped   # come back after Docker Desktop restarts (M8 defect D4)
+    image: redis:6.2-alpine
+
+volumes:
+  db_data:
+  redis_queue_data:
+  sites:

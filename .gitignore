@@ -1,0 +1,49 @@
+# --- Secrets: never commit real credentials (use .env.example as the template) ---
+.env
+.env.*
+!.env.example
+
+# --- Python ---
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# --- Web application (frontend/): installed packages; the build output is dist/ (above) ---
+node_modules/
+
+# --- dbt (warehouse/) ---
+warehouse/**/target/
+warehouse/**/dbt_packages/
+warehouse/**/logs/
+# Personal dbt profiles stay local; the committed warehouse/profiles/profiles.yml only
+# references environment variables (no secrets).
+.user.yml
+
+# --- Airflow / Superset local runtime files ---
+orchestration/docker/wheels/
+backend/docker/wheels/
+orchestration/logs/
+superset/superset_home/
+# Superset metadata dumps contain password hashes (docs/bi/SUPERSET.md §8)
+backups/
+
+# --- Editors / OS ---
+.idea/
+.vscode/
+*.swp
+Thumbs.db
+.DS_Store
+
+# --- General ---
+*.log
+
+# Local credentials sheet for demonstrations: NEVER commit
+docs/secret/

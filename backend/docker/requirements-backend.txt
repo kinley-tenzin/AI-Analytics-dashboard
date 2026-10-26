@@ -1,0 +1,14 @@
+# Django backend container (Milestone 9). Exact pins; installed OFFLINE from
+# orchestration/docker/wheels/ (Linux wheels shared with the pipeline image) and
+# backend/docker/wheels/ (Django, asgiref, gunicorn). Both folders are git-ignored; see
+# deploy/README.md for how to fill them on a new machine.
+Django==5.2.18
+asgiref==3.13.0
+sqlparse==0.5.5
+gunicorn==26.2.0
+packaging==26.3
+psycopg[binary]==3.3.6
+python-dotenv==1.2.4
+PyYAML==6.0.3
+httpx==0.28.1
+tzdata==2026.5
