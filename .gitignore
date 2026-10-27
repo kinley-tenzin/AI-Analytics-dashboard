@@ -47,3 +47,8 @@ Thumbs.db
 
 # Local credentials sheet for demonstrations: NEVER commit
 docs/secret/
+
+# --- Generated medium-scale synthetic ERP data (python tests/fixtures/synthetic_medium/generate_medium.py) ---
+tests/fixtures/synthetic_medium/odoo/
+tests/fixtures/synthetic_medium/erpnext/
+tests/fixtures/synthetic_medium/erp_plan/

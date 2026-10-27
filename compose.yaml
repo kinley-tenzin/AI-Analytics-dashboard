@@ -329,6 +329,8 @@ services:
     entrypoint: ["/opt/druksmart-venv/bin/python", "-m", "connectors.synthetic.server"]
     environment:
       PYTHONPATH: /opt/druksmart
+      # Which fictional data set it serves; the scale test switches it (evaluation/scale_test.py use).
+      DRUKSMART_SYNTHETIC_FIXTURES: ${DRUKSMART_SYNTHETIC_FIXTURES:-tests/fixtures/synthetic}
       PYTHONDONTWRITEBYTECODE: "1"
     volumes:
       - .:/opt/druksmart:ro

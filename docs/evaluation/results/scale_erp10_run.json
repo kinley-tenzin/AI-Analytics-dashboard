@@ -1,0 +1,81 @@
+{
+  "run_id": "scale_erp10_20261027T110249",
+  "state": "success",
+  "start_date": "2026-10-27T05:03:04.435374+00:00",
+  "end_date": "2026-10-27T05:05:44.064229+00:00",
+  "observed_seconds": 170.4,
+  "tasks": [
+    {
+      "task": "dbt_build_marts",
+      "state": "success",
+      "seconds": 17.431667,
+      "try_number": null
+    },
+    {
+      "task": "dbt_staging_intermediate",
+      "state": "success",
+      "seconds": 29.703893,
+      "try_number": null
+    },
+    {
+      "task": "dbt_test_marts",
+      "state": "success",
+      "seconds": 16.652426,
+      "try_number": null
+    },
+    {
+      "task": "extract_load_erpnext_accounts",
+      "state": "success",
+      "seconds": 64.681269,
+      "try_number": null
+    },
+    {
+      "task": "extract_load_erpnext_hr",
+      "state": "success",
+      "seconds": 3.45877,
+      "try_number": null
+    },
+    {
+      "task": "extract_load_odoo_accounts",
+      "state": "success",
+      "seconds": 12.705425,
+      "try_number": null
+    },
+    {
+      "task": "extract_load_odoo_hr",
+      "state": "success",
+      "seconds": 4.149781,
+      "try_number": null
+    },
+    {
+      "task": "prepare_raw_schema",
+      "state": "success",
+      "seconds": 2.200607,
+      "try_number": null
+    },
+    {
+      "task": "publish_validated_marts",
+      "state": "success",
+      "seconds": 5.01403,
+      "try_number": null
+    },
+    {
+      "task": "report_published_state",
+      "state": "success",
+      "seconds": 2.332074,
+      "try_number": null
+    },
+    {
+      "task": "validate_erpnext_source",
+      "state": "success",
+      "seconds": 9.36369,
+      "try_number": null
+    },
+    {
+      "task": "validate_odoo_source",
+      "state": "success",
+      "seconds": 9.622049,
+      "try_number": null
+    }
+  ]
+}

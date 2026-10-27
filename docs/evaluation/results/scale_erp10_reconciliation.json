@@ -1,0 +1,577 @@
+{
+  "as_of": "2026-10-27",
+  "period": [
+    "2026-10-01",
+    "2026-10-31"
+  ],
+  "publication": {
+    "publication_id": 24,
+    "pipeline_run_id": "scale_erp10_20261027T110249",
+    "published_at": "2026-10-27T05:05:37.636110+00:00",
+    "freshness": [
+      {
+        "instance": "odoo-sandbox",
+        "domain": "accounts",
+        "data_as_of": "2026-10-27",
+        "published_at": "2026-10-27 05:05:37.636110+00:00"
+      },
+      {
+        "instance": "erpnext-sandbox",
+        "domain": "hr",
+        "data_as_of": "2026-10-27",
+        "published_at": "2026-10-27 05:05:37.636110+00:00"
+      },
+      {
+        "instance": "erpnext-sandbox",
+        "domain": "accounts",
+        "data_as_of": "2026-10-27",
+        "published_at": "2026-10-27 05:05:37.636110+00:00"
+      },
+      {
+        "instance": "odoo-sandbox",
+        "domain": "hr",
+        "data_as_of": "2026-10-27",
+        "published_at": "2026-10-27 05:05:37.636110+00:00"
+      }
+    ]
+  },
+  "checks": [
+    {
+      "kpi": "headcount",
+      "ok": true,
+      "layers": {
+        "source": 187,
+        "dbt": 187,
+        "superset": 187,
+        "django": 187,
+        "ai": 187
+      },
+      "mismatch": []
+    },
+    {
+      "kpi": "receivable",
+      "ok": true,
+      "layers": {
+        "source": 17876703.0,
+        "dbt": 17876703.0,
+        "superset": 17876703.0,
+        "django": 17876703,
+        "ai": 17876703
+      },
+      "mismatch": []
+    },
+    {
+      "kpi": "payable",
+      "ok": true,
+      "layers": {
+        "source": 10636141.0,
+        "dbt": 10636141.0,
+        "superset": 10636141.0,
+        "django": 10636141,
+        "ai": 10636141
+      },
+      "mismatch": []
+    },
+    {
+      "kpi": "overdue_receivable",
+      "ok": true,
+      "layers": {
+        "source": 16368186.0,
+        "dbt": 16368186.0,
+        "superset": 16368186.0,
+        "django": 16368186,
+        "ai": 16368186
+      },
+      "mismatch": []
+    },
+    {
+      "kpi": "overdue_payable",
+      "ok": true,
+      "layers": {
+        "source": 10228432.0,
+        "dbt": 10228432.0,
+        "superset": 10228432.0,
+        "django": 10228432,
+        "ai": 10228432
+      },
+      "mismatch": []
+    },
+    {
+      "kpi": "headcount_by_department",
+      "ok": true,
+      "layers": {
+        "source": {
+          "Administration": 1,
+          "Operations": 35,
+          "Finance & Accounts": 24,
+          "Warehouse": 19,
+          "Sales": 26,
+          "Management": 11,
+          "Unassigned": 3,
+          "Accounts": 11,
+          "Human Resources": 13,
+          "Logistics": 18,
+          "IT": 6,
+          "Procurement": 11,
+          "Customer Service": 9
+        },
+        "dbt": {
+          "Finance & Accounts": 24,
+          "Logistics": 18,
+          "Management": 11,
+          "Human Resources": 13,
+          "Accounts": 11,
+          "Warehouse": 19,
+          "Operations": 35,
+          "Sales": 26,
+          "Procurement": 11,
+          "Administration": 1,
+          "IT": 6,
+          "Unassigned": 3,
+          "Customer Service": 9
+        },
+        "superset": {
+          "Logistics": 18,
+          "Accounts": 11,
+          "Operations": 35,
+          "Administration": 1,
+          "Human Resources": 13,
+          "Warehouse": 19,
+          "Management": 11,
+          "Unassigned": 3,
+          "Finance & Accounts": 24,
+          "Sales": 26,
+          "Procurement": 11,
+          "IT": 6,
+          "Customer Service": 9
+        },
+        "django": {
+          "Accounts": 11,
+          "Administration": 1,
+          "Customer Service": 9,
+          "Finance & Accounts": 24,
+          "Human Resources": 13,
+          "IT": 6,
+          "Logistics": 18,
+          "Management": 11,
+          "Operations": 35,
+          "Procurement": 11,
+          "Sales": 26,
+          "Unassigned": 3,
+          "Warehouse": 19
+        },
+        "ai": {
+          "Accounts": 11,
+          "Administration": 1,
+          "Customer Service": 9,
+          "Finance & Accounts": 24,
+          "Human Resources": 13,
+          "IT": 6,
+          "Logistics": 18,
+          "Management": 11,
+          "Operations": 35,
+          "Procurement": 11,
+          "Sales": 26,
+          "Unassigned": 3,
+          "Warehouse": 19
+        }
+      },
+      "mismatch": []
+    },
+    {
+      "kpi": "approved_leave_employees",
+      "ok": true,
+      "layers": {
+        "source": 56,
+        "dbt": 56,
+        "django": 56,
+        "ai": 56
+      },
+      "mismatch": []
+    },
+    {
+      "kpi": "approved_leave_requests",
+      "ok": true,
+      "layers": {
+        "source": 71,
+        "dbt": 71,
+        "superset": 71,
+        "django": 71,
+        "ai": 71
+      },
+      "mismatch": []
+    },
+    {
+      "kpi": "approved_leave_days",
+      "ok": true,
+      "layers": {
+        "source": 137.0,
+        "dbt": 137.0,
+        "superset": 137.0,
+        "django": 137,
+        "ai": 137
+      },
+      "mismatch": []
+    },
+    {
+      "kpi": "ageing_all_buckets",
+      "ok": true,
+      "layers": {
+        "source": {
+          "payable|1_30": 1218912.0,
+          "payable|31_60": 1449670.0,
+          "payable|61_90": 1340797.0,
+          "payable|91_plus": 6219053.0,
+          "payable|not_due": 1392934.0,
+          "payable|unapplied_credit": -985225.0,
+          "receivable|1_30": 3366801.0,
+          "receivable|31_60": 1383399.0,
+          "receivable|61_90": 1471473.0,
+          "receivable|91_plus": 10146513.0,
+          "receivable|not_due": 2536020.0,
+          "receivable|unapplied_credit": -1027503.0
+        },
+        "dbt": {
+          "payable|31_60": 1449670.0,
+          "receivable|1_30": 3366801.0,
+          "payable|61_90": 1340797.0,
+          "payable|91_plus": 6219053.0,
+          "payable|1_30": 1218912.0,
+          "receivable|unapplied_credit": -1027503.0,
+          "payable|unapplied_credit": -985225.0,
+          "payable|not_due": 1392934.0,
+          "receivable|31_60": 1383399.0,
+          "receivable|not_due": 2536020.0,
+          "receivable|61_90": 1471473.0,
+          "receivable|91_plus": 10146513.0
+        },
+        "superset": {
+          "receivable|not_due": 2536020.0,
+          "receivable|1_30": 3366801.0,
+          "payable|1_30": 1218912.0,
+          "receivable|31_60": 1383399.0,
+          "receivable|91_plus": 10146513.0,
+          "payable|not_due": 1392934.0,
+          "payable|91_plus": 6219053.0,
+          "payable|61_90": 1340797.0,
+          "payable|31_60": 1449670.0,
+          "receivable|61_90": 1471473.0,
+          "receivable|unapplied_credit": -1027503.0,
+          "payable|unapplied_credit": -985225.0
+        }
+      },
+      "mismatch": []
+    },
+    {
+      "kpi": "overdue_by_ageing",
+      "ok": true,
+      "layers": {
+        "source": {
+          "payable|1 1-30 days overdue": 1218912.0,
+          "payable|2 31-60 days overdue": 1449670.0,
+          "payable|3 61-90 days overdue": 1340797.0,
+          "payable|4 Over 90 days overdue": 6219053.0,
+          "receivable|1 1-30 days overdue": 3366801.0,
+          "receivable|2 31-60 days overdue": 1383399.0,
+          "receivable|3 61-90 days overdue": 1471473.0,
+          "receivable|4 Over 90 days overdue": 10146513.0
+        },
+        "dbt": {
+          "payable|2 31-60 days overdue": 1449670.0,
+          "receivable|1 1-30 days overdue": 3366801.0,
+          "payable|3 61-90 days overdue": 1340797.0,
+          "payable|4 Over 90 days overdue": 6219053.0,
+          "payable|1 1-30 days overdue": 1218912.0,
+          "receivable|2 31-60 days overdue": 1383399.0,
+          "receivable|3 61-90 days overdue": 1471473.0,
+          "receivable|4 Over 90 days overdue": 10146513.0
+        },
+        "django": {
+          "payable|1 1-30 days overdue": 1218912,
+          "payable|2 31-60 days overdue": 1449670,
+          "payable|3 61-90 days overdue": 1340797,
+          "payable|4 Over 90 days overdue": 6219053,
+          "receivable|1 1-30 days overdue": 3366801,
+          "receivable|2 31-60 days overdue": 1383399,
+          "receivable|3 61-90 days overdue": 1471473,
+          "receivable|4 Over 90 days overdue": 10146513
+        },
+        "ai": {
+          "payable|1 1-30 days overdue": 1218912,
+          "payable|2 31-60 days overdue": 1449670,
+          "payable|3 61-90 days overdue": 1340797,
+          "payable|4 Over 90 days overdue": 6219053,
+          "receivable|1 1-30 days overdue": 3366801,
+          "receivable|2 31-60 days overdue": 1383399,
+          "receivable|3 61-90 days overdue": 1471473,
+          "receivable|4 Over 90 days overdue": 10146513
+        }
+      },
+      "mismatch": []
+    },
+    {
+      "kpi": "odoo-sandbox:headcount",
+      "ok": true,
+      "layers": {
+        "source": 99,
+        "dbt": 99,
+        "superset": 99
+      },
+      "mismatch": []
+    },
+    {
+      "kpi": "odoo-sandbox:receivable",
+      "ok": true,
+      "layers": {
+        "source": 6212567.0,
+        "dbt": 6212567.0,
+        "superset": 6212567.0
+      },
+      "mismatch": []
+    },
+    {
+      "kpi": "odoo-sandbox:payable",
+      "ok": true,
+      "layers": {
+        "source": 2818861.0,
+        "dbt": 2818861.0,
+        "superset": 2818861.0
+      },
+      "mismatch": []
+    },
+    {
+      "kpi": "odoo-sandbox:overdue_receivable",
+      "ok": true,
+      "layers": {
+        "source": 5139832.0,
+        "dbt": 5139832.0,
+        "superset": 5139832.0
+      },
+      "mismatch": []
+    },
+    {
+      "kpi": "odoo-sandbox:overdue_payable",
+      "ok": true,
+      "layers": {
+        "source": 2943497.0,
+        "dbt": 2943497.0,
+        "superset": 2943497.0
+      },
+      "mismatch": []
+    },
+    {
+      "kpi": "odoo-sandbox:ageing",
+      "ok": true,
+      "layers": {
+        "source": {
+          "payable|1_30": 525775.0,
+          "payable|31_60": 636264.0,
+          "payable|61_90": 302476.0,
+          "payable|91_plus": 1478982.0,
+          "payable|not_due": 462670.0,
+          "payable|unapplied_credit": -587306.0,
+          "receivable|1_30": 1539395.0,
+          "receivable|31_60": 764490.0,
+          "receivable|61_90": 741603.0,
+          "receivable|91_plus": 2094344.0,
+          "receivable|not_due": 1442792.0,
+          "receivable|unapplied_credit": -370057.0
+        },
+        "dbt": {
+          "payable|31_60": 636264.0,
+          "receivable|1_30": 1539395.0,
+          "payable|61_90": 302476.0,
+          "payable|91_plus": 1478982.0,
+          "payable|1_30": 525775.0,
+          "receivable|unapplied_credit": -370057.0,
+          "payable|unapplied_credit": -587306.0,
+          "payable|not_due": 462670.0,
+          "receivable|31_60": 764490.0,
+          "receivable|not_due": 1442792.0,
+          "receivable|61_90": 741603.0,
+          "receivable|91_plus": 2094344.0
+        },
+        "superset": {
+          "receivable|unapplied_credit": -370057.0,
+          "payable|unapplied_credit": -587306.0,
+          "receivable|91_plus": 2094344.0,
+          "payable|not_due": 462670.0,
+          "receivable|not_due": 1442792.0,
+          "payable|31_60": 636264.0,
+          "payable|91_plus": 1478982.0,
+          "payable|61_90": 302476.0,
+          "receivable|31_60": 764490.0,
+          "payable|1_30": 525775.0,
+          "receivable|61_90": 741603.0,
+          "receivable|1_30": 1539395.0
+        }
+      },
+      "mismatch": []
+    },
+    {
+      "kpi": "odoo-sandbox:leave_requests",
+      "ok": true,
+      "layers": {
+        "source": 39,
+        "dbt": 39,
+        "superset": 39
+      },
+      "mismatch": []
+    },
+    {
+      "kpi": "erpnext-sandbox:headcount",
+      "ok": true,
+      "layers": {
+        "source": 88,
+        "dbt": 88,
+        "superset": 88
+      },
+      "mismatch": []
+    },
+    {
+      "kpi": "erpnext-sandbox:receivable",
+      "ok": true,
+      "layers": {
+        "source": 11664136.0,
+        "dbt": 11664136.0,
+        "superset": 11664136.0
+      },
+      "mismatch": []
+    },
+    {
+      "kpi": "erpnext-sandbox:payable",
+      "ok": true,
+      "layers": {
+        "source": 7817280.0,
+        "dbt": 7817280.0,
+        "superset": 7817280.0
+      },
+      "mismatch": []
+    },
+    {
+      "kpi": "erpnext-sandbox:overdue_receivable",
+      "ok": true,
+      "layers": {
+        "source": 11228354.0,
+        "dbt": 11228354.0,
+        "superset": 11228354.0
+      },
+      "mismatch": []
+    },
+    {
+      "kpi": "erpnext-sandbox:overdue_payable",
+      "ok": true,
+      "layers": {
+        "source": 7284935.0,
+        "dbt": 7284935.0,
+        "superset": 7284935.0
+      },
+      "mismatch": []
+    },
+    {
+      "kpi": "erpnext-sandbox:ageing",
+      "ok": true,
+      "layers": {
+        "source": {
+          "payable|1_30": 693137.0,
+          "payable|31_60": 813406.0,
+          "payable|61_90": 1038321.0,
+          "payable|91_plus": 4740071.0,
+          "payable|not_due": 930264.0,
+          "payable|unapplied_credit": -397919.0,
+          "receivable|1_30": 1827406.0,
+          "receivable|31_60": 618909.0,
+          "receivable|61_90": 729870.0,
+          "receivable|91_plus": 8052169.0,
+          "receivable|not_due": 1093228.0,
+          "receivable|unapplied_credit": -657446.0
+        },
+        "dbt": {
+          "payable|31_60": 813406.0,
+          "payable|91_plus": 4740071.0,
+          "receivable|not_due": 1093228.0,
+          "payable|1_30": 693137.0,
+          "receivable|31_60": 618909.0,
+          "payable|not_due": 930264.0,
+          "receivable|unapplied_credit": -657446.0,
+          "payable|unapplied_credit": -397919.0,
+          "receivable|61_90": 729870.0,
+          "receivable|1_30": 1827406.0,
+          "payable|61_90": 1038321.0,
+          "receivable|91_plus": 8052169.0
+        },
+        "superset": {
+          "receivable|not_due": 1093228.0,
+          "receivable|1_30": 1827406.0,
+          "payable|1_30": 693137.0,
+          "receivable|31_60": 618909.0,
+          "receivable|91_plus": 8052169.0,
+          "payable|not_due": 930264.0,
+          "payable|91_plus": 4740071.0,
+          "payable|61_90": 1038321.0,
+          "payable|31_60": 813406.0,
+          "receivable|61_90": 729870.0,
+          "receivable|unapplied_credit": -657446.0,
+          "payable|unapplied_credit": -397919.0
+        }
+      },
+      "mismatch": []
+    },
+    {
+      "kpi": "erpnext-sandbox:leave_requests",
+      "ok": true,
+      "layers": {
+        "source": 32,
+        "dbt": 32,
+        "superset": 32
+      },
+      "mismatch": []
+    }
+  ],
+  "ai_answer_text_contains_source_number": {
+    "headcount": true,
+    "receivable": true,
+    "payable": true,
+    "overdue_receivable": true,
+    "leave_employees": true
+  },
+  "ai_answers": {
+    "headcount": {
+      "status": "answered",
+      "answer": "There are 187 active employees as of 27 October 2026.",
+      "interpreter": "rules (fallback)"
+    },
+    "by_department": {
+      "status": "answered",
+      "answer": "Active employees by department as of 27 October 2026: Accounts 11, Administration 1, Customer Service 9, Finance & Accounts 24, Human Resources 13, IT 6, Logistics 18, Management 11, Operations 35, Procurement 11, Sales 26, Unassigned 3, Warehouse 19 (total 187).",
+      "interpreter": "rules (fallback)"
+    },
+    "leave": {
+      "status": "answered",
+      "answer": "56 employees had approved leave starting in October 2026 (71 approved requests, 137 leave days).",
+      "interpreter": "rules (fallback)"
+    },
+    "receivable": {
+      "status": "answered",
+      "answer": "Outstanding receivables as of 27 October 2026: BTN 17,876,703.00 (778 open documents).",
+      "interpreter": "rules (fallback)"
+    },
+    "payable": {
+      "status": "answered",
+      "answer": "Outstanding payables as of 27 October 2026: BTN 10,636,141.00 (514 open documents).",
+      "interpreter": "rules (fallback)"
+    },
+    "overdue": {
+      "status": "answered",
+      "answer": "Overdue balances as of 27 October 2026: payables BTN 10,228,432.00; receivables BTN 16,368,186.00.",
+      "interpreter": "rules (fallback)"
+    },
+    "overdue_ageing": {
+      "status": "answered",
+      "answer": "Overdue balances by ageing category as of 27 October 2026. Payables: 1-30 days overdue BTN 1,218,912.00, 31-60 days overdue BTN 1,449,670.00, 61-90 days overdue BTN 1,340,797.00, Over 90 days overdue BTN 6,219,053.00. Receivables: 1-30 days overdue BTN 3,366,801.00, 31-60 days overdue BTN 1,383,399.00, 61-90 days overdue BTN 1,471,473.00, Over 90 days overdue BTN 10,146,513.00.",
+      "interpreter": "rules (fallback)"
+    }
+  },
+  "passed": 30,
+  "total": 30
+}

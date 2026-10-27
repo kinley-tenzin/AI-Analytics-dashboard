@@ -15,6 +15,7 @@ The scripts drive the **running** local platform and write evidence to
 | `reliability.py` | Fault injection: ERP down, warehouse down, broken dbt model, failing data test, restarts, stale data | stops and starts **local** containers; temporary files removed again |
 | `access_matrix.py` | Every role × resource at the Superset, Django and database boundaries, incl. tampering | no |
 | `performance.py` | Pipeline (full refresh), Superset, dashboard, Django and assistant timings with environment and volumes | runs 3 pipeline runs |
+| `scale_test.py` | Pipeline over ~118,000 SYNTHETIC records (medium), then all KPIs vs the independent oracle ([SCALE_TEST.md](../docs/evaluation/SCALE_TEST.md)) | **truncates the synthetic `*_test` raw tables**; switches the `synthetic-erp` container |
 | `usability_walkthrough.py` | The 6 user tasks through the real UIs (headless Edge); NOT a user study | no |
 | `db_connections.py` | Which database account each component really uses | no |
 | `report_tables.py` | Renders the results as Markdown: `python evaluation/report_tables.py --update docs/evaluation/EVALUATION_REPORT.md` | report file only |

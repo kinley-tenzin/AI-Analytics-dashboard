@@ -1,0 +1,276 @@
+{
+  "fixtures": "tests/fixtures/synthetic_medium",
+  "checks": [
+    {
+      "check": "Superset: headcount",
+      "ok": true,
+      "oracle": 1717,
+      "layer": 1717
+    },
+    {
+      "check": "Superset: receivable",
+      "ok": true,
+      "oracle": 183736254.0,
+      "layer": 183736254.0
+    },
+    {
+      "check": "Superset: payable",
+      "ok": true,
+      "oracle": 111428642.0,
+      "layer": 111428642.0
+    },
+    {
+      "check": "Superset: overdue_receivable",
+      "ok": true,
+      "oracle": 165739606.0,
+      "layer": 165739606.0
+    },
+    {
+      "check": "Superset: overdue_payable",
+      "ok": true,
+      "oracle": 103642836.0,
+      "layer": 103642836.0
+    },
+    {
+      "check": "Superset: leave_requests",
+      "ok": true,
+      "oracle": 797,
+      "layer": 797
+    },
+    {
+      "check": "Superset: leave_days",
+      "ok": true,
+      "oracle": 1697.5,
+      "layer": 1697.5
+    },
+    {
+      "check": "Django KPI API: headcount",
+      "ok": true,
+      "oracle": 1717,
+      "layer": 1717
+    },
+    {
+      "check": "Django KPI API: receivable",
+      "ok": true,
+      "oracle": 183736254.0,
+      "layer": 183736254
+    },
+    {
+      "check": "Django KPI API: payable",
+      "ok": true,
+      "oracle": 111428642.0,
+      "layer": 111428642
+    },
+    {
+      "check": "Django KPI API: overdue_receivable",
+      "ok": true,
+      "oracle": 165739606.0,
+      "layer": 165739606
+    },
+    {
+      "check": "Django KPI API: overdue_payable",
+      "ok": true,
+      "oracle": 103642836.0,
+      "layer": 103642836
+    },
+    {
+      "check": "Django KPI API: leave_requests",
+      "ok": true,
+      "oracle": 797,
+      "layer": 797
+    },
+    {
+      "check": "Django KPI API: leave_days",
+      "ok": true,
+      "oracle": 1697.5,
+      "layer": 1697.5
+    }
+  ],
+  "superset_query_ms": {
+    "headcount_total": {
+      "n": 20,
+      "min": 192.4,
+      "p50": 217.4,
+      "p95": 263.6,
+      "max": 303.8,
+      "mean": 226.4
+    },
+    "headcount_by_department": {
+      "n": 20,
+      "min": 202.5,
+      "p50": 235.1,
+      "p95": 395.3,
+      "max": 412.4,
+      "mean": 261.8
+    },
+    "receivables_total": {
+      "n": 20,
+      "min": 327.6,
+      "p50": 380.0,
+      "p95": 508.8,
+      "max": 541.5,
+      "mean": 398.9
+    },
+    "ageing_by_ledger": {
+      "n": 20,
+      "min": 294.4,
+      "p50": 330.6,
+      "p95": 404.8,
+      "max": 949.3,
+      "mean": 366.8
+    },
+    "leave_by_month": {
+      "n": 20,
+      "min": 241.1,
+      "p50": 282.8,
+      "p95": 372.0,
+      "max": 375.8,
+      "mean": 295.7
+    }
+  },
+  "dashboard_load_ms": {
+    "druksmart-hr": {
+      "n": 3,
+      "min": 3992.5,
+      "p50": 4267.1,
+      "p95": 5140.3,
+      "max": 5140.3,
+      "mean": 4466.7
+    },
+    "druksmart-accounts": {
+      "n": 3,
+      "min": 4709.8,
+      "p50": 4899.2,
+      "p95": 5536.7,
+      "max": 5536.7,
+      "mean": 5048.6
+    }
+  },
+  "django": {
+    "kpi_api_ms": {
+      "hr.active_headcount": {
+        "n": 20,
+        "min": 46.9,
+        "p50": 61.2,
+        "p95": 89.4,
+        "max": 94.5,
+        "mean": 64.2
+      },
+      "hr.active_headcount by department": {
+        "n": 20,
+        "min": 48.1,
+        "p50": 58.9,
+        "p95": 85.0,
+        "max": 106.7,
+        "mean": 64.4
+      },
+      "hr.employment_status": {
+        "n": 20,
+        "min": 53.0,
+        "p50": 67.5,
+        "p95": 116.9,
+        "max": 121.1,
+        "mean": 75.7
+      },
+      "hr.approved_leave": {
+        "n": 20,
+        "min": 37.0,
+        "p50": 43.3,
+        "p95": 73.9,
+        "max": 77.1,
+        "mean": 47.5
+      },
+      "ac.outstanding_receivables": {
+        "n": 20,
+        "min": 88.7,
+        "p50": 104.7,
+        "p95": 128.8,
+        "max": 132.2,
+        "mean": 106.3
+      },
+      "ac.outstanding_payables": {
+        "n": 20,
+        "min": 81.1,
+        "p50": 122.2,
+        "p95": 143.8,
+        "max": 161.4,
+        "mean": 117.7
+      },
+      "ac.overdue_balance": {
+        "n": 20,
+        "min": 100.1,
+        "p50": 113.7,
+        "p95": 131.7,
+        "max": 152.7,
+        "mean": 116.3
+      },
+      "ac.overdue_by_ageing": {
+        "n": 20,
+        "min": 96.8,
+        "p50": 105.4,
+        "p95": 147.4,
+        "max": 149.7,
+        "mean": 113.3
+      }
+    },
+    "assistant_ms": {
+      "How many active employees are there?": {
+        "n": 10,
+        "min": 2308.5,
+        "p50": 7374.3,
+        "p95": 38255.6,
+        "max": 38255.6,
+        "mean": 12970.3
+      },
+      "How many employees work in each department?": {
+        "n": 10,
+        "min": 2401.7,
+        "p50": 3969.5,
+        "p95": 28102.2,
+        "max": 28102.2,
+        "mean": 7773.4
+      },
+      "How many employees are on approved leave?": {
+        "n": 10,
+        "min": 1546.9,
+        "p50": 3760.7,
+        "p95": 31862.4,
+        "max": 31862.4,
+        "mean": 6420.2
+      },
+      "What is the outstanding receivables balance?": {
+        "n": 10,
+        "min": 2094.3,
+        "p50": 2490.4,
+        "p95": 4702.0,
+        "max": 4702.0,
+        "mean": 2797.7
+      },
+      "What is the outstanding payables balance?": {
+        "n": 10,
+        "min": 1729.7,
+        "p50": 2148.1,
+        "p95": 28432.6,
+        "max": 28432.6,
+        "mean": 6427.8
+      },
+      "How much is overdue?": {
+        "n": 10,
+        "min": 1601.3,
+        "p50": 2018.3,
+        "p95": 12498.1,
+        "max": 12498.1,
+        "mean": 4564.5
+      },
+      "Show overdue balances by ageing category.": {
+        "n": 10,
+        "min": 1630.5,
+        "p50": 1815.5,
+        "p95": 27370.6,
+        "max": 27370.6,
+        "mean": 4364.0
+      }
+    },
+    "interpreter": "rules (deterministic, no LLM); Gemini latency NOT measured (no API key)"
+  }
+}

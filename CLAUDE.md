@@ -199,6 +199,14 @@ For each milestone:
   settings there. Superset chart-data cache is OFF (NullCache) on purpose (stale after publication).
 - Django KPI results carry `stale`/`hours_since_publication`; keep API errors JSON (`ApiErrorMiddleware`).
 
+- Scale test (2026-10-27): `python evaluation/scale_test.py generate|use medium|run --reset-test-db|verify`. It loads ~118,000 SYNTHETIC
+  records into the `_test` database (replacing the small demo data there; `run` truncates only `*_test` raw tables). `synthetic-erp` serves the
+  set chosen by `DRUKSMART_SYNTHETIC_FIXTURES` (default small). Marts hooks use `warehouse/macros/primary_key.sql` / `foreign_key.sql` (ADR-045).
+  Results: docs/evaluation/SCALE_TEST.md. Superset/Django/website were NOT re-measured at that volume.
+
+- ERP-loaded scale data: `infrastructure/sandboxes/scale/` (plan.py, load_odoo_run.py, load_erpnext.py) adds a slice of the medium set to the SANDBOXES
+  (idempotent, adds only; ERPNext needs `hrms` in `sites/apps.txt`). Then run the DAG in `configured` mode and `evaluation/reconcile.py`.
+
 ### Deployment and handover (Milestone 9)
 - Operate the platform ONLY with `python deploy/druksmart.py …` (check/setup/up/status/run-pipeline/demo-data/
   backup/restore-check/restore/stop). It never removes volumes; `restore --yes` is the only destructive command.

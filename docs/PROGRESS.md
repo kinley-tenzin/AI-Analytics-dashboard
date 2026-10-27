@@ -5,6 +5,24 @@ with real test results.
 
 ---
 
+## Scale test with MEDIUM synthetic data (2026-10-27) · status: complete for pipeline and warehouse
+
+Requested by the supervisor: what happens with realistic volume (the demo data had about 130 records).
+Details and evidence: [evaluation/SCALE_TEST.md](evaluation/SCALE_TEST.md).
+
+- **Working:** `tests/fixtures/synthetic_medium/generate_medium.py` (118,051 synthetic records, deterministic, 41 MB, git-ignored) and `evaluation/scale_test.py` (generate / use / run / verify).
+- **Tested (real output):** both batches through the Airflow DAG (extract, dbt, data tests, publish) in 276 s + 115 s; **20/20** KPI checks equal the independent oracle at both snapshot dates; 34/34 invalid records quarantined; 5 new unit tests and the full unit suite (286 passed).
+- **Defect found and fixed:** `_marts.yml` called the dbt macros `primary_key()` and `foreign_key()`, which did not exist, so every marts build failed. Added in `warehouse/macros/` (ADR-045).
+- **Fixture flaw found by the new foreign keys and fixed:** a leave request referencing an employee not yet extracted.
+- **ERP-loaded variant (supervisor request):** 10 % of the medium data loaded INTO the Odoo and ERPNext sandboxes through their own logic (`infrastructure/sandboxes/scale/`), then extracted by the real connectors (`configured` mode): DAG run 170 s, **30/30** `reconcile.py` checks pass (ERP APIs vs dbt vs Superset vs Django vs assistant, per ERP). See SCALE_TEST.md Part 2. The live warehouse database now holds this sandbox data; Superset and the assistant read LIVE data again.
+- **Sandbox change:** ERPNext `sites/apps.txt` lacked `hrms` (HR writes failed with "Module HR not found"); added, backup kept, cache cleared.
+- **Consumers (tested):** Superset and the Django API return the oracle totals (14/14); Superset queries 217-380 ms, dashboards 4.3-4.9 s, rules assistant 181 ms median. The AI assistant is slow only because Gemini returns HTTP 429 (quota) and falls back to rules, unrelated to volume.
+- **Not tested at this volume:** the website pages and Gemini-phrased answers. Larger levels (500,000 and 2.4 million records) were not run.
+- **State left behind:** Superset and the assistant now read the SYNTHETIC `_test` data (`demo-data live` switches back).
+- The synthetic `_test` database holds the medium data; see SCALE_TEST.md to switch back to the small demo data.
+
+---
+
 ## Milestone 10: Unified DrukSmart web application (2026-10-25) · status: complete, awaiting review
 
 - **Post-milestone change (ADR-044): managers author their module's dashboards.** The team clarified that the website is for managers and senior management.

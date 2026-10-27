@@ -1,0 +1,517 @@
+{
+  "fixtures": "tests/fixtures/synthetic_medium",
+  "checks_total": 20,
+  "checks_failed": 0,
+  "database_size_mb": 230.4,
+  "row_counts": {
+    "intermediate.int_accounting_document_versions": 51268,
+    "intermediate.int_departments": 31,
+    "intermediate.int_employee_versions": 1996,
+    "intermediate.int_leave_requests": 19980,
+    "intermediate.int_organisation_units": 16,
+    "intermediate.int_partners": 1000,
+    "intermediate.int_payment_allocations": 43591,
+    "intermediate.int_snapshot_dates": 8,
+    "marts.data_freshness": 4,
+    "marts.dim_branch": 14,
+    "marts.dim_customer": 500,
+    "marts.dim_date": 7670,
+    "marts.dim_department": 31,
+    "marts.dim_employee": 1996,
+    "marts.dim_organisation": 2,
+    "marts.dim_supplier": 500,
+    "marts.fct_accounting_document": 50109,
+    "marts.fct_headcount_snapshot": 3992,
+    "marts.fct_leave_request": 19980,
+    "marts.fct_payment": 43731,
+    "marts.fct_receivable_payable_snapshot": 24876,
+    "raw.extraction_checkpoint": 17,
+    "raw.extraction_run": 34,
+    "raw.publication": 69,
+    "raw.quarantined_record": 34,
+    "raw.schema_migration": 2,
+    "raw.source_record": 118017,
+    "staging.map_document_sign": 2,
+    "staging.map_document_state": 6,
+    "staging.map_document_type": 8,
+    "staging.map_erpnext_employee_status": 4,
+    "staging.map_leave_approval_status": 17,
+    "staging.map_payment_direction": 5,
+    "staging.map_payment_state": 8,
+    "staging.verified_entity_mappings": 2
+  },
+  "checks": [
+    {
+      "check": "rejected records == quarantined records",
+      "ok": true,
+      "oracle": 34,
+      "warehouse": 34
+    },
+    {
+      "check": "HR-01 headcount by instance",
+      "ok": true,
+      "oracle": {
+        "odoo-dtg-retail": 862,
+        "erpnext-dtg-services": 855
+      },
+      "warehouse": {
+        "odoo-dtg-retail": 862,
+        "erpnext-dtg-services": 855
+      }
+    },
+    {
+      "check": "HR-01 headcount by branch",
+      "ok": true,
+      "oracle": {
+        "odoo:odoo-dtg-retail:1": 442,
+        "odoo:odoo-dtg-retail:2": 177,
+        "odoo:odoo-dtg-retail:3": 122,
+        "odoo:odoo-dtg-retail:4": 121,
+        "erpnext:erpnext-dtg-services:Punakha": 103,
+        "erpnext:erpnext-dtg-services:Gelephu": 117,
+        "erpnext:erpnext-dtg-services:Bumthang": 96,
+        "erpnext:erpnext-dtg-services:Paro": 102,
+        "erpnext:erpnext-dtg-services:Samdrup Jongkhar": 115,
+        "erpnext:erpnext-dtg-services:Trongsa": 104,
+        "erpnext:erpnext-dtg-services:Thimphu": 103,
+        "erpnext:erpnext-dtg-services:Mongar": 102,
+        "erpnext:erpnext-dtg-services:unassigned": 13
+      },
+      "warehouse": {
+        "erpnext:erpnext-dtg-services:unassigned": 13,
+        "odoo:odoo-dtg-retail:4": 121,
+        "odoo:odoo-dtg-retail:2": 177,
+        "erpnext:erpnext-dtg-services:Thimphu": 103,
+        "erpnext:erpnext-dtg-services:Bumthang": 96,
+        "erpnext:erpnext-dtg-services:Mongar": 102,
+        "erpnext:erpnext-dtg-services:Paro": 102,
+        "erpnext:erpnext-dtg-services:Samdrup Jongkhar": 115,
+        "erpnext:erpnext-dtg-services:Punakha": 103,
+        "erpnext:erpnext-dtg-services:Gelephu": 117,
+        "odoo:odoo-dtg-retail:1": 442,
+        "erpnext:erpnext-dtg-services:Trongsa": 104,
+        "odoo:odoo-dtg-retail:3": 122
+      }
+    },
+    {
+      "check": "HR-02 headcount by department",
+      "ok": true,
+      "oracle": {
+        "odoo:odoo-dtg-retail:3": 95,
+        "odoo:odoo-dtg-retail:10": 38,
+        "odoo:odoo-dtg-retail:5": 87,
+        "odoo:odoo-dtg-retail:13": 27,
+        "odoo:odoo-dtg-retail:2": 84,
+        "odoo:odoo-dtg-retail:17": 25,
+        "odoo:odoo-dtg-retail:9": 39,
+        "odoo:odoo-dtg-retail:6": 22,
+        "odoo:odoo-dtg-retail:8": 44,
+        "odoo:odoo-dtg-retail:20": 25,
+        "odoo:odoo-dtg-retail:1": 91,
+        "odoo:odoo-dtg-retail:19": 18,
+        "odoo:odoo-dtg-retail:18": 24,
+        "odoo:odoo-dtg-retail:7": 33,
+        "odoo:odoo-dtg-retail:4": 82,
+        "odoo:odoo-dtg-retail:11": 29,
+        "odoo:odoo-dtg-retail:14": 28,
+        "odoo:odoo-dtg-retail:unassigned": 7,
+        "odoo:odoo-dtg-retail:12": 15,
+        "odoo:odoo-dtg-retail:15": 23,
+        "odoo:odoo-dtg-retail:16": 26,
+        "erpnext:erpnext-dtg-services:Logistics - DSV": 104,
+        "erpnext:erpnext-dtg-services:IT - DSV": 95,
+        "erpnext:erpnext-dtg-services:Operations - DSV": 118,
+        "erpnext:erpnext-dtg-services:Procurement - DSV": 104,
+        "erpnext:erpnext-dtg-services:Human Resources - DSV": 100,
+        "erpnext:erpnext-dtg-services:Sales - DSV": 100,
+        "erpnext:erpnext-dtg-services:Customer Service - DSV": 117,
+        "erpnext:erpnext-dtg-services:Accounts - DSV": 105,
+        "erpnext:erpnext-dtg-services:unassigned": 12
+      },
+      "warehouse": {
+        "odoo:odoo-dtg-retail:17": 25,
+        "erpnext:erpnext-dtg-services:unassigned": 12,
+        "odoo:odoo-dtg-retail:4": 82,
+        "odoo:odoo-dtg-retail:13": 27,
+        "odoo:odoo-dtg-retail:12": 15,
+        "odoo:odoo-dtg-retail:2": 84,
+        "odoo:odoo-dtg-retail:9": 39,
+        "odoo:odoo-dtg-retail:18": 24,
+        "erpnext:erpnext-dtg-services:IT - DSV": 95,
+        "odoo:odoo-dtg-retail:14": 28,
+        "odoo:odoo-dtg-retail:20": 25,
+        "erpnext:erpnext-dtg-services:Sales - DSV": 100,
+        "odoo:odoo-dtg-retail:5": 87,
+        "odoo:odoo-dtg-retail:6": 22,
+        "odoo:odoo-dtg-retail:8": 44,
+        "odoo:odoo-dtg-retail:7": 33,
+        "odoo:odoo-dtg-retail:10": 38,
+        "erpnext:erpnext-dtg-services:Customer Service - DSV": 117,
+        "odoo:odoo-dtg-retail:15": 23,
+        "odoo:odoo-dtg-retail:unassigned": 7,
+        "odoo:odoo-dtg-retail:1": 91,
+        "odoo:odoo-dtg-retail:11": 29,
+        "erpnext:erpnext-dtg-services:Human Resources - DSV": 100,
+        "erpnext:erpnext-dtg-services:Accounts - DSV": 105,
+        "erpnext:erpnext-dtg-services:Procurement - DSV": 104,
+        "erpnext:erpnext-dtg-services:Operations - DSV": 118,
+        "odoo:odoo-dtg-retail:19": 18,
+        "odoo:odoo-dtg-retail:16": 26,
+        "odoo:odoo-dtg-retail:3": 95,
+        "erpnext:erpnext-dtg-services:Logistics - DSV": 104
+      }
+    },
+    {
+      "check": "HR-03 approved leave (Oct) by instance",
+      "ok": true,
+      "oracle": {
+        "odoo-dtg-retail": {
+          "requests": 418,
+          "days": 967.0,
+          "employees": 346
+        },
+        "erpnext-dtg-services": {
+          "requests": 379,
+          "days": 730.5,
+          "employees": 316
+        }
+      },
+      "warehouse": {
+        "erpnext-dtg-services": {
+          "requests": 379,
+          "days": 730.5,
+          "employees": 316
+        },
+        "odoo-dtg-retail": {
+          "requests": 418,
+          "days": 967.0,
+          "employees": 346
+        }
+      }
+    },
+    {
+      "check": "AC-01_outstanding_receivables 2026-09-30",
+      "ok": true,
+      "oracle": {
+        "odoo-dtg-retail": 51597763.0,
+        "erpnext-dtg-services": 110774246.0,
+        "total": 162372009.0
+      },
+      "warehouse": {
+        "odoo-dtg-retail": 51597763.0,
+        "erpnext-dtg-services": 110774246.0,
+        "total": 162372009.0
+      }
+    },
+    {
+      "check": "AC-03_overdue_receivables 2026-09-30",
+      "ok": true,
+      "oracle": {
+        "odoo-dtg-retail": 42866379.0,
+        "erpnext-dtg-services": 100588472.0,
+        "total": 143454851.0
+      },
+      "warehouse": {
+        "odoo-dtg-retail": 42866379.0,
+        "erpnext-dtg-services": 100588472.0,
+        "total": 143454851.0
+      }
+    },
+    {
+      "check": "AC-04 receivable ageing 2026-09-30",
+      "ok": true,
+      "oracle": {
+        "odoo-dtg-retail": {
+          "not_due": 15483111.0,
+          "1_30": 10861128.0,
+          "31_60": 8405931.0,
+          "61_90": 2976283.0,
+          "91_plus": 20623037.0,
+          "no_due_date": 0.0,
+          "unapplied_credit": -6751727.0
+        },
+        "erpnext-dtg-services": {
+          "not_due": 15546239.0,
+          "1_30": 12522424.0,
+          "31_60": 10835953.0,
+          "61_90": 5985038.0,
+          "91_plus": 71245057.0,
+          "no_due_date": 0.0,
+          "unapplied_credit": -5360465.0
+        }
+      },
+      "warehouse": {
+        "erpnext-dtg-services": {
+          "not_due": 15546239.0,
+          "1_30": 12522424.0,
+          "31_60": 10835953.0,
+          "61_90": 5985038.0,
+          "91_plus": 71245057.0,
+          "no_due_date": 0.0,
+          "unapplied_credit": -5360465.0
+        },
+        "odoo-dtg-retail": {
+          "not_due": 15483111.0,
+          "1_30": 10861128.0,
+          "31_60": 8405931.0,
+          "61_90": 2976283.0,
+          "91_plus": 20623037.0,
+          "no_due_date": 0.0,
+          "unapplied_credit": -6751727.0
+        }
+      }
+    },
+    {
+      "check": "AC-02_outstanding_payables 2026-09-30",
+      "ok": true,
+      "oracle": {
+        "odoo-dtg-retail": 30340704.0,
+        "erpnext-dtg-services": 70086572.0,
+        "total": 100427276.0
+      },
+      "warehouse": {
+        "odoo-dtg-retail": 30340704.0,
+        "erpnext-dtg-services": 70086572.0,
+        "total": 100427276.0
+      }
+    },
+    {
+      "check": "AC-03_overdue_payables 2026-09-30",
+      "ok": true,
+      "oracle": {
+        "odoo-dtg-retail": 26565380.0,
+        "erpnext-dtg-services": 65434315.0,
+        "total": 91999695.0
+      },
+      "warehouse": {
+        "odoo-dtg-retail": 26565380.0,
+        "erpnext-dtg-services": 65434315.0,
+        "total": 91999695.0
+      }
+    },
+    {
+      "check": "AC-04 payable ageing 2026-09-30",
+      "ok": true,
+      "oracle": {
+        "odoo-dtg-retail": {
+          "not_due": 7730635.0,
+          "1_30": 6703633.0,
+          "31_60": 4491483.0,
+          "61_90": 1739216.0,
+          "91_plus": 13631048.0,
+          "no_due_date": 0.0,
+          "unapplied_credit": -3955311.0
+        },
+        "erpnext-dtg-services": {
+          "not_due": 8572723.0,
+          "1_30": 7524799.0,
+          "31_60": 6359161.0,
+          "61_90": 5178116.0,
+          "91_plus": 46372239.0,
+          "no_due_date": 0.0,
+          "unapplied_credit": -3920466.0
+        }
+      },
+      "warehouse": {
+        "erpnext-dtg-services": {
+          "not_due": 8572723.0,
+          "1_30": 7524799.0,
+          "31_60": 6359161.0,
+          "61_90": 5178116.0,
+          "91_plus": 46372239.0,
+          "no_due_date": 0.0,
+          "unapplied_credit": -3920466.0
+        },
+        "odoo-dtg-retail": {
+          "not_due": 7730635.0,
+          "1_30": 6703633.0,
+          "31_60": 4491483.0,
+          "61_90": 1739216.0,
+          "91_plus": 13631048.0,
+          "no_due_date": 0.0,
+          "unapplied_credit": -3955311.0
+        }
+      }
+    },
+    {
+      "check": "AC-01_outstanding_receivables 2026-10-31",
+      "ok": true,
+      "oracle": {
+        "odoo-dtg-retail": 59542340.0,
+        "erpnext-dtg-services": 124193914.0,
+        "total": 183736254.0
+      },
+      "warehouse": {
+        "odoo-dtg-retail": 59542340.0,
+        "erpnext-dtg-services": 124193914.0,
+        "total": 183736254.0
+      }
+    },
+    {
+      "check": "AC-03_overdue_receivables 2026-10-31",
+      "ok": true,
+      "oracle": {
+        "odoo-dtg-retail": 52611889.0,
+        "erpnext-dtg-services": 113127717.0,
+        "total": 165739606.0
+      },
+      "warehouse": {
+        "odoo-dtg-retail": 52611889.0,
+        "erpnext-dtg-services": 113127717.0,
+        "total": 165739606.0
+      }
+    },
+    {
+      "check": "AC-04 receivable ageing 2026-10-31",
+      "ok": true,
+      "oracle": {
+        "odoo-dtg-retail": {
+          "not_due": 14048678.0,
+          "1_30": 12394932.0,
+          "31_60": 9512372.0,
+          "61_90": 7348118.0,
+          "91_plus": 23356467.0,
+          "no_due_date": 0.0,
+          "unapplied_credit": -7118227.0
+        },
+        "erpnext-dtg-services": {
+          "not_due": 16649484.0,
+          "1_30": 13521960.0,
+          "31_60": 11554494.0,
+          "61_90": 10524145.0,
+          "91_plus": 77527118.0,
+          "no_due_date": 0.0,
+          "unapplied_credit": -5583287.0
+        }
+      },
+      "warehouse": {
+        "erpnext-dtg-services": {
+          "not_due": 16649484.0,
+          "1_30": 13521960.0,
+          "31_60": 11554494.0,
+          "61_90": 10524145.0,
+          "91_plus": 77527118.0,
+          "no_due_date": 0.0,
+          "unapplied_credit": -5583287.0
+        },
+        "odoo-dtg-retail": {
+          "not_due": 14048678.0,
+          "1_30": 12394932.0,
+          "31_60": 9512372.0,
+          "61_90": 7348118.0,
+          "91_plus": 23356467.0,
+          "no_due_date": 0.0,
+          "unapplied_credit": -7118227.0
+        }
+      }
+    },
+    {
+      "check": "AC-02_outstanding_payables 2026-10-31",
+      "ok": true,
+      "oracle": {
+        "odoo-dtg-retail": 35201246.0,
+        "erpnext-dtg-services": 76227396.0,
+        "total": 111428642.0
+      },
+      "warehouse": {
+        "odoo-dtg-retail": 35201246.0,
+        "erpnext-dtg-services": 76227396.0,
+        "total": 111428642.0
+      }
+    },
+    {
+      "check": "AC-03_overdue_payables 2026-10-31",
+      "ok": true,
+      "oracle": {
+        "odoo-dtg-retail": 31389435.0,
+        "erpnext-dtg-services": 72253401.0,
+        "total": 103642836.0
+      },
+      "warehouse": {
+        "odoo-dtg-retail": 31389435.0,
+        "erpnext-dtg-services": 72253401.0,
+        "total": 103642836.0
+      }
+    },
+    {
+      "check": "AC-04 payable ageing 2026-10-31",
+      "ok": true,
+      "oracle": {
+        "odoo-dtg-retail": {
+          "not_due": 7854232.0,
+          "1_30": 6121787.0,
+          "31_60": 5618257.0,
+          "61_90": 4490462.0,
+          "91_plus": 15158929.0,
+          "no_due_date": 0.0,
+          "unapplied_credit": -4042421.0
+        },
+        "erpnext-dtg-services": {
+          "not_due": 8053609.0,
+          "1_30": 7517686.0,
+          "31_60": 6542094.0,
+          "61_90": 6734745.0,
+          "91_plus": 51458876.0,
+          "no_due_date": 0.0,
+          "unapplied_credit": -4079614.0
+        }
+      },
+      "warehouse": {
+        "erpnext-dtg-services": {
+          "not_due": 8053609.0,
+          "1_30": 7517686.0,
+          "31_60": 6542094.0,
+          "61_90": 6734745.0,
+          "91_plus": 51458876.0,
+          "no_due_date": 0.0,
+          "unapplied_credit": -4079614.0
+        },
+        "odoo-dtg-retail": {
+          "not_due": 7854232.0,
+          "1_30": 6121787.0,
+          "31_60": 5618257.0,
+          "61_90": 4490462.0,
+          "91_plus": 15158929.0,
+          "no_due_date": 0.0,
+          "unapplied_credit": -4042421.0
+        }
+      }
+    },
+    {
+      "check": "AC-01 receivables by branch (Oct)",
+      "ok": true,
+      "oracle": {
+        "odoo:odoo-dtg-retail:3": 8846898.0,
+        "odoo:odoo-dtg-retail:1": 29528993.0,
+        "odoo:odoo-dtg-retail:4": 9185643.0,
+        "odoo:odoo-dtg-retail:2": 11980806.0,
+        "erpnext:erpnext-dtg-services:unassigned": 124193914.0
+      },
+      "warehouse": {
+        "erpnext:erpnext-dtg-services:unassigned": 124193914.0,
+        "odoo:odoo-dtg-retail:4": 9185643.0,
+        "odoo:odoo-dtg-retail:2": 11980806.0,
+        "odoo:odoo-dtg-retail:1": 29528993.0,
+        "odoo:odoo-dtg-retail:3": 8846898.0
+      }
+    },
+    {
+      "check": "unallocated advances",
+      "ok": true,
+      "oracle": {
+        "odoo-dtg-retail": 504538.0,
+        "erpnext-dtg-services": 445527.0
+      },
+      "warehouse": {
+        "erpnext-dtg-services": 445527.0,
+        "odoo-dtg-retail": 504538.0
+      }
+    },
+    {
+      "check": "oracle: payments reconcile with invoices",
+      "ok": true,
+      "oracle": [],
+      "warehouse": []
+    }
+  ]
+}

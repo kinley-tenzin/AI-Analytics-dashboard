@@ -533,3 +533,18 @@ dashboards, and only the administrator could publish them.
 - Superset lets a manager *save* a chart pointing at another module's dataset, but it returns no data (403, tested) and cannot be published.
 - Evidence files from Milestones 6–8 use the old role names.
 
+## ADR-045: Database-enforced primary and foreign keys on the marts (`primary_key`, `foreign_key` macros)
+**Date:** 2026-10-27 · **Status:** accepted
+
+**Context:** `warehouse/models/marts/_marts.yml` declared a `post_hook` on every dimension and fact that
+called `primary_key([...])` and `foreign_key(column, parent, parent_column)`, but the macros were never
+committed, so every marts build failed with "'primary_key' is undefined". The scale test (SCALE_TEST.md)
+hit this first.
+**Decision:** implement both macros in `warehouse/macros/` exactly as the hooks use them:
+`alter table {{ this }} add primary key (...)` and
+`add foreign key (...) references {{ ref(parent) }} (...)`. The parent goes through `ref()`, so it is in the
+same (hidden build) schema and is built first. NULL keys stay allowed.
+**Consequences:**
+- PostgreSQL itself rejects duplicate grain keys and facts that point at missing dimension members, on top of the dbt `unique`, `not_null` and `relationships` tests. The first run with the constraints caught a real flaw in the new fixtures.
+- The key indexes help joins as the tables grow.
+- A genuine grain or referential problem now fails the marts build (and therefore blocks publication) instead of reaching dashboards. That is intended, and the failure message names the key.

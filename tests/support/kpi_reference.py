@@ -9,6 +9,7 @@ be the dbt models, which must reproduce the same numbers).
 from __future__ import annotations
 
 import json
+import os
 from collections import defaultdict
 from dataclasses import dataclass
 from datetime import date, datetime
@@ -20,7 +21,9 @@ import yaml
 from druksmart_common.config import REPO_ROOT
 from druksmart_common.contracts import has_errors, load_source_contract, validate_record
 
-FIXTURES_DIR = REPO_ROOT / "tests" / "fixtures" / "synthetic"
+# Same switch as connectors/synthetic/fake_api.py: the scale test points both at the medium set.
+_FIXTURE_SET = os.environ.get("DRUKSMART_SYNTHETIC_FIXTURES", "tests/fixtures/synthetic")
+FIXTURES_DIR = REPO_ROOT / _FIXTURE_SET
 CANONICAL_DIR = REPO_ROOT / "contracts" / "canonical"
 MAPPINGS_FILE = REPO_ROOT / "contracts" / "mappings" / "entity_mappings.yaml"
 BUCKETS = ("not_due", "1_30", "31_60", "61_90", "91_plus", "no_due_date", "unapplied_credit")

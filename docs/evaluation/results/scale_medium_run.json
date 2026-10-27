@@ -1,0 +1,187 @@
+{
+  "fixtures": "see synthetic-erp container",
+  "total_seconds": 443.6,
+  "free_disk_gb_before": 112.6,
+  "runs": [
+    {
+      "run_id": "scale_2026-09-30_20261027T001139",
+      "state": "success",
+      "start_date": "2026-10-26T18:11:51.153195+00:00",
+      "end_date": "2026-10-26T18:16:21.235730+00:00",
+      "observed_seconds": 275.7,
+      "tasks": [
+        {
+          "task": "dbt_build_marts",
+          "state": "success",
+          "seconds": 19.376292,
+          "try_number": null
+        },
+        {
+          "task": "dbt_staging_intermediate",
+          "state": "success",
+          "seconds": 25.078596,
+          "try_number": null
+        },
+        {
+          "task": "dbt_test_marts",
+          "state": "success",
+          "seconds": 12.763116,
+          "try_number": null
+        },
+        {
+          "task": "extract_load_erpnext_accounts",
+          "state": "success",
+          "seconds": 176.429896,
+          "try_number": null
+        },
+        {
+          "task": "extract_load_erpnext_hr",
+          "state": "success",
+          "seconds": 17.311905,
+          "try_number": null
+        },
+        {
+          "task": "extract_load_odoo_accounts",
+          "state": "success",
+          "seconds": 57.963793,
+          "try_number": null
+        },
+        {
+          "task": "extract_load_odoo_hr",
+          "state": "success",
+          "seconds": 16.846985,
+          "try_number": null
+        },
+        {
+          "task": "prepare_raw_schema",
+          "state": "success",
+          "seconds": 1.177577,
+          "try_number": null
+        },
+        {
+          "task": "publish_validated_marts",
+          "state": "success",
+          "seconds": 1.59148,
+          "try_number": null
+        },
+        {
+          "task": "report_published_state",
+          "state": "success",
+          "seconds": 3.588603,
+          "try_number": null
+        },
+        {
+          "task": "validate_erpnext_source",
+          "state": "success",
+          "seconds": 6.447896,
+          "try_number": null
+        },
+        {
+          "task": "validate_odoo_source",
+          "state": "success",
+          "seconds": 6.500689,
+          "try_number": null
+        }
+      ],
+      "docker_memory": {
+        "druksmart-synthetic-erp-1": "400.1MiB / 7.394GiB",
+        "druksmart-backend-1": "91.88MiB / 7.394GiB",
+        "druksmart-superset-1": "283.6MiB / 7.394GiB",
+        "druksmart-airflow-scheduler-1": "452.6MiB / 7.394GiB",
+        "druksmart-airflow-apiserver-1": "252.9MiB / 7.394GiB",
+        "druksmart-postgres-1": "200.9MiB / 7.394GiB",
+        "druksmart-superset-db-1": "85.06MiB / 7.394GiB"
+      }
+    },
+    {
+      "run_id": "scale_2026-10-31_20261027T001139",
+      "state": "success",
+      "start_date": "2026-10-26T18:16:53.075817+00:00",
+      "end_date": "2026-10-26T18:18:30.660918+00:00",
+      "observed_seconds": 114.7,
+      "tasks": [
+        {
+          "task": "dbt_build_marts",
+          "state": "success",
+          "seconds": 24.003608,
+          "try_number": null
+        },
+        {
+          "task": "dbt_staging_intermediate",
+          "state": "success",
+          "seconds": 32.818018,
+          "try_number": null
+        },
+        {
+          "task": "dbt_test_marts",
+          "state": "success",
+          "seconds": 13.74131,
+          "try_number": null
+        },
+        {
+          "task": "extract_load_erpnext_accounts",
+          "state": "success",
+          "seconds": 12.879722,
+          "try_number": null
+        },
+        {
+          "task": "extract_load_erpnext_hr",
+          "state": "success",
+          "seconds": 2.614873,
+          "try_number": null
+        },
+        {
+          "task": "extract_load_odoo_accounts",
+          "state": "success",
+          "seconds": 6.273688,
+          "try_number": null
+        },
+        {
+          "task": "extract_load_odoo_hr",
+          "state": "success",
+          "seconds": 2.691618,
+          "try_number": null
+        },
+        {
+          "task": "prepare_raw_schema",
+          "state": "success",
+          "seconds": 1.013413,
+          "try_number": null
+        },
+        {
+          "task": "publish_validated_marts",
+          "state": "success",
+          "seconds": 1.280926,
+          "try_number": null
+        },
+        {
+          "task": "report_published_state",
+          "state": "success",
+          "seconds": 3.190638,
+          "try_number": null
+        },
+        {
+          "task": "validate_erpnext_source",
+          "state": "success",
+          "seconds": 1.457419,
+          "try_number": null
+        },
+        {
+          "task": "validate_odoo_source",
+          "state": "success",
+          "seconds": 1.404286,
+          "try_number": null
+        }
+      ],
+      "docker_memory": {
+        "druksmart-synthetic-erp-1": "402.3MiB / 7.394GiB",
+        "druksmart-backend-1": "88.31MiB / 7.394GiB",
+        "druksmart-superset-1": "280.7MiB / 7.394GiB",
+        "druksmart-airflow-scheduler-1": "339.8MiB / 7.394GiB",
+        "druksmart-airflow-apiserver-1": "246.9MiB / 7.394GiB",
+        "druksmart-postgres-1": "309.3MiB / 7.394GiB",
+        "druksmart-superset-db-1": "82.99MiB / 7.394GiB"
+      }
+    }
+  ]
+}

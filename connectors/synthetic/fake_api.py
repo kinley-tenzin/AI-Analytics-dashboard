@@ -15,6 +15,7 @@ from __future__ import annotations
 
 import copy
 import json
+import os
 from collections.abc import Callable
 from datetime import date, datetime
 from functools import cache
@@ -242,7 +243,11 @@ class FakeFrappe(_FailureInjection):
 
 # ---------------------------------------------------------------- synthetic fixture state
 
-FIXTURES_DIR = Path(__file__).resolve().parents[2] / "tests" / "fixtures" / "synthetic"
+# DRUKSMART_SYNTHETIC_FIXTURES (relative to the repository) selects another fixture set, e.g.
+# tests/fixtures/synthetic_medium for the scale test (docs/evaluation/SCALE_TEST.md).
+FIXTURES_DIR = Path(__file__).resolve().parents[2] / os.environ.get(
+    "DRUKSMART_SYNTHETIC_FIXTURES", "tests/fixtures/synthetic"
+)
 
 
 @cache
